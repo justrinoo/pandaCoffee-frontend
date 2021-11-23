@@ -1,0 +1,84 @@
+.breadcrumb-active {
+	color: #6a4029;
+	font-weight: bold;
+}
+.breadcrumb-default {
+	color: #9f9f9f;
+}
+.promo-form-input-parent label {
+	color: #6a4029;
+	font-weight: bold;
+	font-size: 18px;
+}
+.promo-form-input {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #4f5665;
+	margin: 20px 0px;
+	color: #9f9f9f;
+}
+.promo-form-input:focus {
+	outline: none;
+}
+.promo-form-input::placeholder {
+	color: #9f9f9f;
+}
+.promo-form-button {
+	border: none;
+	width: 100%;
+	padding: 18px 0px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #ffffff;
+	background-color: #6a4029;
+	margin-top: 25px;
+}
+.promo-form-button-cancel {
+	border: none;
+	width: 100%;
+	padding: 18px 0px;
+	border-radius: 20px;
+	color: #4f5665;
+	margin-top: 25px;
+	font-weight: bold;
+	font-size: 18px;
+	background-color: rgba(186, 186, 186, 0.35);
+}
+
+.promo-rounded-file {
+	width: 250px;
+	margin: 0px auto;
+	border-radius: 100%;
+	height: 250px;
+	text-align: center;
+	background-color: rgba(186, 186, 186, 0.35);
+}
+.camera-upload-file {
+	margin-top: 4.5rem;
+	width: 90px;
+	height: 83px;
+}
+.promo-file-button {
+	border: none;
+	padding: 18px;
+	width: 100%;
+	border-radius: 20px;
+	background-color: #ffba33;
+	color: #6a4029;
+	font-size: 20px;
+	font-weight: bold;
+}
+.promo-form-select {
+	border-radius: 20px !important;
+	padding: 18px 20px !important;
+	width: 100% !important;
+	margin: 0px auto;
+}
+.promo-label-form {
+	color: #6a4029;
+	font-weight: bold;
+	font-size: 20px;
+	display: block !important;
+	text-align: left !important;
+}

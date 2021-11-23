@@ -8,7 +8,6 @@ html {
 }
 
 /* Navbar */
-
 .nav-brand-link {
 	margin: 0px 14px;
 	font-size: 16px;
@@ -33,10 +32,6 @@ html {
 /* Footer */
 .footer-main {
 	background-color: #f8f8f8;
-	position: fixed; /* <== hapus kalo misal udah banyak component nya*/
-	bottom: 0px; /* <== hapus kalo misal udah banyak component nya*/
-	left: -20px; /* <== hapus kalo misal udah banyak component nya*/
-	right: 0px; /* <== hapus kalo misal udah banyak component nya*/
 }
 .footer-title-description {
 	color: #4f5665;

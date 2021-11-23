@@ -11,11 +11,11 @@ export default function Layout({ pageTitle, children, isLogged }) {
 				<title>{pageTitle}</title>
 			</Head>
 			{isLogged ? (
-				<>
+				<div>
 					<Navbar />
 					{children}
 					<Footer />
-				</>
+				</div>
 			) : (
 				children
 			)}
