@@ -84,8 +84,14 @@ export default function Profile() {
                     <input type="text" placeholder="Nirmala" />
                   </div>
                   <div className="profile__gender">
-                    <h4>Male</h4>
-                    <h4>Female</h4>
+                    <div className="gender">
+                      <input type="radio" value="MALE" name="gender" />
+                      <h4>Male</h4>
+                    </div>
+                    <div className="gender">
+                      <input type="radio" value="FEMALE" name="gender" />
+                      <h4>Female</h4>
+                    </div>
                   </div>
                 </div>
               </div>
