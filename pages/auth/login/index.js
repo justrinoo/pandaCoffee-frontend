@@ -7,34 +7,40 @@ import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { unAuthPage } from "middleware/authorizationPage";
+import { connect } from "react-redux";
+import { loginUser, getUserLogin } from "store/action/auth";
 
-export default function Login() {
+const Login = (props) => {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
 
   // Handle Login
+  console.log(props);
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("/auth/login", form)
+    props
+      .loginUser(form)
       .then((res) => {
-        console.log(res.data);
-        Cookie.set("token", res.data.data.token);
-        Cookie.set("id", res.data.data.id);
-        // router.push("/main/home");
-        if (res.data.data.role === "admin") {
+        console.log(res.value.data.data);
+        Cookie.set("token", res.value.data.data.token);
+        localStorage.setItem("token", res.value.data.data.token);
+        Cookie.set("id", res.value.data.data.id);
+        props.getUserLogin(res.value.data.data.id);
+        // // router.push("/main/home");
+        toast.success("Login Sucess");
+        if (res.value.data.data.role === "admin") {
           setTimeout(() => {
             router.push(`/main/admin`);
           }, 4000);
         } else {
-          toast.success(res.data.message);
           setTimeout(() => {
             router.push("/main/home");
           }, 4000);
         }
       })
       .catch((err) => {
-        toast.warn(err.response.data.message);
+        // toast.warn(err.response.data.message);
+        console.log(err);
       });
     console.log(form);
   };
@@ -95,4 +101,10 @@ export default function Login() {
       <Footer></Footer>
     </Layout>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return { auth: state.auth };
+};
+const mapDispatchToProps = { loginUser, getUserLogin };
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
