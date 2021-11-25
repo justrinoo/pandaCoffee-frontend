@@ -1,6 +1,7 @@
 import { Layout, Button } from "components";
 import Image from "next/image";
 import dummy from "public/images/profileDummy.png";
+import edit from "public/icons/pencil.svg";
 
 export default function Profile() {
   return (
@@ -42,8 +43,11 @@ export default function Profile() {
                   </div>
                 </div>
                 <div className="col-lg-8 col-sm-12 profile__desc">
-                  <div className="profile__contacts">
+                  <div className="profile__contacts mb-4">
                     <h4>Contacts</h4>
+                    <div className="profile__edit--pencil">
+                      <img src="/icons/pencil.svg" />
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col-lg-7 col-sm-12 profile__input">
