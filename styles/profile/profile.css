@@ -120,17 +120,10 @@
   font-weight: bold;
 }
 
-.profile__contacts {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .profile__contacts h4 {
   color: #4f5665;
   font-size: 25px;
   font-weight: bold;
-  margin: 0;
 }
 
 .profile__details h4 {
@@ -179,14 +172,4 @@
 
 .gender h4 {
   margin: 0;
-}
-
-.profile__edit--pencil {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  background-color: #6a4029;
 }
