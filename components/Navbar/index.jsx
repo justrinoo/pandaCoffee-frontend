@@ -46,7 +46,7 @@ export default function Navbar() {
 					</section>
 				</nav>
 			</header>
-			<hr />
+			<hr style={{marginBottom:"0px"}} />
 		</>
 	);
 }

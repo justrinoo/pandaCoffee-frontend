@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
 @import url(admin/promo/style.css);
+@import url(profile/profile.css);
+@import url(admin/manageOrder//manageOrder.css);
 
 @import url("./textFormating/index.css");
 @import url("./productDetails/productDetails.css");
@@ -47,4 +49,8 @@ html {
 }
 .footer-link:hover {
   text-decoration: underline;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
 }

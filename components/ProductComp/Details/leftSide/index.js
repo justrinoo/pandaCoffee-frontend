@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function DetailsProductLeftSide(props) {
   return (
-    <div className="col-5 ">
+    <>
       <div className="product-details__product-name d-flex flex-column justify-content-center text-center fs-35 text-poppins">
         <div className="d-flex justify-content-center mb-4">
           <img
@@ -33,7 +33,7 @@ function DetailsProductLeftSide(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

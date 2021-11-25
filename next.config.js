@@ -1,3 +1,6 @@
 module.exports = {
-  reactStrictMode: true,
-}
+	reactStrictMode: true,
+	env: {
+		BASE_URL_DEV: "http://localhost:3001/",
+	},
+};

@@ -5,15 +5,19 @@ import DetailsProductRightSide from "components/ProductComp/Details/RightSide";
 
 function DetailsProductPage(props) {
   return (
-    <Layout title="Details Product" isLogged={true}>
+    <Layout title="Details Product" isLogged={false}>
       <div className="container-fluid py-5 mb-5">
         <div className="product-details__category container ">
           <span className="fw-400">Favorite & Promo</span>
           <span className="fw-700"> &gt; Cold Brew </span>
         </div>
-        <div className="container d-flex justify-content-between mt-5">
-          <DetailsProductLeftSide />
-          <DetailsProductRightSide />
+        <div className="container row d-flex justify-content-between mt-5">
+          <div className="col-lg-6 col-12">
+            <DetailsProductLeftSide />
+          </div>
+          <div className="col-lg-6 col-12">
+            <DetailsProductRightSide />
+          </div>
         </div>
       </div>
     </Layout>

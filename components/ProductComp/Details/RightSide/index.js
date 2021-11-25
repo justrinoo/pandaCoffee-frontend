@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function DetailsProductRightSide(props) {
   return (
-    <div className="col-6">
+    <>
       <div className="product-details__produc-name text-center fs-65 text-poppins fw-900">
         COLD BREW
       </div>
@@ -44,7 +44,7 @@ function DetailsProductRightSide(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
