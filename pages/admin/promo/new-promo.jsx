@@ -4,8 +4,10 @@ import { Breadcrumb } from "react-bootstrap";
 import { createNewPromo } from "store/action/voucher";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/dist/client/router";
 
 export default function createPromo() {
+	const router = useRouter();
 	const inputFile = useRef(null);
 	const dispatch = useDispatch();
 
@@ -108,11 +110,16 @@ export default function createPromo() {
 			setMessagePrice("");
 			setMessage("");
 			event.target.reset();
+			router.push("/admin/product");
 		} catch (error) {
 			setMessage(error.response.data.message);
 			setError(true);
 			new Error(error.response);
 		}
+	};
+
+	const CancelCreatePromo = () => {
+		router.push("/admin/product");
 	};
 
 	return (
@@ -288,6 +295,7 @@ export default function createPromo() {
 									<Button
 										type="button"
 										childrenClassName="promo-form-button-cancel"
+										childrenOnClick={CancelCreatePromo}
 									>
 										Cancel
 									</Button>
