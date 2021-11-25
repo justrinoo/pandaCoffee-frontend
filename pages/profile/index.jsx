@@ -89,11 +89,21 @@ export default function Profile() {
                   </div>
                   <div className="profile__gender">
                     <div className="gender">
-                      <input type="radio" value="MALE" name="gender" />
+                      <input
+                        type="radio"
+                        value="MALE"
+                        name="gender"
+                        className="form-check-input"
+                      />
                       <h4>Male</h4>
                     </div>
                     <div className="gender">
-                      <input type="radio" value="FEMALE" name="gender" />
+                      <input
+                        type="radio"
+                        value="FEMALE"
+                        name="gender"
+                        className="form-check-input"
+                      />
                       <h4>Female</h4>
                     </div>
                   </div>

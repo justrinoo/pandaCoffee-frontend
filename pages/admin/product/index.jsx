@@ -19,7 +19,7 @@ export default function ProductAdmin() {
                 <h2>Add-on</h2>
               </div>
               <div className="row product__grid">
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
@@ -36,7 +36,7 @@ export default function ProductAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
@@ -53,7 +53,7 @@ export default function ProductAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
@@ -70,7 +70,7 @@ export default function ProductAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
@@ -87,7 +87,7 @@ export default function ProductAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
@@ -104,7 +104,7 @@ export default function ProductAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="col-3 px-1 my-4">
+                <div className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4">
                   <div className=" product__list ">
                     <div className="d-flex justify-content-center">
                       <img src={"/images/productDummy.png"} alt="ada" />
