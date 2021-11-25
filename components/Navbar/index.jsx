@@ -5,7 +5,14 @@ export default function Navbar() {
 		<>
 			<header className="container">
 				<nav className="d-flex justify-content-between align-items-center py-4">
-					<section>
+					<section className="flex align-items-center	">
+						<img
+							src="/images/logo-pandaCoffe.png"
+							width={60}
+							height={60}
+							style={{ objectFit: "cover" }}
+							alt="Logo"
+						/>
 						<Link href="/">
 							<span className="title-brand" style={{ cursor: "pointer" }}>
 								Panda Coffee
