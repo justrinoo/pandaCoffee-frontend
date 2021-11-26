@@ -18,19 +18,21 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
-
 	const dataProduct = await axios
-		.get(`${process.env.BASE_URL_DEV}product/favorite`)
+		.get(`${process.env.BASE_URL_DEV}product/favorite`, {
+			headers: {
+				Authorization: `Bearer ${dataCookie.token}`,
+			},
+		})
 		.then((res) => {
-			console.log(res.data);
-			return res.data;
+			return res.data.data;
 		})
 		.catch((err) => {
 			return [];
 		});
 
 	return {
-		props: { listProduct: dataProduct.data },
+		props: { listProduct: dataProduct },
 	};
 }
 
@@ -41,7 +43,7 @@ function ProductAdmin(props) {
 	const [activePage, setPage] = useState(page);
 	const [pageInfo, setPageInfo] = useState({});
 
-	const [listProduct, setListProduct] = useState([]);
+	const [listProduct, setListProduct] = useState(props.listProduct);
 	console.log(pageInfo);
 
 	// FORMATING TO IDR CURRENCY
@@ -108,7 +110,7 @@ function ProductAdmin(props) {
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 ">
-							<Promo role={auth.userLogin[0].role} />
+							{/* <Promo role={auth.userLogin[0].role} /> */}
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter ">
