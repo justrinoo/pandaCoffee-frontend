@@ -1,25 +1,92 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { setDataOrder, setTotal } from "store/action/product";
 
 function DetailsProductRightSide(props) {
+  const { data } = props;
+  const priceItem =
+    props.product.selectedSize === 1
+      ? data.price[0]
+      : props.product.selectedSize === 2
+      ? data.price[1]
+      : props.product.selectedSize === 3
+      ? data.price[2]
+      : 0;
+
+  const [counter, setCounter] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(counter * priceItem);
+
+  useEffect(() => {
+    console.log(counter);
+    console.log(priceItem);
+    setTotalPrice(counter * priceItem);
+    console.log(totalPrice);
+    props.setTotal({ totalOrder: counter, totalPay: totalPrice });
+  }, [counter]);
+
+  const hanldeMin = () => {
+    setCounter(counter - 1);
+    // console.log(totalPrice);
+  };
+  const handlePlus = () => {
+    setCounter(counter + 1);
+    // console.log(totalPrice);
+  };
+  // console.log(props);
+
+  const formatIDR = (data) => {
+    return parseInt(data)
+      .toLocaleString("id-ID", parseInt(data))
+      .replace("Rp", "IDR")
+      .replace(",00", "");
+  };
   return (
     <>
       <div className="product-details__produc-name text-center fs-65 text-poppins fw-900">
-        COLD BREW
+        {data.nameProduct}
       </div>
       <div className="product-details__product-desc mt-4 fw-400 fs-25 text-poppins">
-        Cold brewing is a method of brewing that combines ground coffee and cool
-        water and uses time instead of heat to extract the flavor. It is brewed
-        in small batches and steeped for as long as 48 hours.
+        {data.description}
       </div>
       <div className="d-flex justify-content-between mt-5 mb-4">
         <div className="product-details__counter-quantity d-flex align-items-center fcolor-029">
-          <span className="counter-quantity__min mx-3 fw-900 fs-25">-</span>
-          <span className="counter-quantity__count px-4 d-flex align-items-center fw-700 fs-25">
-            2
+          <span
+            className="counter-quantity__min noselect d-flex text-center justify-content-center align-items-center fw-900 fs-25 hover-pointer"
+            style={{ width: "50px" }}
+            onClick={counter > 0 ? () => hanldeMin() : null}
+          >
+            -
           </span>
-          <span className="counter-quantity__plus mx-3  fw-900 fs-25">+</span>
+          <input
+            className="counter-quantity__count d-flex text-center justify-content-center align-items-center fw-700 fs-25"
+            style={{ width: "50px", borderTop: "0", borderBottom: "0" }}
+            value={counter}
+            onChange={(event) =>
+              setCounter(parseInt(event.target.value ? event.target.value : 0))
+            }
+            type="number"
+          />
+
+          <span
+            className="counter-quantity__plus noselect d-flex text-center justify-content-center align-items-center fw-900 fs-25 hover-pointer"
+            style={{ width: "50px" }}
+            onClick={() => handlePlus()}
+            disabled
+          >
+            +
+          </span>
         </div>
-        <div className="product-details__price fw-700 fs-35">IDR 30.000</div>
+        <div className="product-details__price fw-700 fs-35">
+          IDR{" "}
+          {/* {props.product.selectedSize === 1
+            ? formatIDR(data.price[0])
+            : props.product.selectedSize === 2
+            ? formatIDR(data.price[1])
+            : props.product.selectedSize === 3
+            ? formatIDR(data.price[2])
+            : 0} */}
+          {formatIDR(priceItem)}
+        </div>
       </div>
       <div className="p-4 card-product d-flex justify-content-between align-items-center">
         <div className="d-flex justify-content-between align-items-center">
@@ -30,10 +97,18 @@ function DetailsProductRightSide(props) {
           />
           <div className="checkout-details__item-name-total">
             <div className="item-name-total__name fw-900 fs-25 text-poppins">
-              COLD BREW
+              {props.data.nameProduct}
             </div>
             <div className="item-name-total_total fw-400 fs-20 text-poppins">
-              x2 ( Large )
+              x{counter} ({" "}
+              {props.product.selectedSize === 1
+                ? "Reguler"
+                : props.product.selectedSize === 2
+                ? "Large"
+                : props.product.selectedSize === 3
+                ? "Exta Large"
+                : ""}
+              )
             </div>
           </div>
         </div>
@@ -48,4 +123,15 @@ function DetailsProductRightSide(props) {
   );
 }
 
-export default DetailsProductRightSide;
+const mapStateToProps = (state) => ({
+  product: state.product,
+});
+const mapDispatchToProps = {
+  setDataOrder,
+  setTotal,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DetailsProductRightSide);

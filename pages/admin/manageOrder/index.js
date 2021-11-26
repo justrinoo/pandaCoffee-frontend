@@ -2,6 +2,23 @@ import React, { useState, useEffect } from "react";
 import Layout from "components/Layout";
 import ManageOrderRightSide from "/components/ManageOrder/RightSide";
 import ManageOrderLeftSide from "components/ManageOrder/LeftSide";
+import { getDataCookie } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 function manageOrderPage(props) {
   return (

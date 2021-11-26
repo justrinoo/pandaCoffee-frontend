@@ -6,6 +6,8 @@
 @import url("./textFormating/index.css");
 @import url("./productDetails/productDetails.css");
 
+@import url(landing-page.css);
+@import url(admin/product/product.css);
 *,
 html {
   font-family: "Rubik", sans-serif;

@@ -1,6 +1,24 @@
 import { Layout, Button } from "components";
 import Image from "next/image";
 import dummy from "public/images/profileDummy.png";
+import edit from "public/icons/pencil.svg";
+
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function Profile() {
   return (
@@ -42,8 +60,11 @@ export default function Profile() {
                   </div>
                 </div>
                 <div className="col-lg-8 col-sm-12 profile__desc">
-                  <div className="profile__contacts">
+                  <div className="profile__contacts mb-4">
                     <h4>Contacts</h4>
+                    <div className="profile__edit--pencil">
+                      <img src="/icons/pencil.svg" />
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col-lg-7 col-sm-12 profile__input">
@@ -85,11 +106,21 @@ export default function Profile() {
                   </div>
                   <div className="profile__gender">
                     <div className="gender">
-                      <input type="radio" value="MALE" name="gender" />
+                      <input
+                        type="radio"
+                        value="MALE"
+                        name="gender"
+                        className="form-check-input"
+                      />
                       <h4>Male</h4>
                     </div>
                     <div className="gender">
-                      <input type="radio" value="FEMALE" name="gender" />
+                      <input
+                        type="radio"
+                        value="FEMALE"
+                        name="gender"
+                        className="form-check-input"
+                      />
                       <h4>Female</h4>
                     </div>
                   </div>

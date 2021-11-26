@@ -173,3 +173,26 @@
 .gender h4 {
   margin: 0;
 }
+
+.profile__edit--pencil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #6a4029;
+}
+
+.form-check-input:focus {
+  box-shadow: none !important;
+}
+
+.form-check-input:checked {
+  border: 3px solid #6a4029 !important;
+  background-color: #ffba33 !important;
+}
+
+.form-check-input:checked[type="radio"] {
+  background-image: none !important;
+}

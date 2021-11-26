@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap");
+
+.navbar-auth {
+  padding: 20px;
+}
+.button-nav-auth {
+  width: 150px;
+}
+
+.auth-form {
+  padding-top: 50px;
+}
+.button-submit {
+  width: 100%;
+}
+.register-title {
+  text-align: center;
+  color: #6a4029;
+  padding-top: 50px;
+}
+
+.image-google {
+  width: 27px;
+  height: 28px;
+}
+
+/* Login */
+.forgot-password {
+  color: #6a4029 !important;
+}
+.forgot-password:hover {
+  color: #6a4029;
+}
+
+/* Footer */
+footer {
+  background-color: #f8f8f8;
+}
+
+.footer-left {
+  padding: 50px;
+}
+
+.footer-auth-button {
+  margin: 10px;
+}
+
+.product-footer {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  padding: 50px;
+}
+
+.engage-footer {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  padding: 50px;
+}
