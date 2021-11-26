@@ -3,9 +3,10 @@ import { Layout, Button, Promo } from "components";
 import Image from "next/image";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
-
+import { toast, ToastContainer } from "react-toastify";
 import { getDataCookie } from "middleware/authorizationPage";
 import axios from "utils/axios";
+import Paginate from "react-paginate";
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
@@ -19,59 +20,29 @@ export async function getServerSideProps(context) {
   }
 
   const dataProduct = await axios
-    .get(
-      `http://localhost:3001/product?search=&sortField=&sort=&page=&limit=&category`
-    )
+    .get(`${process.env.BASE_URL_DEV}product/favorite`)
     .then((res) => {
-      return res.data.data;
+      console.log(res.data);
+      return res.data;
     })
     .catch((err) => {
       return [];
     });
 
   return {
-    props: { listProduct: dataProduct },
+    props: { listProduct: dataProduct.data },
   };
 }
 
 function ProductAdmin(props) {
   const { auth } = props;
   const router = useRouter();
+  const { search, sortField, sort, page, category } = router.query;
+  const [activePage, setPage] = useState(page);
+  const [pageInfo, setPageInfo] = useState({});
 
   const [listProduct, setListProduct] = useState(props.listProduct);
-  console.log(listProduct);
-
-  const [dummy, setDummy] = useState([
-    {
-      id: "370e24ef-96f6-4508-b632-60a72c3ca491",
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-    {
-      id: "378c5436-ae86-4a0a-a088-438b45d12f5f",
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-    {
-      id: "3ba2ab2d-6095-4778-bb98-0aa496712cb9",
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-    {
-      id: "4d4d7aa7-71b9-44f0-877d-9a95eaf28e6e",
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-    {
-      id: "aa99e09c-4d92-41d3-a864-0b1a5f8e486a",
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-    {
-      productName: "Hazelnut Latte",
-      price: 25000,
-    },
-  ]);
+  console.log(pageInfo);
 
   // FORMATING TO IDR CURRENCY
   const formatIDR = (data) => {
@@ -80,8 +51,61 @@ function ProductAdmin(props) {
       .replace("Rp", "IDR")
       .replace(",00", "");
   };
+
+  useEffect(() => {
+    if (
+      !router.query.search &&
+      !router.query.sortField &&
+      !router.query.sort &&
+      !router.query.page &&
+      !router.query.category
+    ) {
+      null;
+    } else {
+      axios
+        .get(
+          `${process.env.BASE_URL_DEV}product?search=${
+            search ? search : ""
+          }&sortField=${sortField ? sortField : ""}&sort=${
+            sort ? sort : ""
+          }&page=${page ? page : ""}&category=${category ? category : ""}`
+        )
+        .then((res) => {
+          console.log("TEST");
+          setListProduct(res.data.data);
+          setPageInfo(res.data.pagination);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+          setListProduct([]);
+        });
+    }
+  }, [router.query]);
+
+  console.log(router.query);
+
+  const hanldeFavorite = () => {
+    router.push("/product");
+    axios.get(`${process.env.BASE_URL_DEV}product/favorite`).then((res) => {
+      console.log(res.data.data);
+      setListProduct(res.data.data);
+      setPageInfo({ totalPage: 1 });
+    });
+  };
+
+  const handlePagination = (event) => {
+    console.log(event.selected + 1);
+    router.push(
+      `/product?search=${search ? search : ""}&sortField=${
+        sortField ? sortField : ""
+      }&sort=${sort ? sort : ""}&page=${event.selected + 1}&category=${
+        category ? category : ""
+      }`
+    );
+  };
   return (
     <>
+      <ToastContainer />
       <Layout pageTitle="Product Admin" isLogged={true}>
         <div className="container">
           <div className="row">
@@ -90,11 +114,52 @@ function ProductAdmin(props) {
             </div>
             <div className="col-lg-8 product">
               <div className="product__filter ">
-                <h2>Favorite Product</h2>
-                <h2>Coffe</h2>
-                <h2>Non Coffe</h2>
-                <h2>Foods</h2>
-                <h2>Add-on</h2>
+                <h2 onClick={() => hanldeFavorite()}>Favorite Product</h2>
+                <h2
+                  onClick={() =>
+                    router.push(
+                      "/product?search=&sortField=&sort=&page=1&category=coffee"
+                    )
+                  }
+                >
+                  Coffe
+                </h2>
+                <h2
+                  onClick={() =>
+                    router.push(
+                      "/product?search=&sortField=&sort=&page=1&category=non-coffee"
+                    )
+                  }
+                >
+                  Non Coffe
+                </h2>
+                <h2
+                  onClick={() =>
+                    router.push(
+                      "/product?search=&sortField=&sort=&page=1&category=foods"
+                    )
+                  }
+                >
+                  Foods
+                </h2>
+                <h2
+                  onClick={() =>
+                    router.push(
+                      "/product?search=&sortField=&sort=&page=1&category=add-on"
+                    )
+                  }
+                >
+                  Add-on
+                </h2>
+                <h2
+                  onClick={() =>
+                    router.push(
+                      "/product?search=&sortField=&sort=&page=1&category="
+                    )
+                  }
+                >
+                  All Product
+                </h2>
               </div>
               <div className="row product__grid">
                 {listProduct.map((item, index) => (
@@ -110,7 +175,7 @@ function ProductAdmin(props) {
                     <div className=" product__list ">
                       <div className="d-flex justify-content-center">
                         <img
-                          src={`http://localhost:3001/upload/product/${item.image}`}
+                          src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}
                           alt="ada"
                         />
                       </div>
@@ -139,6 +204,19 @@ function ProductAdmin(props) {
             </div>
           </div>
         </div>
+
+        <Paginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          pageCount={pageInfo.totalPage}
+          onPageChange={(event) => handlePagination(event)}
+          containerClassName={"pagination"}
+          disabledClassName={"pagination__disabled"}
+          activeClassName={"pagination__active"}
+          className="justify-content-center pagination d-flex align-items-center"
+          pageRangeDisplayed={5}
+        />
       </Layout>
     </>
   );

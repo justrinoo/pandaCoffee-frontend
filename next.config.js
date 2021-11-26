@@ -6,7 +6,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/productList",
+        source: "/product",
         destination: "/admin/product",
       },
       {

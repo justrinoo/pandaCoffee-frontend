@@ -48,7 +48,7 @@ function DetailsProductLeftSide(props) {
       <div className="product-details__product-name d-flex flex-column justify-content-center text-center fs-35 text-poppins">
         <div className="d-flex justify-content-center mb-4">
           <img
-            src={`http://localhost:3001/upload/product/${props.data.image}`}
+            src={`${process.env.BASE_URL_DEV}upload/product/${props.data.image}`}
             alt=""
             className="product-details__img-product"
           />

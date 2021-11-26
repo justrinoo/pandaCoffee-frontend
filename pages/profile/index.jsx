@@ -2,6 +2,7 @@ import { Layout, Button } from "components";
 import Image from "next/image";
 import dummy from "public/images/profileDummy.png";
 import edit from "public/icons/pencil.svg";
+import { getDataCookie } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
