@@ -124,6 +124,13 @@
   color: #4f5665;
   font-size: 25px;
   font-weight: bold;
+  margin: 0;
+}
+
+.profile__contacts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .profile__details h4 {
@@ -195,4 +202,16 @@
 
 .form-check-input:checked[type="radio"] {
   background-image: none !important;
+}
+
+.modal-footer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.modal-body p {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
 }
