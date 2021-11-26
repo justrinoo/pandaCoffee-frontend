@@ -6,6 +6,7 @@ export async function getServerSideProps({ query: { page = 1 } }) {
 	const response = await axios
 		.get(`promo?page=${page}&limit=4`)
 		.then((res) => {
+			console.log(res);
 			return res.data;
 		})
 		.catch(() => {

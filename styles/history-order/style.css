@@ -1,0 +1,42 @@
+.history-main {
+	background-image: url(/images/Background.png);
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+}
+.history-content-title {
+	color: #ffffff;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
+}
+.history-content-description {
+	color: #ffffff;
+	font-weight: lighter;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
+}
+
+.history-content-list-card {
+	display: flex;
+	align-items: center;
+	background-color: #ffffff;
+	box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
+	border-radius: 20px;
+	padding: 14px 18px;
+}
+.history-content-list-card-body {
+	text-align: left;
+}
+.history-content-list-card-body-title-invoice {
+	color: #000000;
+	font-weight: bold;
+	font-size: 22px;
+}
+.history-content-list-card-body-title-idr {
+	color: #895537;
+	display: block;
+	font-size: 18px;
+}
+.history-content-list-card-body-title-status {
+	color: #6a4029;
+	display: block;
+	font-size: 18px;
+}
