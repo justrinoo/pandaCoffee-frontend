@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Layout from "components/Layout";
 import NavbarSign from "components/modules/auth/NavbarSignUp";
-import Footer from "components/modules/auth/Footer";
+import Footer from "components/Footer/index";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
@@ -22,18 +22,18 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      axios.post("/auth/register", form).then((res) => {
+    axios
+      .post("/auth/register", form)
+      .then((res) => {
+        toast.success(res.data.message);
         setTimeout(() => {
-          toast.success(res.data.message);
           router.push("/auth/login");
-        }, 4000);
+        }, 5000);
+      })
+      .catch((err) => {
+        toast.warn(err.response.data.message);
       });
-    } catch (err) {
-      console.log(err);
-    }
   };
-
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

@@ -62,3 +62,39 @@ footer {
   line-height: 30px;
   padding: 50px;
 }
+
+/* Forgot Password */
+.forgot-password-content {
+  background-image: url("../public/images/forgot-password.png");
+  width: 1440px;
+  height: 500px;
+}
+
+.forgot-title {
+  color: white;
+}
+
+.forgot-contain {
+  padding-top: 50px;
+}
+.forgot-input-email {
+  width: 400px;
+  height: 70px;
+}
+.forgot-p {
+  text-align: center;
+}
+.button-forgot-password {
+  width: 100px;
+  height: 70px;
+}
+
+.forgot-note {
+  color: white;
+  text-align: center;
+}
+.button-resend-link {
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
+}
