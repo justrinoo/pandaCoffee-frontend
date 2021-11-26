@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+<<<<<<< HEAD
 import auth from "./auth";
 import product from "./product";
 import cart from "./cart";
@@ -9,4 +10,10 @@ export default combineReducers({
   auth,
   product,
   cart,
+=======
+import voucher from "./voucher";
+
+export default combineReducers({
+	voucher,
+>>>>>>> 85c1c2186479527d489fd662aebabed2d3dd2068
 });
