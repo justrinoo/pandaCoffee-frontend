@@ -8,6 +8,7 @@
 @import url(history-order/style.css);
 @import url(landing-page.css);
 @import url(admin/product/product.css);
+@import url(auth.css);
 *,
 html {
 	font-family: "Rubik", sans-serif;
