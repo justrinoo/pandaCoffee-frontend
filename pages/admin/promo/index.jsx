@@ -1,13 +1,14 @@
 import { Layout, Button } from "components";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Breadcrumb } from "react-bootstrap";
 import { createNewPromo } from "store/action/voucher";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/dist/client/router";
 
-export default function createPromo() {
+export default function FormNewPromo() {
 	const router = useRouter();
+	// console.log("data voucher =>", updatePromo === "true" ? voucher : null);
 	const inputFile = useRef(null);
 	const dispatch = useDispatch();
 
@@ -131,7 +132,7 @@ export default function createPromo() {
 							Promo
 						</Breadcrumb.Item>
 						<Breadcrumb.Item href="#" active>
-							<span className="breadcrumb-active">Add Promo</span>
+							<span className="breadcrumb-active">add promo</span>
 						</Breadcrumb.Item>
 					</Breadcrumb>
 					<ToastContainer />
@@ -144,7 +145,7 @@ export default function createPromo() {
 										src={
 											formVoucher.image ? displayImage : "/images/camera.png"
 										}
-										className={` ${
+										className={`${
 											formVoucher.image
 												? "file-image-active"
 												: "camera-upload-file"

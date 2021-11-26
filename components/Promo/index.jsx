@@ -1,29 +1,59 @@
-import React from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import Button from "components/Button";
 import { useRouter } from "next/dist/client/router";
+import {
+	setDataPromo,
+	deleteNewPromo,
+	getAllPromo,
+} from "store/action/voucher";
+import { useDispatch } from "react-redux";
+import Pagination from "react-paginate";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function Promo({ voucher }) {
+export default function Promo({ data, pagination }) {
 	const router = useRouter();
+	const dispatch = useDispatch();
+
 	const goToCreatePromo = () => {
-		router.push("/admin/promo/new-promo");
+		router.push({
+			pathname: "/admin/promo",
+		});
 	};
+	const changePagePagination = async (event) => {
+		const query = router.query;
+		query.page = event.selected + 1;
+		router.push({
+			query: query,
+		});
+	};
+
+	const handleDeletePromo = async (id) => {
+		const question = confirm(`are you sure delete this cuppon ?`);
+		if (question) {
+			const response = await dispatch(deleteNewPromo(id));
+			toast.success(response.value.data.message);
+		} else {
+			return;
+		}
+	};
+
 	return (
 		<>
 			<div className="promo">
+				<ToastContainer />
 				<h2>Promo Today</h2>
 				<h4>
 					Coupons will be updated every weeks. <br /> Check them out!
 				</h4>
 				<div className="main-banner">
-					{voucher.map((promo) => (
+					{data.map((promo) => (
 						<div className="promo__banner mb-4" key={promo.id}>
 							<div className="promo__banner--img">
 								<img
 									src={
 										promo.image
 											? `http://localhost:3001/upload/vouchers/${promo.image}`
-											: null
+											: "/images/PeoplePeace.png"
 									}
 									style={{ objectFit: "cover" }}
 									alt="Illustration Promo Code"
@@ -44,7 +74,7 @@ export default function Promo({ voucher }) {
 									}}
 									onClick={() => handleDeletePromo(promo.id)}
 								>
-									<img src="/icons/trash 1.svg" />
+									<img src="/icons/trash 1.svg" alt="delete cupppon" />
 								</div>
 								<div
 									className="product__icon--pencil"
@@ -54,13 +84,30 @@ export default function Promo({ voucher }) {
 										cursor: "pointer",
 										margin: "0px 5px",
 									}}
-									onClick={() => handleSetDataPromo(promo, promo.id)}
+									onClick={() => {
+										dispatch(setDataPromo(promo));
+										router.push({
+											pathname: "/admin/promo/update-promo",
+										});
+									}}
 								>
-									<img src="/icons/pencil.svg" />
+									<img src="/icons/pencil.svg" width={55} />
 								</div>
 							</div>
 						</div>
 					))}
+					<Pagination
+						previousLabel="Previous"
+						nextLabel="Next"
+						containerClassName="d-flex justify-content-center list-unstyled"
+						nextClassName="mx-2"
+						pageCount={pagination.totalPage}
+						pageClassName="mx-2"
+						activeClassName="fw-bold"
+						onPageChange={changePagePagination}
+						nextLinkClassName="text-decoration-none text-dark"
+						previousLinkClassName="text-decoration-none text-dark"
+					/>
 				</div>
 				<Button
 					childrenClassName="promo__button"

@@ -1,12 +1,10 @@
 import { Layout, Button, Promo } from "components";
-import { useState } from "react";
+import { useRouter } from "next/dist/client/router";
 import axios from "utils/axios";
 
-export async function getServerSideProps() {
-	const page = 1;
-	const limit = 4;
+export async function getServerSideProps({ query: { page = 1 } }) {
 	const response = await axios
-		.get(`promo?page=${page}&limit=${limit}`)
+		.get(`promo?page=${page}&limit=4`)
 		.then((res) => {
 			return res.data;
 		})
@@ -19,14 +17,17 @@ export async function getServerSideProps() {
 }
 
 export default function ProductAdmin(props) {
-	const vouchers = props.response.data;
+	const dataVoucher = props.response.data;
+	const pagination = props.response.pagination;
+	console.log("data voucher =>", dataVoucher);
+	console.log("data pagination =>", pagination);
 	return (
 		<>
 			<Layout pageTitle="Product Admin" isLogged={true}>
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4">
-							<Promo voucher={vouchers} />
+							<Promo data={dataVoucher} pagination={pagination} />
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter ">
