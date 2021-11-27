@@ -3,7 +3,7 @@ import Cookie from "js-cookie";
 import { Layout, Button } from "components";
 import { useRouter } from "next/router";
 import { getDataCookie } from "middleware/authorizationPage";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
@@ -133,15 +133,14 @@ const Profile = (props) => {
     axios
       .patch(`/user/update/image`, formData)
       .then((res) => {
-        // toast.success(res.value.data.message);
         props.getUserLogin(`${id}`);
         if (res.status === 200) {
           getDataUser();
         }
+        toast.success(res.data.message);
       })
       .catch((err) => {
-        // toast.error(err.response.value.data.msg);
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
 
@@ -178,14 +177,16 @@ const Profile = (props) => {
         console.log(res.data.data);
         setData(res.data.data);
         getDataUser();
+        toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
   return (
     <>
       <Layout pageTitle="Profile" isLogged={true}>
+        <ToastContainer />
         <div className="profile__bg py-4 ">
           <div className="container">
             <h1 className="profile__header">User Profile</h1>

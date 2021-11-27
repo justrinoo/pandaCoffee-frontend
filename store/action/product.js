@@ -26,4 +26,30 @@ export const setTotal = (data) => {
     payload: data,
   };
 };
+export const createNewProduct = (data) => {
+  console.log(data, "koasdkoaskdoasj");
+  return {
+    type: "CREATEPRODUCT",
+    payload: axios.post("product", data),
+  };
+};
+export const deleteNewProduct = (id) => {
+  return {
+    type: "DELETEPRODUCT",
+    payload: axios.delete(`product/${id}`),
+  };
+};
+export const updateNewProduct = (data, id) => {
+  return {
+    type: "UPDATEPRODUCT",
+    payload: axios.patch(`product/${id}`, data),
+  };
+};
+export const setDataProduct = (data) => {
+  return {
+    type: "SETDATAPRODUCT",
+    data: data,
+    pathRedirect: "/admin/promo/update-product",
+  };
+};
 // export const set

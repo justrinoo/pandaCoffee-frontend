@@ -1,26 +1,17 @@
 import { Layout, Button } from "components";
+import React, { useEffect, useRef, useState } from "react";
 import { Breadcrumb } from "react-bootstrap";
-import Image from "next/image";
-
-import { getDataCookie } from "middleware/authorizationPage";
-
-export async function getServerSideProps(context) {
-  const dataCookie = await getDataCookie(context);
-  if (!dataCookie.isLogin) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/dist/client/router";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UpdateProduct() {
+  const target1 = useRef(null);
+  const target2 = useRef(null);
+  const target3 = useRef(null);
+  const target4 = useRef(null);
+  const target5 = useRef(null);
+  const target6 = useRef(null);
   return (
     <>
       <Layout pageTitle="Update Product" isLogged={true}>
@@ -43,19 +34,18 @@ export default function UpdateProduct() {
                   alt="upload photo"
                 />
               </div>
-              <Button childrenClassName="promo-file-button mt-4">
+
+              <button type="button" className="promo-file-button mt-4">
                 Choose from gallery
-              </Button>
+              </button>
+
               <div className="mb-3">
-                <Button type="submit" childrenClassName="promo-form-button">
+                <button type="submit" className="promo-form-button">
                   Save Product
-                </Button>
-                <Button
-                  type="button"
-                  childrenClassName="promo-form-button-cancel"
-                >
+                </button>
+                <button type="button" className="promo-form-button-cancel">
                   Cancel
-                </Button>
+                </button>
               </div>
             </section>
             <div className="col-md-2"></div>
@@ -108,7 +98,106 @@ export default function UpdateProduct() {
                   <div className="description-size">
                     <p>Click size you want to use for this product</p>
                   </div>
-                  <div className="row size mt-4">
+
+                  <div className="size">
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target1}
+                      value="1"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="r"
+                      className="size__button"
+                      onClick={() => target1.current.click()}
+                    >
+                      R
+                    </label>
+
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target2}
+                      value="1"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="l"
+                      className="size__button"
+                      onClick={() => target2.current.click()}
+                    >
+                      L
+                    </label>
+
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target3}
+                      value="1"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="xl"
+                      className="size__button"
+                      onClick={() => target3.current.click()}
+                    >
+                      XL
+                    </label>
+
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target4}
+                      value="2"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="250gr"
+                      className="size__button "
+                      onClick={() => target4.current.click()}
+                    >
+                      250gr
+                    </label>
+
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target5}
+                      value="2"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="300gr"
+                      className="size__button"
+                      onClick={() => target5.current.click()}
+                    >
+                      300gr
+                    </label>
+
+                    <input
+                      type="checkbox"
+                      className="size__input"
+                      ref={target6}
+                      value="2"
+                      name="size"
+                      id="size"
+                    />
+                    <label
+                      htmlFor="500gr"
+                      className="size__button"
+                      onClick={() => target6.current.click()}
+                    >
+                      500gr
+                    </label>
+                  </div>
+
+                  {/* <div className="row size mt-4">
                     <div className="col-2 size__cup">
                       <p>R</p>
                     </div>
@@ -136,7 +225,7 @@ export default function UpdateProduct() {
                         <p>gr</p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </form>
             </section>

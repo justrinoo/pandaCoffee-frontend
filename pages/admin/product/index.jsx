@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { getDataCookie } from "middleware/authorizationPage";
+import { useDispatch } from "react-redux";
+import { deleteNewProduct, setDataProduct } from "store/action/product";
 import axios from "utils/axios";
 import Paginate from "react-paginate";
 
@@ -34,8 +36,10 @@ export async function getServerSideProps({ query: { page = 1 } }) {
 function ProductAdmin(props) {
   const { auth } = props;
   const router = useRouter();
+  const dispatch = useDispatch();
   const { search, sortField, sort, page, category } = router.query;
   const [pageInfo, setPageInfo] = useState({});
+  const [refresh, setRefresh] = useState(true);
   const dataVoucher = props.response.data;
   const pagination = props.response.pagination;
   console.log("data voucher =>", dataVoucher);
@@ -78,7 +82,7 @@ function ProductAdmin(props) {
           setListProduct([]);
         });
     }
-  }, [router.query]);
+  }, [router.query, refresh]);
 
   const handleFavorite = () => {
     router.push("/admin/product");
@@ -99,6 +103,17 @@ function ProductAdmin(props) {
     router.push({
       query: query,
     });
+  };
+
+  const handleDeleteProduct = async (id) => {
+    const question = confirm(`are you sure delete this product ?`);
+    if (question) {
+      const response = await dispatch(deleteNewProduct(id));
+      setRefresh((prev) => !prev);
+      toast.success(response.value.data.message);
+    } else {
+      return;
+    }
   };
   return (
     <>
@@ -162,11 +177,6 @@ function ProductAdmin(props) {
                   <div
                     key={index}
                     className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4"
-                    // onClick={
-                    //   auth.userLogin[0].role === "admin"
-                    //     ? () => {}
-                    //     : () => router.push(`/admin/update-product/${item.id}`)
-                    // }
                   >
                     <div className=" product__list ">
                       <div className="d-flex justify-content-center">
@@ -181,14 +191,22 @@ function ProductAdmin(props) {
                     {auth.userLogin[0].role === "admin" ? (
                       <div className="product__icon">
                         <div className="product__icon--trash">
-                          <img src="/icons/trash 1.svg" />
+                          <img
+                            style={{ cursor: "pointer" }}
+                            src="/icons/trash 1.svg"
+                            onClick={() => handleDeleteProduct(item.id)}
+                          />
                         </div>
                         <div className="product__icon--pencil">
                           <img
+                            style={{ cursor: "pointer" }}
                             src="/icons/pencil.svg"
-                            // onClick={router.push(
-                            //   `admin/update-product/${item.id}`
-                            // )}
+                            onClick={() => {
+                              dispatch(setDataProduct(item));
+                              router.push({
+                                pathname: "/admin/product/update-product",
+                              });
+                            }}
                           />
                         </div>
                       </div>
