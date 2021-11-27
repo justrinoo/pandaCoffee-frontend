@@ -129,7 +129,7 @@ function manageOrderPage(props) {
               </p>
             </div>
             {/* {dataDummy.map((item, index) => ( */}
-            <div className="row d-flex justify-content-between">
+            <div className="row d-flex justify-content-lg-between justify-content-center">
               <div className="col-lg-6 col-12 row">
                 <div className="col-lg-10 col-12 pe-lg-0 p-0">
                   <Carousel
@@ -153,20 +153,14 @@ function manageOrderPage(props) {
                     {/* <div className="details-order  p-lg-5 p-4"> */}
                     {dataDummy === [] ? (
                       <Carousel.Item key={index}>
-                        <div
-                          className="details-order card-product p-lg-4 p-4 mx-2"
-                          style={{ minHeight: "868px" }}
-                        >
+                        <div className="details-order card-product p-lg-4 p-4 mx-2">
                           Cant Find Any Order At This Moment
                         </div>
                       </Carousel.Item>
                     ) : (
                       dataDummy.map((item, index) => (
                         <Carousel.Item key={index}>
-                          <div
-                            className="details-order card-product p-lg-4 p-4 mx-2"
-                            style={{ minHeight: "868px" }}
-                          >
+                          <div className="details-order card-product p-lg-4 p-4 mx-2">
                             <div className="details-order__buyer-name text-center">
                               <div className="details-order__Title">
                                 Delivery Order
@@ -179,10 +173,7 @@ function manageOrderPage(props) {
                               </div>
                             </div>
 
-                            <div
-                              className="list-ordered__cont row mt-5"
-                              style={{ minHeight: "415px" }}
-                            >
+                            <div className="list-ordered__cont row mt-5">
                               {/* {item.map((item, index) => {
                     return (
                       <div
