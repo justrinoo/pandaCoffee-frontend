@@ -5,8 +5,8 @@ export default function Home() {
 			<section className="jarak-50" id="HERO">
 				<div className="background_image">
 					<div className="container text-white">
-						<div className="row">
-							<div className="col-md-6 m-5">
+						<div class="row">
+							<div class="col-md-6 m-5">
 								<h1 className="lp__title">
 									Start Your Day with Coffee and Good Meals
 								</h1>
@@ -19,33 +19,33 @@ export default function Home() {
 									Get Started
 								</button>
 							</div>
-							<div className="col-md-3 m-5">
+							<div class="col-md-3 m-5">
 								<input
 									type="text"
 									className="form-control lp__hero_input"
 									placeholder={`Search `}
 								/>
 							</div>
-							<div className="d-flex justify-content-center">
+							<div class="d-flex justify-content-center">
 								<div className="card card-body card__hero text-dark shadow">
 									<div className="d-flex justify-content-between">
 										<div className="d-flex">
 											<img src="/images/staff.png" width={50} alt="" />
-											<div className="d-block mx-3">
+											<div class="d-block mx-3">
 												<p className="p__icon">500+</p>
 												<small className="p__icon_desc">Staff</small>
 											</div>
 										</div>
 										<div className="d-flex">
 											<img src="/images/stores.png" width={50} alt="" />
-											<div className="d-block mx-3">
+											<div class="d-block mx-3">
 												<p className="p__icon">90+</p>
 												<small className="p__icon_desc">Store</small>
 											</div>
 										</div>
 										<div className="d-flex">
 											<img src="/images/customers.png" width={50} alt="" />
-											<div className="d-block mx-3">
+											<div class="d-block mx-3">
 												<p className="p__icon">9999+</p>
 												<small className="p__icon_desc">Customer</small>
 											</div>
@@ -68,7 +68,7 @@ export default function Home() {
 								alt=""
 							/>
 						</div>
-						<div className="col-md-6 align-self-center">
+						<div class="col-md-6 align-self-center">
 							<h3 className="title">
 								We Provide Good Coffee and Healthy Meals
 							</h3>
@@ -106,10 +106,10 @@ export default function Home() {
 						yours too!
 					</p>
 
-					<div className="d-flex justify-content-center">
+					<div class="d-flex justify-content-center">
 						<div className="mx-4">
-							<div className="card card-body text-center p-5">
-								<div className="d-flex justify-content-center">
+							<div class="card card-body text-center p-5">
+								<div class="d-flex justify-content-center">
 									<img
 										src="/images/ice.png"
 										width="128px"
@@ -161,8 +161,8 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="mx-4">
-							<div className="card card-body text-center p-5">
-								<div className="d-flex justify-content-center">
+							<div class="card card-body text-center p-5">
+								<div class="d-flex justify-content-center">
 									<img
 										src="/images/ice.png"
 										width="128px"
@@ -214,8 +214,8 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="mx-4">
-							<div className="card card-body text-center p-5">
-								<div className="d-flex justify-content-center">
+							<div class="card card-body text-center p-5">
+								<div class="d-flex justify-content-center">
 									<img
 										src="/images/ice.png"
 										width="128px"
@@ -270,7 +270,7 @@ export default function Home() {
 				</div>
 			</section>
 			<section className="jarak-50" id="map">
-				<div className="container text-center mt-5">
+				<div class="container text-center mt-5">
 					<h3 className="title">
 						Visit Our Store in the <br /> Spot on the Map Below
 					</h3>
@@ -283,7 +283,7 @@ export default function Home() {
 			</section>
 			<section className="" id="patner">
 				<h3 className="text-center title">Our Partner</h3>
-				<div className="container">
+				<div class="container">
 					<img src="/images/sponsor.png" className="w-100" alt="" />
 				</div>
 			</section>
@@ -295,12 +295,12 @@ export default function Home() {
 					These are the stories of our customers who have visited us with great
 					pleasure.
 				</p>
-				<div className="container">
-					<div className="row">
-						<div className="card card-body">
-							<div className="d-flex">
+				<div class="container">
+					<div class="row">
+						<div class="card card-body">
+							<div class="d-flex">
 								<img src="/images/review.png" width="50px" alt="" />
-								<div className="d-block mx-3">
+								<div class="d-block mx-3">
 									<p className="p-0 m-0">Viezh Robert</p>
 									<small>Warsaw, Poland</small>
 								</div>
@@ -310,16 +310,16 @@ export default function Home() {
 				</div>
 			</section>
 			<section className="jarak-100" id="promo">
-				<div className="container">
-					<div className="card card-body shadow">
-						<div className="d-flex justify-content-between p-5">
-							<div className="">
+				<div class="container">
+					<div class="card card-body shadow">
+						<div class="d-flex justify-content-between p-5">
+							<div class="">
 								<h3 className="title">
 									Check our promo <br /> today!
 								</h3>
 								<p>Let's see the deals and pick yours!</p>
 							</div>
-							<div className="align-self-center">
+							<div class="align-self-center">
 								<button className="btn btn-warning lp__hero_btn">
 									Get Started
 								</button>

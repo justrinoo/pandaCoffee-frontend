@@ -44,7 +44,6 @@ export default function Register() {
 				</div>
 				<div className="col-md-6">
 					{/* Auth Navbar */}
-					<NavbarSign />
 					{/* Auth Navbar End */}
 					<h2 className="register-title">SIGN UP</h2>
 					<ToastContainer />
@@ -108,8 +107,6 @@ export default function Register() {
 					{/* Auth Register Form End */}
 				</div>
 			</div>
-
-			<Footer></Footer>
 		</Layout>
 	);
 }

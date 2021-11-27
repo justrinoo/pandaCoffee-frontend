@@ -149,7 +149,7 @@ function Product(props) {
 
 	return (
 		<>
-			<Layout pageTitle="Product Admin" isLogged={true}>
+			<Layout pageTitle="Product" isLogged={true}>
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 ">

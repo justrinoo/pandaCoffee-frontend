@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Layout } from "components";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
-import { unAuthPage } from "middleware/authorizationPage";
 import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "store/action/auth";
 
@@ -41,24 +39,21 @@ const Login = (props) => {
 				Cookie.set("token", res.value.data.data.token);
 				localStorage.setItem("token", res.value.data.data.token);
 				Cookie.set("id", res.value.data.data.id);
-				props
-					.getUserLogin(res.value.data.data.id)
-					.then((res) => {
-						toast.success("Login Sucess");
-						if (res.value.data.data[0].role === "admin") {
-							router.push(`/admin/product`);
-						} else {
-							router.push("/product");
-						}
-					})
-					.catch((err) => {
-						toast.error(err.response.data.msg);
-					});
-				// // router.push("/main/home");
+				props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+					const role = localStorage.setItem(
+						"role",
+						responseUser.value.data.data[0].role
+					);
+					if (role === "admin") {
+						router.push(`/admin/product`);
+					} else {
+						router.push(`/profile`);
+					}
+				});
 			})
 			.catch((err) => {
-				toast.error(err.response.data.message);
-				// console.log(err.response.data.message);
+				// toast.warn(err.response.data.message);
+				console.log(err);
 			});
 		console.log(form);
 	};
