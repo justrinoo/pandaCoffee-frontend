@@ -1,26 +1,14 @@
+import React, { useState, useEffect, useRef } from "react";
 import { Layout, Button } from "components";
 import { Breadcrumb } from "react-bootstrap";
-import Image from "next/image";
-
-import { getDataCookie } from "middleware/authorizationPage";
-
-export async function getServerSideProps(context) {
-  const dataCookie = await getDataCookie(context);
-  if (!dataCookie.isLogin) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
+import { useRouter } from "next/router";
 
 export default function createProduct() {
+  const router = useRouter();
+  const handleCancel = (e) => {
+    e.preventDefault();
+    router.push(`/admin/product`);
+  };
   return (
     <>
       <Layout pageTitle="Create Product" isLogged={true}>
@@ -47,15 +35,16 @@ export default function createProduct() {
                 Choose from gallery
               </Button>
               <div className="mb-3">
-                <Button type="submit" childrenClassName="promo-form-button">
+                <button type="submit" className="promo-form-button">
                   Save Product
-                </Button>
-                <Button
+                </button>
+                <button
                   type="button"
-                  childrenClassName="promo-form-button-cancel"
+                  className="promo-form-button-cancel"
+                  onClick={handleCancel}
                 >
                   Cancel
-                </Button>
+                </button>
               </div>
             </section>
             <div className="col-md-2"></div>
