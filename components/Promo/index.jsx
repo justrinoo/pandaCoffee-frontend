@@ -109,14 +109,12 @@ export default function Promo({ data, pagination }) {
 						previousLinkClassName="text-decoration-none text-dark"
 					/>
 				</div>
-				{props.role === "admin" ? (
-					<Button
-						childrenClassName="promo__button"
-						childrenOnClick={goToCreatePromo}
-					>
-						Add new promo
-					</Button>
-				) : null}
+				<Button
+					childrenClassName="promo__button"
+					childrenOnClick={goToCreatePromo}
+				>
+					Add new promo
+				</Button>
 
 				<div className="promo__rules">
 					<div className="promo__rules--desc">

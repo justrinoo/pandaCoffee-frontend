@@ -3028,6 +3028,11 @@
   dependencies:
     "has-flag" "^4.0.0"
 
+"sweetalert2@^11.2.1":
+  "integrity" "sha512-6O+Ftl3yCg58pUqMiEn58+p7bQd7h7YrAM1diSaTJcRPO23bcfVd2DI2hW3246XVlTgL+EauV76va6VN5LrfIw=="
+  "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.2.1.tgz"
+  "version" "11.2.1"
+
 "table@^6.0.9":
   "integrity" "sha512-5DkIxeA7XERBqMwJq0aHZOdMadBx4e6eDoFRuyT5VR82J0Ycg2DwM6GfA/EQAhJ+toRTaS1lIdSQCqgrmhPnlw=="
   "resolved" "https://registry.npmjs.org/table/-/table-6.7.3.tgz"

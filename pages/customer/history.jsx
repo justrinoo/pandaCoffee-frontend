@@ -1,7 +1,7 @@
 import { Layout } from "components";
 import { useState } from "react";
 export default function history() {
-	const [cardClicked, setCardClicked] = useState(false);
+	const [cardClicked, setCardClicked] = useState("");
 	const dataDummy = [
 		{ id: "12345678", totalPayment: "34.000", status: "Done" },
 		{ id: "14567892", totalPayment: "21.000", status: "Done" },
@@ -9,9 +9,8 @@ export default function history() {
 		{ id: "13098492", totalPayment: "54.000", status: "Done" },
 	];
 
-	const clickProductActive = (event, id) => {
-		console.log(`${event.target.value} = ${id}`);
-		setCardClicked(true);
+	const clickProductActive = (id) => {
+		setCardClicked(id);
 	};
 	return (
 		<>
@@ -29,11 +28,24 @@ export default function history() {
 						<div className="row">
 							{dataDummy.map((historyProduct) => (
 								<div className="col-md-4" key={historyProduct.id}>
+									<div className="history-content-list-card-manage-action">
+										<div className="history-content-card-manage-delete">
+											<img
+												src="/icons/trash.svg"
+												width={14}
+												height={16}
+												className="history-content-card-trash"
+												alt="Delete"
+											/>
+										</div>
+									</div>
 									<section
-										className="history-content-list-card mt-5"
-										onClick={(event) =>
-											clickProductActive(historyProduct.id, event)
-										}
+										className={`${
+											cardClicked === historyProduct.id
+												? "history-content-list-card-active"
+												: "history-content-list-card"
+										}   mt-5`}
+										onClick={() => clickProductActive(historyProduct.id)}
 									>
 										<img
 											src="/images/makanan.png"

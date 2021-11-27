@@ -1,9 +1,9 @@
 import axios from "utils/axios";
 
-export const getAllPromo = () => {
+export const getAllPromo = (page, limit) => {
 	return {
 		type: "GETALLPROMO",
-		payload: axios.get("promo"),
+		payload: axios.get(`promo?page=${page}&limit=${limit}`),
 	};
 };
 

@@ -40,3 +40,26 @@
 	display: block;
 	font-size: 18px;
 }
+.history-content-list-card-active {
+	display: flex;
+	padding: 14px 18px;
+	align-items: center;
+	background-color: #ffffff;
+	opacity: 0.7;
+	box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
+	border-radius: 20px;
+}
+.history-content-list-card-manage-action {
+	display: flex;
+	justify-content: flex-end;
+}
+.history-content-card-manage-delete {
+	margin-top: 20px;
+	width: 35px;
+	height: 35px;
+	background-color: #6a4029;
+	border-radius: 50%;
+}
+.history-content-card-trash {
+	margin-top: 10px;
+}
