@@ -1,5 +1,7 @@
 import { Layout, Button, Promo } from "components";
-import { useRouter } from "next/dist/client/router";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import axios from "utils/axios";
 
 export async function getServerSideProps({ query: { page = 1 } }) {
@@ -18,8 +20,16 @@ export async function getServerSideProps({ query: { page = 1 } }) {
 }
 
 export default function ProductAdmin(props) {
+	const router = useRouter();
+	const token = Cookies.get("token");
 	const dataVoucher = props.response.data;
 	const pagination = props.response.pagination;
+
+	useEffect(() => {
+		if (!token) {
+			router.push("/auth/login");
+		}
+	}, []);
 
 	return (
 		<>

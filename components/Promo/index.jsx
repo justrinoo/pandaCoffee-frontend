@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "components/Button";
 import { useRouter } from "next/dist/client/router";
-import {
-	setDataPromo,
-	deleteNewPromo,
-	getAllPromo,
-} from "store/action/voucher";
+import { setDataPromo, deleteNewPromo } from "store/action/voucher";
 import { useDispatch } from "react-redux";
 import Pagination from "react-paginate";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function Promo({ data, pagination }) {
+export default function Promo({ data, pagination, role }) {
+	console.log("role  =>", role);
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -32,6 +29,7 @@ export default function Promo({ data, pagination }) {
 		if (question) {
 			const response = await dispatch(deleteNewPromo(id));
 			toast.success(response.value.data.message);
+			window.location.reload();
 		} else {
 			return;
 		}
@@ -63,37 +61,39 @@ export default function Promo({ data, pagination }) {
 								<h4>{promo.name}</h4>
 								<p>{promo.description}</p>
 							</div>
-							<div className="promo__manage-action">
-								<div
-									className="product__icon--trash"
-									style={{
-										width: "35px",
-										height: "32px",
-										cursor: "pointer",
-										margin: "0px 5px",
-									}}
-									onClick={() => handleDeletePromo(promo.id)}
-								>
-									<img src="/icons/trash 1.svg" alt="delete cupppon" />
+							{role === "admin" ? (
+								<div className="promo__manage-action">
+									<div
+										className="product__icon--trash"
+										style={{
+											width: "35px",
+											height: "32px",
+											cursor: "pointer",
+											margin: "0px 5px",
+										}}
+										onClick={() => handleDeletePromo(promo.id)}
+									>
+										<img src="/icons/trash 1.svg" alt="delete cupppon" />
+									</div>
+									<div
+										className="product__icon--pencil"
+										style={{
+											width: "35px",
+											height: "32px",
+											cursor: "pointer",
+											margin: "0px 5px",
+										}}
+										onClick={() => {
+											dispatch(setDataPromo(promo));
+											router.push({
+												pathname: "/admin/promo/update-promo",
+											});
+										}}
+									>
+										<img src="/icons/pencil.svg" width={55} />
+									</div>
 								</div>
-								<div
-									className="product__icon--pencil"
-									style={{
-										width: "35px",
-										height: "32px",
-										cursor: "pointer",
-										margin: "0px 5px",
-									}}
-									onClick={() => {
-										dispatch(setDataPromo(promo));
-										router.push({
-											pathname: "/admin/promo/update-promo",
-										});
-									}}
-								>
-									<img src="/icons/pencil.svg" width={55} />
-								</div>
-							</div>
+							) : null}
 						</div>
 					))}
 					<Pagination
@@ -109,12 +109,21 @@ export default function Promo({ data, pagination }) {
 						previousLinkClassName="text-decoration-none text-dark"
 					/>
 				</div>
-				<Button
-					childrenClassName="promo__button"
-					childrenOnClick={goToCreatePromo}
-				>
-					Add new promo
-				</Button>
+				{role === "admin" ? (
+					<Button
+						childrenClassName="promo__button"
+						childrenOnClick={goToCreatePromo}
+					>
+						Add new promo
+					</Button>
+				) : (
+					<Button
+						childrenClassName="promo__button"
+						// tambahin event apply cuppon
+					>
+						Apply Cuppon
+					</Button>
+				)}
 
 				<div className="promo__rules">
 					<div className="promo__rules--desc">

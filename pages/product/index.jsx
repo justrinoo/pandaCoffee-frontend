@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Button, Promo } from "components";
 import Image from "next/image";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import { getDataCookie } from "middleware/authorizationPage";
 import axios from "utils/axios";
+
 import Paginate from "react-paginate";
 import { getAllPromo } from "store/action/voucher";
 
@@ -19,6 +20,7 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
+
 	const dataProduct = await axios
 		.get(`${process.env.BASE_URL_DEV}product/favorite`, {
 			headers: {
@@ -32,37 +34,25 @@ export async function getServerSideProps(context) {
 			return [];
 		});
 
-	const response = await axios
-		.get(`promo?page=1&limit=4`, {
-			headers: {
-				Authorization: `Bearer ${dataCookie.token}`,
-			},
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch(() => {
-			return [];
-		});
-	console.log("data voucher =>", response);
-
 	return {
-		props: { listProduct: dataProduct, response },
+		props: { listProduct: dataProduct },
 	};
 }
 
 function Product(props) {
+	const voucher = useSelector((state) => state.voucher.vouchers);
 	const { auth } = props;
 	const router = useRouter();
 	const { search, sortField, sort, pageP, category } = router.query;
 	const [pageInfo, setPageInfo] = useState({ totalPage: 1 });
-	const [dataVoucher, setDataVoucher] = useState(props.response.data);
-	const [totalPageVoucher, setTotalPageVoucher] = useState(
-		props.response.pagination
-	);
+	// const [dataVoucher, setDataVoucher] = useState([]);
+	// const [pageVoucher, setPageVoucher] = useState(1);
+	// const [totalPageVoucher, setTotalPageVouher] = useState(1);
 
 	const [listProduct, setListProduct] = useState(props.listProduct);
 	// console.log(props);
+
+	// LIST VOUCHER
 
 	// FORMATING TO IDR CURRENCY
 	const formatIDR = (data) => {
@@ -122,30 +112,30 @@ function Product(props) {
 		);
 	};
 
-	useEffect(() => {
-		if (router.query.page) {
-			props
-				.getAllPromo(router.query.page, 4)
-				.then((res) => {
-					setDataVoucher(res.value.data.data);
-					setTotalPageVoucher(res.value.data.pagination);
-				})
-				.catch((err) => {
-					setDataVoucher([]);
-					setTotalPageVoucher(1);
-					// console.log(err.value);
-				});
-		} else {
-			props
-				.getAllPromo(1, 4)
-				.then((res) => {
-					console.log(res.value);
-				})
-				.catch((err) => {
-					console.log(err.value);
-				});
-		}
-	}, [router.query.page]);
+	// useEffect(() => {
+	// 	if (router.query.page) {
+	// 		props
+	// 			.getAllPromo(router.query.page, 4)
+	// 			.then((res) => {
+	// 				setDataVoucher(res.value.data.data);
+	// 				setTotalPageVoucher(res.value.data.pagination);
+	// 			})
+	// 			.catch((err) => {
+	// 				setDataVoucher([]);
+	// 				setTotalPageVoucher(1);
+	// 				// console.log(err.value);
+	// 			});
+	// 	} else {
+	// 		props
+	// 			.getAllPromo(1, 4)
+	// 			.then((res) => {
+	// 				console.log(res.value);
+	// 			})
+	// 			.catch((err) => {
+	// 				console.log(err.value);
+	// 			});
+	// 	}
+	// }, [router.query.page]);
 
 	return (
 		<>
@@ -153,11 +143,11 @@ function Product(props) {
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 ">
-							{/* <Promo
+							<Promo
 								role={auth.userLogin[0].role}
-								data={dataVoucher}
-								pagination={totalPageVoucher}
-							/> */}
+								data={voucher}
+								pagination={{ totalPage: 1 }}
+							/>
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter-product product__filter overflow-auto d-flex">
