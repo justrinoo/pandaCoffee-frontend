@@ -19,7 +19,12 @@ export default function NavbarSignUp() {
           <div className="col-md-6">
             <div className="row">
               <div className="col-md-2">
-                <Image src="/images/panda-coffee.png" width={30} height={33} />
+                <Image
+                  src="/images/panda-coffee.png"
+                  width={30}
+                  height={33}
+                  className="image-auth"
+                />
               </div>
               <div className="col-md-6">
                 <p>Panda Coffee Shop</p>

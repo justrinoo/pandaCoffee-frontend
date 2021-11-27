@@ -42,7 +42,7 @@ export default function Register() {
     <Layout title="Sign Up Panda Coffee">
       <div className="row">
         <div className="col-md-6">
-          <img src="/images/coffee-left.png" />
+          <img src="/images/coffee-left.png" className="image-auth" />
         </div>
         <div className="col-md-6">
           {/* Auth Navbar */}

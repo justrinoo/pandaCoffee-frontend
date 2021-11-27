@@ -39,8 +39,7 @@ const Login = (props) => {
         }
       })
       .catch((err) => {
-        // toast.warn(err.response.data.message);
-        console.log(err);
+        toast.warn(err.response.data.message);
       });
     console.log(form);
   };
@@ -54,7 +53,7 @@ const Login = (props) => {
     <Layout title="Login Panda Coffee">
       <div className="row">
         <div className="col-md-6">
-          <img src="/images/coffee-left.png" />
+          <img src="/images/coffee-left.png" className="image-auth" />
         </div>
         <div className="col-md-6">
           {/* Auth Navbar */}
