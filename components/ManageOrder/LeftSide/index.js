@@ -1,49 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
+import axios from "utils/axios";
 
 function ManageOrderLeftSide(props) {
-  const [dataDummy, setDataDummy] = useState([
-    [
-      {
-        name: "Hazelnut Latte 1",
-        total: 1,
-        size: "Reguler",
-        totalPriceItem: 25000,
-      },
-      {
-        name: "Hazelnut Latte 2",
-        total: 2,
-        size: "Large",
-        totalPriceItem: 25000,
-      },
-      {
-        name: "Hazelnut Latte 3",
-        total: 3,
-        size: "Extra Large",
-        totalPriceItem: 30000,
-      },
-      {
-        name: "Hazelnut Latte 3",
-        total: 3,
-        size: "Extra Large",
-        totalPriceItem: 30000,
-      },
-    ],
-    [
-      {
-        name: "Hazelnut Latte 3",
-        total: 3,
-        size: "Extra Large",
-        totalPriceItem: 30000,
-      },
-      {
-        name: "Hazelnut Latte 3",
-        total: 3,
-        size: "Extra Large",
-        totalPriceItem: 30000,
-      },
-    ],
-  ]);
+  const [dataDummy, setDataDummy] = useState([]);
 
   let subTotal = 0;
   dataDummy.map((item) => {
@@ -64,22 +24,23 @@ function ManageOrderLeftSide(props) {
     currency: "IDR",
   };
 
-  const formattedTotal = totalPayment
-    .toLocaleString("id-ID", idr)
-    .replace("Rp", "IDR")
-    .replace(",00", "");
-  const formattedDiscount = discount
-    .toLocaleString("id-ID", idr)
-    .replace("Rp", "IDR")
-    .replace(",00", "");
-  const formattedSubtotal = subTotal
-    .toLocaleString("id-ID", idr)
-    .replace("Rp", "IDR")
-    .replace(",00", "");
-  const formattedTax = taxFee
-    .toLocaleString("id-ID", idr)
-    .replace("Rp", "IDR")
-    .replace(",00", "");
+  const formattedIDR = (data) =>
+    data.toLocaleString("id-ID", data).replace("Rp", "IDR").replace(",00", "");
+
+  useEffect(() => {
+    axios
+      .get(`/transaction/detail/pending`)
+      .then((res) => {
+        setDataDummy(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(dataDummy);
+  }, [dataDummy]);
 
   return (
     <>
@@ -88,7 +49,7 @@ function ManageOrderLeftSide(props) {
           {/* <div className="details-order  p-lg-5 p-4"> */}
 
           {dataDummy.map((item, index) => (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <div
                 className="details-order card-product p-lg-5 p-4 mx-2"
                 style={{ minHeight: "868px" }}
@@ -102,7 +63,7 @@ function ManageOrderLeftSide(props) {
                   className="list-ordered__cont row mt-5"
                   style={{ minHeight: "415px" }}
                 >
-                  {item.map((item, index) => {
+                  {/* {item.map((item, index) => {
                     return (
                       <div
                         key={index}
@@ -136,7 +97,7 @@ function ManageOrderLeftSide(props) {
                         </div>
                       </div>
                     );
-                  })}
+                  })} */}
                 </div>
 
                 <div className="details-order__details-price mt-3">
@@ -147,15 +108,15 @@ function ManageOrderLeftSide(props) {
                       <p>TAX & FEES</p>
                     </div>
                     <div className="details-price_right text-start">
-                      <p>{discount ? formattedDiscount : 0}</p>
-                      <p>{subTotal ? formattedSubtotal : 0}</p>
+                      <p>{item.discount ? formattedIDR(item.discount) : 0}</p>
+                      {/* <p>{subTotal ? formattedIDR() : 0}</p> */}
                       <p>{taxFee ? formattedTax : 0}</p>
                     </div>
                   </div>
                   <div className="detail-price__total-price fs-30 mt-4 d-flex justify-content-between">
                     <span className="fs-30 fs-sm-25">TOTAL</span>
                     <span className="fs-30 fs-sm-25">
-                      {totalPayment ? formattedTotal : 0}
+                      {item.totalPayment ? formattedIDR(item.totalPayment) : 0}
                     </span>
                   </div>
                 </div>
