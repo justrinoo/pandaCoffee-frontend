@@ -1,4 +1,3 @@
-import Head from "next/head";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";

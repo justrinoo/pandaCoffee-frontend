@@ -1,27 +1,36 @@
 import { Layout, Button, Promo } from "components";
-import { useRouter } from "next/dist/client/router";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import axios from "utils/axios";
 
 export async function getServerSideProps({ query: { page = 1 } }) {
 	const response = await axios
 		.get(`promo?page=${page}&limit=4`)
 		.then((res) => {
-			console.log(res);
 			return res.data;
 		})
 		.catch(() => {
 			return [];
 		});
+	console.log("data voucher =>", response);
 	return {
 		props: { response },
 	};
 }
 
 export default function ProductAdmin(props) {
+	const router = useRouter();
+	const token = Cookies.get("token");
 	const dataVoucher = props.response.data;
 	const pagination = props.response.pagination;
-	console.log("data voucher =>", dataVoucher);
-	console.log("data pagination =>", pagination);
+
+	useEffect(() => {
+		if (!token) {
+			router.push("/auth/login");
+		}
+	}, []);
+
 	return (
 		<>
 			<Layout pageTitle="Product Admin" isLogged={true}>
