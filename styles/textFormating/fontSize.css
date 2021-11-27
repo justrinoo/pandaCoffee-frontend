@@ -22,3 +22,12 @@
 .fs-20 {
   font-size: 20px;
 }
+
+@media (max-width: 576px) {
+  .fs-sm-25 {
+    font-size: 25px;
+  }
+  .fs-sm-40 {
+    font-size: 40px;
+  }
+}

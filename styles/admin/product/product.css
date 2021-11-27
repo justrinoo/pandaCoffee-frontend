@@ -131,8 +131,13 @@
 
 .product__list img {
   border-radius: 50%;
+<<<<<<< HEAD
   height: 80px !important;
   width: 90px !important;
+=======
+  height: 80px;
+  width: 90px;
+>>>>>>> 515640be96fc58e7aeaa60efe9a6f756032ba741
   object-fit: cover;
   margin-top: -50px;
 }
@@ -194,6 +199,7 @@
   right: 68%;
   margin-top: 8rem;
   bottom: auto;
+<<<<<<< HEAD
 }
 
 .size {
@@ -277,4 +283,6 @@
   margin-top: 5px;
   font-size: 20px;
   margin-bottom: 24px;
+=======
+>>>>>>> 515640be96fc58e7aeaa60efe9a6f756032ba741
 }

@@ -151,6 +151,7 @@ hr {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
   max-height: 415px;
   overflow-y: auto;
+  min-height: 215px;
 }
 
 .list-ordered__cont::-webkit-scrollbar {
@@ -189,4 +190,17 @@ hr {
 .card-behind {
   height: 80%;
   width: 20%;
+}
+.details-order {
+  /* min-height: 800px; */
+}
+
+@media (max-width: 576px) {
+  .details-order {
+    min-height: 500px;
+  }
+  .list-ordered__cont {
+    min-height: 215px;
+    max-height: 315px;
+  }
 }

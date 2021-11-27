@@ -8,7 +8,6 @@ import { useRouter } from "next/dist/client/router";
 
 export default function FormNewPromo() {
 	const router = useRouter();
-	// console.log("data voucher =>", updatePromo === "true" ? voucher : null);
 	const inputFile = useRef(null);
 	const dispatch = useDispatch();
 
@@ -140,11 +139,11 @@ export default function FormNewPromo() {
 					<form onSubmit={createNewPromoSubmit} className="mt-4">
 						<section className="row mt-5">
 							<section className="col-md-4 mb-5 text-center">
-								<div className="promo-rounded-file">
+								<div
+									className={formVoucher.image ? null : "promo-rounded-file"}
+								>
 									<img
-										src={
-											formVoucher.image ? displayImage : "/images/camera.png"
-										}
+										src={displayImage ? displayImage : "/images/camera.png"}
 										className={`${
 											formVoucher.image
 												? "file-image-active"

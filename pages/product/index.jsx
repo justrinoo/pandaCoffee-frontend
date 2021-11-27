@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { getDataCookie } from "middleware/authorizationPage";
 import axios from "utils/axios";
 import Paginate from "react-paginate";
+import { getAllPromo } from "store/action/voucher";
 
 export async function getServerSideProps(context) {
 	const dataCookie = await getDataCookie(context);
@@ -31,20 +32,37 @@ export async function getServerSideProps(context) {
 			return [];
 		});
 
+	const response = await axios
+		.get(`promo?page=1&limit=4`, {
+			headers: {
+				Authorization: `Bearer ${dataCookie.token}`,
+			},
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch(() => {
+			return [];
+		});
+	console.log("data voucher =>", response);
+
 	return {
-		props: { listProduct: dataProduct },
+		props: { listProduct: dataProduct, response },
 	};
 }
 
-function ProductAdmin(props) {
+function Product(props) {
 	const { auth } = props;
 	const router = useRouter();
-	const { search, sortField, sort, page, category } = router.query;
-	const [activePage, setPage] = useState(page);
-	const [pageInfo, setPageInfo] = useState({});
+	const { search, sortField, sort, pageP, category } = router.query;
+	const [pageInfo, setPageInfo] = useState({ totalPage: 1 });
+	const [dataVoucher, setDataVoucher] = useState(props.response.data);
+	const [totalPageVoucher, setTotalPageVoucher] = useState(
+		props.response.pagination
+	);
 
 	const [listProduct, setListProduct] = useState(props.listProduct);
-	console.log(pageInfo);
+	// console.log(props);
 
 	// FORMATING TO IDR CURRENCY
 	const formatIDR = (data) => {
@@ -59,7 +77,7 @@ function ProductAdmin(props) {
 			!router.query.search &&
 			!router.query.sortField &&
 			!router.query.sort &&
-			!router.query.page &&
+			!router.query.pageP &&
 			!router.query.category
 		) {
 			null;
@@ -70,10 +88,10 @@ function ProductAdmin(props) {
 						search ? search : ""
 					}&sortField=${sortField ? sortField : ""}&sort=${
 						sort ? sort : ""
-					}&page=${page ? page : ""}&category=${category ? category : ""}`
+					}&page=${pageP ? pageP : ""}&category=${category ? category : ""}`
 				)
 				.then((res) => {
-					console.log("TEST");
+					// console.log("TEST");
 					setListProduct(res.data.data);
 					setPageInfo(res.data.pagination);
 				})
@@ -87,38 +105,67 @@ function ProductAdmin(props) {
 	const hanldeFavorite = () => {
 		router.push("/product");
 		axios.get(`${process.env.BASE_URL_DEV}product/favorite`).then((res) => {
-			console.log(res.data.data);
+			// console.log(res.data.data);
 			setListProduct(res.data.data);
 			setPageInfo({ totalPage: 1 });
 		});
 	};
 
 	const handlePagination = (event) => {
-		console.log(event.selected + 1);
+		// console.log(event.selected + 1);
 		router.push(
 			`/product?search=${search ? search : ""}&sortField=${
 				sortField ? sortField : ""
-			}&sort=${sort ? sort : ""}&page=${event.selected + 1}&category=${
+			}&sort=${sort ? sort : ""}&pageP=${event.selected + 1}&category=${
 				category ? category : ""
 			}`
 		);
 	};
+
+	useEffect(() => {
+		if (router.query.page) {
+			props
+				.getAllPromo(router.query.page, 4)
+				.then((res) => {
+					setDataVoucher(res.value.data.data);
+					setTotalPageVoucher(res.value.data.pagination);
+				})
+				.catch((err) => {
+					setDataVoucher([]);
+					setTotalPageVoucher(1);
+					// console.log(err.value);
+				});
+		} else {
+			props
+				.getAllPromo(1, 4)
+				.then((res) => {
+					console.log(res.value);
+				})
+				.catch((err) => {
+					console.log(err.value);
+				});
+		}
+	}, [router.query.page]);
+
 	return (
 		<>
-			<ToastContainer />
-			<Layout pageTitle="Product Admin" isLogged={true}>
+			<Layout pageTitle="Product" isLogged={true}>
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 ">
-							{/* <Promo role={auth.userLogin[0].role} /> */}
+							{/* <Promo
+								role={auth.userLogin[0].role}
+								data={dataVoucher}
+								pagination={totalPageVoucher}
+							/> */}
 						</div>
 						<div className="col-lg-8 product">
-							<div className="product__filter ">
+							<div className="product__filter-product product__filter overflow-auto d-flex">
 								<h2 onClick={() => hanldeFavorite()}>Favorite Product</h2>
 								<h2
 									onClick={() =>
 										router.push(
-											"/product?search=&sortField=&sort=&page=1&category=coffee"
+											"/product?search=&sortField=&sort=&pageP=1&category=coffe"
 										)
 									}
 								>
@@ -127,7 +174,7 @@ function ProductAdmin(props) {
 								<h2
 									onClick={() =>
 										router.push(
-											"/product?search=&sortField=&sort=&page=1&category=non-coffee"
+											"/product?search=&sortField=&sort=&pageP=1&category=nonCoffee"
 										)
 									}
 								>
@@ -136,7 +183,7 @@ function ProductAdmin(props) {
 								<h2
 									onClick={() =>
 										router.push(
-											"/product?search=&sortField=&sort=&page=1&category=foods"
+											"/product?search=&sortField=&sort=&pageP=1&category=food"
 										)
 									}
 								>
@@ -145,7 +192,7 @@ function ProductAdmin(props) {
 								<h2
 									onClick={() =>
 										router.push(
-											"/product?search=&sortField=&sort=&page=1&category=add-on"
+											"/product?search=&sortField=&sort=&pageP=1&category=addon"
 										)
 									}
 								>
@@ -154,7 +201,7 @@ function ProductAdmin(props) {
 								<h2
 									onClick={() =>
 										router.push(
-											"/product?search=&sortField=&sort=&page=1&category="
+											"/product?search=&sortField=&sort=&pageP=1&category="
 										)
 									}
 								>
@@ -165,58 +212,46 @@ function ProductAdmin(props) {
 								{listProduct.map((item, index) => (
 									<div
 										key={index}
-										className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4"
-										onClick={
-											auth.userLogin[0].role === "admin"
-												? () => {}
-												: () => router.push(`/productDetails/${item.id}`)
+										className="col-lg-3 col-md-4 col-sm-6 col-6 px-3 my-4"
+										onClick={() =>
+											router.push(`/customer/productDetails/${item.id}`)
 										}
 									>
-										<div className=" product__list ">
+										<div className="pproduct__list hover-pointer">
 											<div className="d-flex justify-content-center">
 												<img
 													src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}
 													alt="ada"
+													className="product-image__list"
 												/>
 											</div>
-											<h2>{item.nameProduct}</h2>
+											<div className="name-box my-3" style={{ height: "52px" }}>
+												<h2>{item.nameProduct}</h2>
+											</div>
 											<h4>IDR {formatIDR(parseInt(item.price[0]))}</h4>
 										</div>
-										{auth.userLogin[0].role === "admin" ? (
-											<div className="product__icon">
-												<div className="product__icon--trash">
-													<img src="/icons/trash 1.svg" />
-												</div>
-												<div className="product__icon--pencil">
-													<img src="/icons/pencil.svg" />
-												</div>
-											</div>
-										) : null}
 									</div>
 								))}
 							</div>
 
-							{auth.userLogin[0].role === "admin" ? (
-								<Button childrenClassName="product__button">
-									Add new product
-								</Button>
-							) : null}
+							<Paginate
+								previousLabel={"Previous"}
+								nextLabel={"Next"}
+								breakLabel={"..."}
+								pageCount={pageInfo.totalPage}
+								onPageChange={(event) => handlePagination(event)}
+								containerClassName={"pagination"}
+								pageClassName="mx-2"
+								nextClassName="mx-2"
+								activeClassName="fw-bold"
+								className="d-flex justify-content-center list-unstyled"
+								nextLinkClassName="text-decoration-none text-dark"
+								previousLinkClassName="text-decoration-none text-dark"
+								pageRangeDisplayed={5}
+							/>
 						</div>
 					</div>
 				</div>
-
-				<Paginate
-					previousLabel={"Previous"}
-					nextLabel={"Next"}
-					breakLabel={"..."}
-					pageCount={pageInfo.totalPage}
-					onPageChange={(event) => handlePagination(event)}
-					containerClassName={"pagination"}
-					disabledClassName={"pagination__disabled"}
-					activeClassName={"pagination__active"}
-					className="justify-content-center pagination d-flex align-items-center"
-					pageRangeDisplayed={5}
-				/>
 			</Layout>
 		</>
 	);
@@ -224,6 +259,10 @@ function ProductAdmin(props) {
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
+	voucher: state.voucher,
 });
+const mapDispatchToProps = {
+	getAllPromo,
+};
 
-export default connect(mapStateToProps)(ProductAdmin);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

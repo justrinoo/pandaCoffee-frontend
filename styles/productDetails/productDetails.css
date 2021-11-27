@@ -72,3 +72,12 @@ input:focus {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.product__filter-product h2:hover {
+  cursor: pointer;
+}
+
+.product-image__list {
+  height: 128px !important;
+  width: 128px !important;
+}
