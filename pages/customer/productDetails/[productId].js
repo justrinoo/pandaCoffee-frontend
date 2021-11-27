@@ -35,11 +35,29 @@ export async function getServerSideProps(context) {
 }
 
 function DetailsProductPage(props) {
+  console.log(props.data);
   const { data } = props;
 
   const router = useRouter();
 
   const [size, setSize] = useState(0);
+
+  const sizeText =
+    data.size == 1
+      ? size === 1
+        ? "R"
+        : size === 2
+        ? "L"
+        : size === 3
+        ? "XL"
+        : ""
+      : size === 1
+      ? "250gr"
+      : size === 2
+      ? "300gr"
+      : size === 3
+      ? "500gr"
+      : "";
 
   const handleChangeSize = (data) => {
     setSize(data);
@@ -78,7 +96,7 @@ function DetailsProductPage(props) {
           itemId: router.query.productId,
           totalItem: counter,
           priceItem: priceItem,
-          size: size,
+          size: sizeText,
           image: props.data.image,
         });
   };
@@ -92,7 +110,7 @@ function DetailsProductPage(props) {
           <span className="fw-400">Favorite & Promo</span>
           <span className="fw-700"> &gt; Cold Brew </span>
         </div>
-        <div className="container d-flex justify-content-between mt-5">
+        <div className="container d-flex justify-content-center mt-5 col-12">
           <div className="row col-12">
             <div className="col-lg-6 col-12">
               {/* <DetailsProductLeftSide data={props.data} /> */}
@@ -104,8 +122,8 @@ function DetailsProductPage(props) {
                     className="product-details__img-product"
                   />
                 </div>
-                <div className="d-flex justify-content-center">
-                  <div className="card-product col-8 fw-700 fs-25  p-4 text-center d-flex flex-column align-items-center">
+                <div className="d-lg-flex d-none justify-content-center">
+                  <div className="card-product col-lg-8 col-12 fw-700 fs-25  p-4 text-center d-flex flex-column align-items-center">
                     Choose a size
                     <div className="d-flex mt-2 text-poppins justify-content-evenly align-items-center margin-auto">
                       <div
@@ -138,7 +156,7 @@ function DetailsProductPage(props) {
                     </div>
                   </div>
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className="d-lg-flex d-none justify-content-center">
                   <div
                     onClick={() => handleAddToCart()}
                     className="text-center text-poppins fcolor-white fw-700 fs-25 py-3 col-8 d-flex justify-content-center details-product__btn-add-cart my-4"
@@ -150,12 +168,41 @@ function DetailsProductPage(props) {
             </div>
             <div className="col-lg-6 col-12">
               {/* <DetailsProductRightSide data={props.data} /> */}
-              <div className="product-details__produc-name text-center fs-65 text-poppins fw-900">
+              <div className="product-details__produc-name text-center mt-3 mt-lg-0 fs-sm-40 fs-65 text-poppins fw-900">
                 {data.nameProduct}
               </div>
               <div className="product-details__product-desc mt-4 fw-400 fs-25 text-poppins">
                 {data.description}
               </div>
+              <div className="d-lg-none d-flex justify-content-center">
+                <div className="card-product  mt-4 col-lg-8 col-12 fw-700 fs-25  p-4 text-center d-flex flex-column align-items-center">
+                  Choose a size
+                  <div className="d-flex mt-2 text-poppins justify-content-evenly align-items-center margin-auto">
+                    <div
+                      onClick={() => handleChangeSize(1)}
+                      className="d-flex noselect hover-pointer fs-30 fw-700 justify-content-center mx-2 align-items-center details-product__size-list"
+                      style={size === 1 ? { border: "3px solid green" } : null}
+                    >
+                      R
+                    </div>
+                    <div
+                      onClick={() => handleChangeSize(2)}
+                      className="d-flex noselect hover-pointer fs-30 fw-700 justify-content-center mx-2 align-items-center details-product__size-list"
+                      style={size === 2 ? { border: "3px solid green" } : null}
+                    >
+                      L
+                    </div>
+                    <div
+                      onClick={() => handleChangeSize(3)}
+                      className="d-flex noselect hover-pointer fs-30 fw-700 justify-content-center mx-2 align-items-center details-product__size-list"
+                      style={size === 3 ? { border: "3px solid green" } : null}
+                    >
+                      XL
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="d-flex justify-content-between mt-5 mb-4">
                 <div className="product-details__counter-quantity d-flex align-items-center fcolor-029">
                   <span
@@ -186,14 +233,14 @@ function DetailsProductPage(props) {
                     +
                   </span>
                 </div>
-                <div className="product-details__price fw-700 fs-35">
+                <div className="product-details__price fw-700 fs-35 fs-sm-25">
                   IDR {formatIDR(priceItem)}
                 </div>
               </div>
-              <div className="p-4 card-product d-flex justify-content-between align-items-center">
-                <div className="d-flex justify-content-between align-items-center">
+              <div className="p-4 card-product d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center align-items-center">
                   <img
-                    src="/images/nathan-dumlao-71u2fOofI-U-unsplash 2.png"
+                    src={`${process.env.BASE_URL_DEV}upload/product/${props.data.image}`}
                     alt=""
                     className="product-details__img-product__checkout-details me-3"
                   />
@@ -202,24 +249,24 @@ function DetailsProductPage(props) {
                       {props.data.nameProduct}
                     </div>
                     <div className="item-name-total_total fw-400 fs-20 text-poppins">
-                      x{counter} ({" "}
-                      {size === 1
-                        ? "Reguler"
-                        : size === 2
-                        ? "Large"
-                        : size === 3
-                        ? "Exta Large"
-                        : ""}
-                      )
+                      x{counter} ( {sizeText} )
                     </div>
                   </div>
                 </div>
-                <div className="checkout-details_checkout d-flex justify-content-between align-items-center">
+                <div className="checkout-details_checkout d-flex justify-content-between mt-4 mt-lg-0 align-items-center">
                   <span className="fw-700 fs-25 me-3">Checkout</span>
                   <div className="checkout-details_checkout-arrow d-flex align-items-center justify-content-center">
                     <img src="/icons/arrow3.png" alt="" />
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="d-flex d-lg-none justify-content-center">
+              <div
+                onClick={() => handleAddToCart()}
+                className="text-center text-poppins fcolor-white fw-700 fs-25 py-3 col-12 d-flex justify-content-center details-product__btn-add-cart my-4"
+              >
+                Add to Cart
               </div>
             </div>
           </div>

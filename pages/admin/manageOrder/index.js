@@ -45,16 +45,13 @@ function manageOrderPage(props) {
         </div>
 
         <div className="container">
-          <div className="row my-4 justify-content-between">
-            <div className="col-6">
-              <p className="fcolor-white fs-40 col-10 fw-700 text-popins">
+          <div className="row my-4 justify-content-center justify-content-lg-between">
+            <div className="col-lg-12 col-12 text-lg-start text-center">
+              <p className="fcolor-white fs-40 col-lg-5 col-12 fw-700 text-popins">
                 Finish your customer order now.
               </p>
             </div>
-            <div className="col-5 d-flex align-items-bottom">
-              <p className="fcolor-white fs-25 fw-700">Address details</p>
-            </div>
-            <div className="col-lg-6 row">
+            <div className="col-lg-6 col-12 row">
               <ManageOrderLeftSide />
             </div>
             <div className="col-lg-5">

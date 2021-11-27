@@ -6,6 +6,10 @@ function ManageOrderRightSide(props) {
 
   return (
     <>
+      <div className="col-12 fcolor-white fs-25 fw-700 text-popins mb-3">
+        Address{" "}
+      </div>
+
       <div className="p-4 card-product mb-5">
         <div className="addreass-details__buyer-name my-2 fw-400 fs-20">
           <span className="fw-700 fs-20">Delivery to</span> Iskandar Street
