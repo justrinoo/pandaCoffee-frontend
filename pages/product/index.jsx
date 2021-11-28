@@ -56,7 +56,7 @@ function Product(props) {
 	const router = useRouter();
 	const { search, sortField, sort, pageP, category } = router.query;
 	const [pageInfo, setPageInfo] = useState({ totalPage: 1 });
-	const [dataVoucher, setDataVoucher] = useState(props.response.data);
+	const [dataVoucher, setDataVoucher] = useState(props.response.data ? props.response.data : []);
 	const [totalPageVoucher, setTotalPageVoucher] = useState(
 		props.response.pagination
 	);
@@ -153,11 +153,11 @@ function Product(props) {
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 ">
-							{/* <Promo
+							<Promo
 								role={auth.userLogin[0].role}
 								data={dataVoucher}
 								pagination={totalPageVoucher}
-							/> */}
+							/>
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter-product product__filter overflow-auto d-flex">

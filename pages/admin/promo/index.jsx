@@ -122,6 +122,12 @@ export default function FormNewPromo() {
 		router.push("/admin/product");
 	};
 
+	useEffect(() => {
+		if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+	},[])
+
 	return (
 		<>
 			<Layout pageTitle="Create Promo" isLogged={true}>

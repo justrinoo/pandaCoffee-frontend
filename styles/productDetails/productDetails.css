@@ -12,6 +12,13 @@
   background-color: #ffba33;
 }
 
+.details-product__size-list-dactive {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: rgba(186, 186, 186, 0.35);
+}
+
 .card-product {
   background: #ffffff;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);

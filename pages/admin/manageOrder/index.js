@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "components/Layout";
 import { getDataCookie } from "middleware/authorizationPage";
+import { useRouter } from "next/router";
 import axios from "utils/axios";
 import { Carousel, Modal, Button } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +23,7 @@ export async function getServerSideProps(context) {
 }
 
 function manageOrderPage(props) {
+  const router = useRouter();
   const [dataDummy, setDataDummy] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -37,6 +39,10 @@ function manageOrderPage(props) {
     data.toLocaleString("id-ID", data).replace("Rp", "IDR").replace(",00", "");
 
   useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+
     axios
       .get(`/transaction/detail/pending`)
       .then((res) => {
@@ -174,41 +180,49 @@ function manageOrderPage(props) {
                             </div>
 
                             <div className="list-ordered__cont row mt-5">
-                              {/* {item.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="details-order__list-ordered col-12 my-3"
-                      >
-                        <div className="col-9">
-                          <div className="row">
-                            <div className="list-order__list col-4 p-0">
-                              <img src="/images/bg-profile.png" alt="" />
-                            </div>
+                              {item.product.map((item, index) => {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="details-order__list-ordered col-12 my-3"
+                                  >
+                                    <div className="col-9">
+                                      <div className="d-flex">
+                                        <div className="list-order__list p-0">
+                                          <img
+                                            src={`${process.env.BASE_URL_DEV}/upload/product/${item.image}`}
+                                            alt=""
+                                          />
+                                        </div>
 
-                            <div className="list-order__details-items col-8">
-                              <div className="details-items__name">
-                                {item.name ? item.name : ""}
-                              </div>
-                              <div className="details-items__total">
-                                x {item.total ? item.total : 0}
-                              </div>
-                              <div className="details-items__size">
-                                {item.size ? item.size : "Regular"}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="list-roder__details-price col-3 text-end">
-                          IDR{" "}
-                          {item.totalPriceItem
-                            ? item.totalPriceItem.toString().slice(0, -3)
-                            : 0}
-                          .0
-                        </div>
-                      </div>
-                    );
-                  })} */}
+                                        <div className="list-order__details-items ms-4">
+                                          <div className="details-items__name">
+                                            {item.nameProduct
+                                              ? item.nameProduct
+                                              : ""}
+                                          </div>
+                                          <div className="details-items__total">
+                                            x{" "}
+                                            {item.quantity ? item.quantity : 0}
+                                          </div>
+                                          <div className="details-items__size">
+                                            {item.size ? item.size : "Regular"}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="list-roder__details-price col-3 text-end">
+                                      IDR{" "}
+                                      {item.totalItemPayment
+                                        ? item.totalItemPayment
+                                            .toString()
+                                            .slice(0, -3)
+                                        : 0}
+                                      .0
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
 
                             <div className="details-order__details-price mt-3">
@@ -224,7 +238,13 @@ function manageOrderPage(props) {
                                       ? formattedIDR(item.discount)
                                       : 0}
                                   </p>
-                                  {/* <p>{subTotal ? formattedIDR() : 0}</p> */}
+                                  <p>
+                                    {item.totalPayment && item.discount
+                                      ? formattedIDR(
+                                          item.discount + item.totalPayment
+                                        )
+                                      : 0}
+                                  </p>
                                   {/* <p>{taxFee ? formattedTax : 0}</p> */}
                                 </div>
                               </div>
