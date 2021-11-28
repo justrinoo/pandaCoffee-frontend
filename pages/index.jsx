@@ -1,6 +1,85 @@
 import { Layout } from "components";
+import Carousel from "react-multi-carousel";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import axios from "utils/axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 export default function Home() {
+	const router = useRouter();
+	const testimonials = [
+		{
+			image:
+				"https://cdn.discordapp.com/avatars/818102343404224523/7334e7a8cf36f4610981642677a47791.png?size=128",
+			name: "Fajri Kun",
+			address: "Bandung, Indonesia",
+			ratings: "9.5",
+			feedback:
+				"Semenjak saya pakai panda coffee pesanan makanan jadi makin mudah, terima kasih panda coffee sudah membantu saya.",
+		},
+		{
+			image: "/images/people1.png",
+			name: "Leo Frank",
+			address: "Los Angles, New York",
+			ratings: "7.5",
+			feedback: "Big thnks for panda coffee.",
+		},
+		{
+			image: "/images/people2.png",
+			name: "Natali Hunqoq",
+			address: "Osaka, Jepang",
+			ratings: "8.5",
+			feedback: "Arigatoo Kamamida Panda Coffee!",
+		},
+		{
+			image: "/images/people3.png",
+			name: "Imanuel John",
+			address: "Paris, France",
+			ratings: "9.9",
+			feedback: "makasih ya wkwk.",
+		},
+	];
+
+	const products = [
+		{
+			images: "/images/nasigoreng.png",
+			title: "Nasi Goreng",
+			price: "19000",
+			path: "/product",
+		},
+		{
+			images: "/images/spageti.png",
+			title: "Spageti Carbonara",
+			price: "30000",
+			path: "/product",
+		},
+		{
+			images: "/images/ice-cream.png",
+			title: "Ice Cream Meleleh",
+			price: "5000",
+			path: "/product",
+		},
+	];
+
+	const responsive = {
+		desktop: {
+			breakpoint: { max: 3000, min: 1024 },
+			items: 3,
+			slidesToSlide: 3,
+		},
+		tablet: {
+			breakpoint: { max: 1024, min: 464 },
+			items: 2,
+			slidesToSlide: 2,
+		},
+		mobile: {
+			breakpoint: { max: 464, min: 0 },
+			items: 1,
+			slidesToSlide: 1,
+		},
+	};
+
 	return (
 		<Layout pageTitle="Home Page" isLogged={true}>
 			<section className="jarak-50" id="HERO">
@@ -25,6 +104,7 @@ export default function Home() {
 									type="text"
 									className="form-control lp__hero_input"
 									placeholder={`Search `}
+									onKeyPress={findProduct}
 								/>
 							</div>
 							<div class="d-flex justify-content-center">
@@ -108,165 +188,66 @@ export default function Home() {
 					</p>
 
 					<div class="d-flex justify-content-center">
-						<div className="mx-4">
-							<div class="card card-body text-center p-5">
-								<div class="d-flex justify-content-center">
-									<img
-										src="/images/ice.png"
-										width="128px"
-										height="128px"
-										className="rounded-circle"
-										alt=""
-									/>
-								</div>
-								<p className="fw-bold">Hazelnut Latte</p>
-								<ul className="ul__check ul__checkks">
-									<li>
+						{products.map((product) => (
+							<div className="mx-4">
+								<div class="card card-body text-center p-5">
+									<div class="d-flex justify-content-center">
 										<img
-											src="/icons/checklist.png"
-											className="icon__li"
+											src={product.images}
+											width="128px"
+											height="128px"
+											className="rounded-circle"
 											alt=""
 										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-								</ul>
+									</div>
+									<p className="fw-bold">{product.title}</p>
+									<ul className="ul__check ul__checkks">
+										<li>
+											<img
+												src="/icons/checklist.png"
+												className="icon__li"
+												alt=""
+											/>
+											High quality beans
+										</li>
+										<li>
+											<img
+												src="/icons/checklist.png"
+												className="icon__li"
+												alt=""
+											/>
+											High quality beans
+										</li>
+										<li>
+											<img
+												src="/icons/checklist.png"
+												className="icon__li"
+												alt=""
+											/>
+											High quality beans
+										</li>
+										<li>
+											<img
+												src="/icons/checklist.png"
+												className="icon__li"
+												alt=""
+											/>
+											High quality beans
+										</li>
+									</ul>
 
-								<h4 className="mt-5 text__currency">IDR 25.000</h4>
-								<button className="btn btn-outline-warning btn__curency mt-2">
-									Order Now
-								</button>
-							</div>
-						</div>
-						<div className="mx-4">
-							<div class="card card-body text-center p-5">
-								<div class="d-flex justify-content-center">
-									<img
-										src="/images/ice.png"
-										width="128px"
-										height="128px"
-										className="rounded-circle"
-										alt=""
-									/>
+									<h4 className="mt-5 text__currency">
+										IDR {new Intl.NumberFormat("id-ID").format(product.price)}
+									</h4>
+									<button
+										className="btn btn-outline-warning btn__curency mt-2"
+										onClick={() => router.push(product.path)}
+									>
+										Order Now
+									</button>
 								</div>
-								<p className="fw-bold">Hazelnut Latte</p>
-								<ul className="ul__check ul__checkks">
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-								</ul>
-
-								<h4 className="mt-5 text__currency">IDR 25.000</h4>
-								<button className="btn btn-outline-warning btn__curency mt-2">
-									Order Now
-								</button>
 							</div>
-						</div>
-						<div className="mx-4">
-							<div class="card card-body text-center p-5">
-								<div class="d-flex justify-content-center">
-									<img
-										src="/images/ice.png"
-										width="128px"
-										height="128px"
-										className="rounded-circle"
-										alt=""
-									/>
-								</div>
-								<p className="fw-bold">Hazelnut Latte</p>
-								<ul className="ul__check ul__checkks">
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-									<li>
-										<img
-											src="/icons/checklist.png"
-											className="icon__li"
-											alt=""
-										/>
-										High quality beans
-									</li>
-								</ul>
-
-								<h4 className="mt-5 text__currency">IDR 25.000</h4>
-								<button className="btn btn-outline-warning btn__curency mt-2">
-									Order Now
-								</button>
-							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</section>
@@ -298,41 +279,51 @@ export default function Home() {
 				</p>
 				<div class="container">
 					<div class="row">
-						<div className="col-md-4">
-							<div class="card card-body card-body-testimonials">
-								<div class="d-flex justify-content-between align-items-center">
-									<div className="d-flex">
-										<img src="/images/review.png" width="50px" alt="" />
-										<div class="d-block mx-3">
-											<p className="p-0 m-0 card-body-testimonials-name">
-												Viezh Robert
+						<Carousel
+							responsive={responsive}
+							containerClass="react-multi-carousel-list"
+						>
+							{testimonials.map((testimonial, idx) => (
+								<div className="col-md-4" key={idx} style={{ width: "100%" }}>
+									<div class="card card-body card-body-testimonials">
+										<div class="d-flex justify-content-between align-items-center">
+											<div className="d-flex">
+												<img
+													src={testimonial.image}
+													style={{ borderRadius: "100%" }}
+													width="50px"
+													alt=""
+												/>
+												<div class="d-block mx-3">
+													<p className="p-0 m-0 card-body-testimonials-name">
+														{testimonial.name}
+													</p>
+													<small className="card-body-testimonials-address">
+														{testimonial.address}
+													</small>
+												</div>
+											</div>
+											<div className="d-flex">
+												<p className="card-body-testimonials-ratings mt-3 mx-2">
+													{testimonial.ratings}
+												</p>
+												<Image
+													src="/icons/stars.svg"
+													width={16}
+													height={16}
+													alt="Ratings"
+												/>
+											</div>
+										</div>
+										<div className="card-footer-testimonials">
+											<p className="card-footer-testimonials-desc">
+												“{testimonial.feedback}“!
 											</p>
-											<small className="card-body-testimonials-address">
-												Warsaw, Poland
-											</small>
 										</div>
 									</div>
-									<div className="d-flex">
-										<p className="card-body-testimonials-ratings mt-3 mx-2">
-											4.5
-										</p>
-										<Image
-											src="/icons/stars.svg"
-											width={16}
-											height={16}
-											alt="Ratings"
-										/>
-									</div>
 								</div>
-								<div className="card-footer-testimonials">
-									<p className="card-footer-testimonials-desc">
-										“Wow... I am very happy to spend my whole day here. the
-										Wi-fi is good, and the coffee and meals tho. I like it
-										here!! Very recommended!
-									</p>
-								</div>
-							</div>
-						</div>
+							))}
+						</Carousel>
 					</div>
 				</div>
 			</section>
