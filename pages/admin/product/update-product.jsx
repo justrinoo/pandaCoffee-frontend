@@ -30,7 +30,7 @@ export default function UpdateProduct() {
       event.target.files.length !== 0 &&
       event.target.files[0].size >= 1024 * 1024
     ) {
-      // toast.error("File to large.");
+      toast.error("File to large.");
       setFormProduct({ image: null });
       return false;
     }
@@ -79,6 +79,7 @@ export default function UpdateProduct() {
         router.push("/admin/product");
       }, 4000);
     } catch (err) {
+      toast.error(err.response.data.message);
       console.log(err);
     }
   };

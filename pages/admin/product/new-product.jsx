@@ -37,7 +37,7 @@ export default function createProduct(props) {
       event.target.files.length !== 0 &&
       event.target.files[0].size >= 1024 * 1024
     ) {
-      // toast.error("File to large.");
+      toast.error("File to large.");
       setFormProduct({ image: null });
       return false;
     }
@@ -88,9 +88,12 @@ export default function createProduct(props) {
         image: null,
       });
 
-      event.target.reset();
-      router.push("/admin/product");
+      // event.target.reset();
+      setTimeout(() => {
+        router.push("/admin/product");
+      }, 4000);
     } catch (error) {
+      toast.error("Semua input harus di isi !");
       console.log(error);
     }
   };

@@ -87,7 +87,6 @@ function ProductAdmin(props) {
   const handleFavorite = () => {
     router.push("/admin/product");
     axios.get(`product/favorite`).then((res) => {
-      // console.log(res.data.data);
       setListProduct(res.data.data);
       setPageInfo({ totalPage: 1 });
     });
@@ -109,8 +108,8 @@ function ProductAdmin(props) {
     const question = confirm(`are you sure delete this product ?`);
     if (question) {
       const response = await dispatch(deleteNewProduct(id));
-      setRefresh((prev) => !prev);
       toast.success(response.value.data.message);
+      setRefresh((prev) => !prev);
     } else {
       return;
     }
@@ -119,6 +118,7 @@ function ProductAdmin(props) {
     <>
       <Layout pageTitle="Product Admin" isLogged={true}>
         <div className="container">
+          <ToastContainer />
           <div className="row">
             <div className="col-lg-4">
               {/* <Promo data={voucher} pagination={pagination} /> */}
