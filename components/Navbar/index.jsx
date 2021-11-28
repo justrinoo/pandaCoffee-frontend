@@ -56,7 +56,7 @@ export default function Navbar() {
 								<Link href="/admin/product">
 									<span className="nav-brand-link">Product</span>
 								</Link>
-								<Link href="/admin/manage-order">
+								<Link href="/admin/manageOrder">
 									<span className="nav-brand-link">Orders</span>
 								</Link>
 								<Link href="/admin/dashboard">

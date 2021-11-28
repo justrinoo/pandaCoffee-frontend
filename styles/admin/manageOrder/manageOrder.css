@@ -151,7 +151,7 @@ hr {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
   max-height: 415px;
   overflow-y: auto;
-  min-height: 215px;
+  /* min-height: 215px; */
 }
 
 .list-ordered__cont::-webkit-scrollbar {
@@ -200,7 +200,7 @@ hr {
     min-height: 500px;
   }
   .list-ordered__cont {
-    min-height: 215px;
+    /* min-height: 215px; */
     max-height: 315px;
   }
 }

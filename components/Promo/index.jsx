@@ -119,6 +119,7 @@ export default function Promo({ data, pagination, role }) {
 				) : (
 					<Button
 						childrenClassName="promo__button"
+						childrenOnClick={() => router.push("/customer/checkout")}
 						// tambahin event apply cuppon
 					>
 						Apply Cuppon
