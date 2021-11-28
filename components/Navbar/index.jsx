@@ -162,7 +162,6 @@ export default function Navbar() {
                 className="nav-icon-mobile d-flex d-md-none mx-3"
                 alt="Chat"
               />
-
               <img
                 src="/icons/chat.svg"
                 width={30}
