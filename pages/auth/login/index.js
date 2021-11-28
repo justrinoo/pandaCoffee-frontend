@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "store/action/auth";
 
 import { getDataCookie } from "middleware/authorizationPage";
+// import { Alert } from "bootstrap";
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
@@ -35,22 +36,22 @@ const Login = (props) => {
     props
       .loginUser(form)
       .then((res) => {
-        console.log(res.value.data.data.id);
-        Cookie.set("token", res.value.data.data.token);
-        localStorage.setItem("refreshToken", res.value.data.data.refreshToken);
+        // alert("BERHASIL REFRESH TOKEN");
         localStorage.setItem("token", res.value.data.data.token);
+        localStorage.setItem("refreshToken", res.value.data.data.refreshToken);
+        Cookie.set("token", res.value.data.data.token);
         Cookie.set("id", res.value.data.data.id);
         props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+          localStorage.setItem("role", responseUser.value.data.data[0].role);
           if (responseUser.value.data.data[0].role === "admin") {
             router.push("/admin/product");
           } else {
-            router.push(`/profile`);
+            router.push(`/customer/history`);
           }
         });
       })
       .catch((err) => {
-        // toast.warn(err.response.data.message);
-        console.log(err);
+        toast.warn(err.response.data.message);
       });
     console.log(form);
   };

@@ -131,8 +131,8 @@
 
 .product__list img {
   border-radius: 50%;
-  height: 80px;
-  width: 90px;
+  height: 80px !important;
+  width: 90px !important;
   object-fit: cover;
   margin-top: -50px;
 }
@@ -194,4 +194,130 @@
   right: 68%;
   margin-top: 8rem;
   bottom: auto;
+}
+
+.size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.size__cup {
+  background-color: #ffba33;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 70px !important;
+  height: 70px !important;
+  margin: 12px 12px 0 0 !important;
+}
+
+.size__cup p {
+  margin: 0;
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+}
+
+.size__gr {
+  background-color: #bababa;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 70px !important;
+  height: 70px !important;
+  margin: 12px 12px 0 0 !important;
+}
+
+.size__gr--col {
+  text-align: center;
+}
+
+.size__gr--col p {
+  margin: 0;
+}
+
+.product-form-input-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-form-input-parent label {
+  color: #6a4029;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.product-form-input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #4f5665;
+  color: #9f9f9f;
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.description-size p {
+  color: #9f9f9f;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.product-form-select {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #4f5665;
+  background-color: #fff;
+  color: #9f9f9f;
+  margin-top: 5px;
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.file__image--active {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.size__button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  background: #adadad;
+  line-height: 70px;
+  font-size: 20px !important;
+}
+
+.size {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+
+.size__input:checked + .size__button {
+  background: #ffba33;
+}
+
+.change__color .size__button {
+  background: #ffba33;
+}
+
+.change__color {
+  display: flex;
+  justify-content: space-around;
+}
+
+label.size__button {
+  /* margin: 12px; */
+  margin-right: 12px;
 }

@@ -7,7 +7,6 @@ import Pagination from "react-paginate";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function Promo({ data, pagination, role }) {
-	console.log("role  =>", role);
 	const router = useRouter();
 	const dispatch = useDispatch();
 
