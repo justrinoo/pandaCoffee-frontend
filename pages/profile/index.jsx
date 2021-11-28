@@ -28,6 +28,7 @@ import { connect } from "react-redux";
 import { getUserLogin } from "store/action/auth";
 
 const Profile = (props) => {
+  console.log(props.auth, "skadaskdn");
   const [data, setData] = useState({});
   const router = useRouter();
 
@@ -92,9 +93,10 @@ const Profile = (props) => {
     axios
       .get(`/user/${id}`)
       .then((res) => {
+        console.log(res.data, "consolee");
         setForm({
           ...res.data.data[0],
-          birthDay: res.data.data[0].birthDay.slice(0, 10),
+          birthDay: res.data.data[0].birthDay?.slice(0, 10),
         });
         setData(res.data.data[0]);
       })
@@ -103,15 +105,17 @@ const Profile = (props) => {
       });
   };
 
+  const { userLogin } = props.auth;
+
   const [form, setForm] = useState({
-    email: "",
-    phoneNumber: "",
-    address: "",
-    userName: "",
-    firstName: "",
-    lastName: "",
-    birthDay: "",
-    gender: "",
+    email: userLogin.email,
+    phoneNumber: userLogin.phoneNumber,
+    address: userLogin.address,
+    userName: userLogin.userName,
+    firstName: userLogin.firstName,
+    lastName: userLogin.lastName,
+    birthDay: userLogin.birthDay?.slice(0, 10),
+    gender: userLogin.gender,
   });
 
   useEffect(() => {
@@ -183,6 +187,7 @@ const Profile = (props) => {
         toast.error(err.response.data.message);
       });
   };
+
   return (
     <>
       <Layout pageTitle="Profile" isLogged={true}>
@@ -295,6 +300,7 @@ const Profile = (props) => {
                         <p>Email adress:</p>
                         <input
                           type="text"
+                          disabled={true}
                           placeholder="zulaikha17@gmail.com"
                           onChange={onChangeInput}
                           name="email"
