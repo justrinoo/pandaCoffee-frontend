@@ -109,13 +109,17 @@
 .product__filter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px;
+  overflow-x: auto;
 }
 
 .product__filter h2 {
   color: #6a4029;
   font-size: 20px;
   font-weight: 700;
+  margin: 0;
+  margin: 0 12px 0 0;
 }
 
 .product__list {
