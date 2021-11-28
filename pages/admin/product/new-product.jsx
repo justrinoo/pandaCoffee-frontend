@@ -4,7 +4,9 @@ import { Breadcrumb } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { createNewProduct } from "store/action/product";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
+import product from "store/reducer/product";
 
 export default function createProduct() {
   const router = useRouter();
@@ -50,6 +52,12 @@ export default function createProduct() {
   };
 
   const ChangeTextFile = (event) => {
+    // if (formProduct.size == 1) {
+    //   size = "R/L/XL";
+    // } else formProduct.size == 2;
+    // {
+    //   size = "250/300/500";
+    // }
     setFormProduct({
       ...formProduct,
       [event.target.name]: event.target.value,
@@ -75,10 +83,10 @@ export default function createProduct() {
       for (const value in setDataProduct) {
         await formDataProduct.append(value, setDataProduct[value]);
       }
-      console.log(setDataProduct, "sahdksahfjashfkjh");
+      // console.log(setDataProduct, "sahdksahfjashfkjh");
       const response = await dispatch(createNewProduct(formDataProduct));
-      console.log(response);
-      // toast.success(response.value.data.message);
+      // console.log(response);
+      toast.success(response.value.data.message);
       setFormProduct({
         nameProduct: "",
         price: "",
@@ -111,6 +119,7 @@ export default function createProduct() {
               <span className="breadcrumb-active">Add Product</span>
             </Breadcrumb.Item>
           </Breadcrumb>
+          <ToastContainer />
           <form onSubmit={createNewProductSubmit}>
             <section className="row mt-5">
               <section className="col-md-4  mb-5 text-center">
@@ -314,36 +323,6 @@ export default function createProduct() {
                       500gr
                     </label>
                   </div>
-
-                  {/* <div className="row size mt-4" name="size" id="size">
-                    <div className="col-2 size__cup">
-                      <p value="1">R</p>
-                    </div>
-                    <div className="col-2 size__cup">
-                      <p value="1">L</p>
-                    </div>
-                    <div className="col-2 size__cup">
-                      <p value="1">XL</p>
-                    </div>
-                    <div className="col-2 size__gr">
-                      <div className="size__gr--col" value="2">
-                        <p>250</p>
-                        <p>gr</p>
-                      </div>
-                    </div>
-                    <div className="col-2 size__gr">
-                      <div className="size__gr--col" value="2">
-                        <p>300</p>
-                        <p>gr</p>
-                      </div>
-                    </div>
-                    <div className="col-2 size__gr">
-                      <div className="size__gr--col" value="2">
-                        <p>500</p>
-                        <p>gr</p>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </section>
             </section>

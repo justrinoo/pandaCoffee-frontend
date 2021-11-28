@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { getDataCookie } from "middleware/authorizationPage";
 import { useDispatch } from "react-redux";
 import { deleteNewProduct, setDataProduct } from "store/action/product";
 import axios from "utils/axios";
@@ -13,7 +12,7 @@ export async function getServerSideProps({ query: { page = 1 } }) {
   const response = await axios
     .get(`promo?page=${page}&limit=4`)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       return res.data;
     })
     .catch(() => {
@@ -37,13 +36,13 @@ function ProductAdmin(props) {
   const { auth } = props;
   const router = useRouter();
   const dispatch = useDispatch();
-  const { search, sortField, sort, page, category } = router.query;
+  const { search, sortField, sort, pageProduct, category } = router.query;
   const [pageInfo, setPageInfo] = useState({});
   const [refresh, setRefresh] = useState(true);
   const dataVoucher = props.response.data;
   const pagination = props.response.pagination;
-  console.log("data voucher =>", dataVoucher);
-  console.log("data pagination =>", pagination);
+  // console.log("data voucher =>", dataVoucher);
+  // console.log("data pagination =>", pagination);
 
   const [listProduct, setListProduct] = useState(props.listProduct);
 
@@ -59,7 +58,7 @@ function ProductAdmin(props) {
       !router.query.search &&
       !router.query.sortField &&
       !router.query.sort &&
-      !router.query.page &&
+      !router.query.pageProduct &&
       !router.query.category
     ) {
       null;
@@ -68,12 +67,12 @@ function ProductAdmin(props) {
         .get(
           `product?search=${search ? search : ""}&sortField=${
             sortField ? sortField : ""
-          }&sort=${sort ? sort : ""}&page=${page ? page : ""}&category=${
-            category ? category : ""
-          }`
+          }&sort=${sort ? sort : ""}&page=${
+            pageProduct ? pageProduct : ""
+          }&category=${category ? category : ""}`
         )
         .then((res) => {
-          console.log("TEST");
+          // console.log("TEST");
           setListProduct(res.data.data);
           setPageInfo(res.data.pagination);
         })
@@ -87,7 +86,7 @@ function ProductAdmin(props) {
   const handleFavorite = () => {
     router.push("/admin/product");
     axios.get(`product/favorite`).then((res) => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setListProduct(res.data.data);
       setPageInfo({ totalPage: 1 });
     });
@@ -99,7 +98,7 @@ function ProductAdmin(props) {
 
   const handlePagination = async (event) => {
     const query = router.query;
-    query.page = event.selected + 1;
+    query.pageProduct = event.selected + 1;
     router.push({
       query: query,
     });
@@ -129,25 +128,25 @@ function ProductAdmin(props) {
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&page=1&category=coffee"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffee"
                     )
                   }
                 >
-                  Coffe
+                  Coffee
                 </h2>
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&page=1&category=non-coffee"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=non-coffee"
                     )
                   }
                 >
-                  Non Coffe
+                  Non-Coffee
                 </h2>
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&page=1&category=foods"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=foods"
                     )
                   }
                 >
@@ -156,7 +155,7 @@ function ProductAdmin(props) {
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&page=1&category=add-on"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=add-on"
                     )
                   }
                 >
@@ -165,7 +164,7 @@ function ProductAdmin(props) {
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&page=1&category="
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category="
                     )
                   }
                 >
