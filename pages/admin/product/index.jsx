@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteNewProduct, setDataProduct } from "store/action/product";
 import axios from "utils/axios";
 import Paginate from "react-paginate";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps({ query: { page = 1 } }) {
 	const response = await axios
@@ -116,6 +117,13 @@ function ProductAdmin(props) {
 			return;
 		}
 	};
+
+	useEffect(() => {
+		const token = Cookies.get("token");
+		if (!token) {
+			router.push("/auth/login");
+		}
+	}, []);
 	return (
 		<>
 			<Layout pageTitle="Product Admin" isLogged={true}>

@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import { getDataCookie } from "middleware/authorizationPage";
 import axios from "utils/axios";
-
 import Paginate from "react-paginate";
 import { getAllPromo } from "store/action/voucher";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
 	const dataCookie = await getDataCookie(context);
@@ -40,14 +40,16 @@ export async function getServerSideProps(context) {
 }
 
 function Product(props) {
+	const role = localStorage.getItem("role");
 	const voucher = useSelector((state) => state.voucher.vouchers);
+	console.log("voucher =>", voucher);
 	const { auth } = props;
 	const router = useRouter();
 	const { search, sortField, sort, pageP, category } = router.query;
 	const [pageInfo, setPageInfo] = useState({ totalPage: 1 });
-	// const [dataVoucher, setDataVoucher] = useState([]);
+	const [dataVoucher, setDataVoucher] = useState([]);
+	const [totalPageVoucher, setTotalPageVoucher] = useState(1);
 	// const [pageVoucher, setPageVoucher] = useState(1);
-	// const [totalPageVoucher, setTotalPageVouher] = useState(1);
 
 	const [listProduct, setListProduct] = useState(props.listProduct);
 	// console.log(props);
@@ -112,31 +114,39 @@ function Product(props) {
 		);
 	};
 
-	// useEffect(() => {
-	// 	if (router.query.page) {
-	// 		props
-	// 			.getAllPromo(router.query.page, 4)
-	// 			.then((res) => {
-	// 				setDataVoucher(res.value.data.data);
-	// 				setTotalPageVoucher(res.value.data.pagination);
-	// 			})
-	// 			.catch((err) => {
-	// 				setDataVoucher([]);
-	// 				setTotalPageVoucher(1);
-	// 				// console.log(err.value);
-	// 			});
-	// 	} else {
-	// 		props
-	// 			.getAllPromo(1, 4)
-	// 			.then((res) => {
-	// 				console.log(res.value);
-	// 			})
-	// 			.catch((err) => {
-	// 				console.log(err.value);
-	// 			});
-	// 	}
-	// }, [router.query.page]);
+	useEffect(() => {
+		if (router.query.page) {
+			props
+				.getAllPromo(router.query.page, 4)
+				.then((res) => {
+					setDataVoucher(res.value.data.data);
+					setTotalPageVoucher(res.value.data.pagination);
+				})
+				.catch((err) => {
+					setDataVoucher([]);
+					setTotalPageVoucher(1);
+					// console.log(err.value);
+				});
+		} else {
+			props
+				.getAllPromo(1, 4)
+				.then((res) => {
+					setDataVoucher(res.value.data.data);
+					setTotalPageVoucher(res.value.data.pagination);
+				})
+				.catch((err) => {
+					setDataVoucher([]);
+					setTotalPageVoucher(1);
+				});
+		}
+	}, [router.query.page]);
 
+	useEffect(() => {
+		if (role !== "user") {
+			router.push("/");
+		}
+	}, []);
+	console.log("data voucher =>", dataVoucher);
 	return (
 		<>
 			<Layout pageTitle="Product" isLogged={true}>
@@ -144,9 +154,9 @@ function Product(props) {
 					<div className="row">
 						<div className="col-lg-4 ">
 							<Promo
-								role={auth.userLogin[0].role}
-								data={voucher}
-								pagination={{ totalPage: 1 }}
+								role={role}
+								data={dataVoucher}
+								pagination={totalPageVoucher}
 							/>
 						</div>
 						<div className="col-lg-8 product">

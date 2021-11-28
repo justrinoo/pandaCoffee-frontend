@@ -10,11 +10,12 @@ import { getDataCookie } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
 	const dataCookie = await getDataCookie(context);
+	console.log(dataCookie.isLogin);
 	if (dataCookie.isLogin) {
 		return {
 			redirect: {
 				destination: "/product",
-				permanent: false,
+				permanent: true,
 			},
 		};
 	}

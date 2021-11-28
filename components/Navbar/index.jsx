@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 export default function Navbar() {
 	const role = localStorage.getItem("role");
+	console.log("role", role);
 	const token = Cookies.get("token");
 	const router = useRouter();
 	return (
@@ -34,11 +35,13 @@ export default function Navbar() {
 						</Link>
 					</section>
 					<section className="navbar-link-content">
-						<Link href="/">
-							<span className="nav-brand-link nav-brand-link-active">Home</span>
-						</Link>
-						{role !== "admin" ? (
+						{role === "admin" ? (
 							<>
+								<Link href="/">
+									<span className="nav-brand-link nav-brand-link-active">
+										Home
+									</span>
+								</Link>
 								<Link href="/admin/product">
 									<span className="nav-brand-link">Product</span>
 								</Link>
@@ -49,7 +52,7 @@ export default function Navbar() {
 									<span className="nav-brand-link">Dashboard</span>
 								</Link>
 							</>
-						) : (
+						) : role !== "admin" && token ? (
 							<>
 								<Link href="/product">
 									<span className="nav-brand-link">Product</span>
@@ -61,7 +64,7 @@ export default function Navbar() {
 									<span className="nav-brand-link">History</span>
 								</Link>
 							</>
-						)}
+						) : null}
 					</section>
 					{token ? (
 						<section className="navbar-section-profile d-flex flex-row-reverse align-items-center">
