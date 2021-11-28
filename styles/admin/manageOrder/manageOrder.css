@@ -1,8 +1,6 @@
 .manage-order__background {
   background-image: url("/images/nathan-dumlao-zTZRZV86GhE-unsplash\ 1.png");
-  /* background-size: auto 100%; */
-  background-size: 100vh auto;
-  /* background-position: center; */
+  background-size: cover;
 }
 
 .manage-order__stepper-circle {
