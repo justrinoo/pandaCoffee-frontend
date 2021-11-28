@@ -35,6 +35,7 @@ export default function NavbarSignUp() {
             <button
               type="button"
               className="button-nav-auth btn btn-warning btn-block rounded-pill"
+              onClick={login}
             >
               Login
             </button>

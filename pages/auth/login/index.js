@@ -25,21 +25,17 @@ const Login = (props) => {
         Cookie.set("token", res.value.data.data.token);
         localStorage.setItem("token", res.value.data.data.token);
         Cookie.set("id", res.value.data.data.id);
-        props.getUserLogin(res.value.data.data.id);
-        // // router.push("/main/home");
-        toast.success("Login Sucess");
-        if (res.value.data.data.role === "admin") {
-          setTimeout(() => {
-            router.push(`/main/admin`);
-          }, 4000);
-        } else {
-          setTimeout(() => {
-            router.push("/main/home");
-          }, 4000);
-        }
+        props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+          if (responseUser.value.data.data[0].role === "admin") {
+            router.push("/dashboard/admin");
+          } else {
+            router.push(`/main/home`);
+          }
+        });
       })
       .catch((err) => {
-        toast.warn(err.response.data.message);
+        // toast.warn(err.response.data.message);
+        console.log(err);
       });
     console.log(form);
   };
