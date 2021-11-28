@@ -42,11 +42,25 @@ export default function dashboardAdmin() {
   };
 
   // Report
-  const redirectLink = (e) => {
+  // const redirectLink = (e) => {
+  //   e.preventDefault();
+  //   axios.get(`/dashboard/MONTH`).then((res) => {
+  //     console.log(res.data.data.redirect_url);
+  //   });
+  // };
+  const reportLink = (e) => {
     e.preventDefault();
-    axios.get(`/dashboard/MONTH`).then((res) => {
-      console.log(res.data.data.redirect_url);
-    });
+    axios
+      .get(`/dashboard/MONTH`)
+      .then((res) => {
+        router.push(
+          "http://localhost:3001/upload/generate/report-dashboard-MONTH.pdf"
+        );
+      })
+      .catch((err) => {
+        toast.warn(err.response.data.message);
+        // console.log(err);
+      });
   };
 
   return (
@@ -113,6 +127,7 @@ export default function dashboardAdmin() {
             <button
               type="submit"
               className="button-dashboard btn btn-warning mb-3 rounded"
+              onClick={reportLink}
             >
               Download Report
             </button>
