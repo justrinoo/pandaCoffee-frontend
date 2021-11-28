@@ -21,6 +21,11 @@ export async function getServerSideProps(context) {
 }
 
 export default function createPromo() {
+	useEffect(() => {
+		if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+	},[])
 	return (
 		<>
 			<Layout pageTitle="Create Promo" isLogged={true}>

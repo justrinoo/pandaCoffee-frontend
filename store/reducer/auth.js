@@ -43,6 +43,7 @@ const login = (state = initialState, action) => {
       };
     }
     case "GETUSER_FULFILLED": {
+      console.log("BERHASIL GETUSER", action.payload.data);
       return {
         ...state,
         isLoading: false,

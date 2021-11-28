@@ -115,6 +115,12 @@ export default function FormUpdatePromo() {
 		router.push("/admin/product");
 	};
 
+	useEffect(() => {
+		if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+	},[])
+
 	return (
 		<>
 			<Layout pageTitle="Update Promo" isLogged={true}>
@@ -132,7 +138,9 @@ export default function FormUpdatePromo() {
 					<form onSubmit={createUpdatePromoSubmit} className="mt-4">
 						<section className="row mt-5">
 							<section className="col-md-4 mb-5 text-center">
-								<div className="promo-rounded-file">
+								<div
+									className={formVoucher.image ? null : "promo-rounded-file"}
+								>
 									<img
 										src={
 											displayImage

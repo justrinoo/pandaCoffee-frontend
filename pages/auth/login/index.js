@@ -1,24 +1,22 @@
 import React, { useState } from "react";
-import Layout from "components/Layout";
-import NavbarLogin from "components/modules/auth/NavbarLogin";
-import Footer from "components/modules/auth/Footer";
+import { Layout } from "components";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
-import { unAuthPage } from "middleware/authorizationPage";
 import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "store/action/auth";
 
 import { getDataCookie } from "middleware/authorizationPage";
+// import { Alert } from "bootstrap";
 
 export async function getServerSideProps(context) {
 	const dataCookie = await getDataCookie(context);
+	console.log(dataCookie.isLogin);
 	if (dataCookie.isLogin) {
 		return {
 			redirect: {
 				destination: "/product",
-				permanent: false,
+				permanent: true,
 			},
 		};
 	}
@@ -39,28 +37,22 @@ const Login = (props) => {
 		props
 			.loginUser(form)
 			.then((res) => {
-				console.log(res.value.data.data);
-				Cookie.set("token", res.value.data.data.token);
+				// alert("BERHASIL REFRESH TOKEN");
 				localStorage.setItem("token", res.value.data.data.token);
+				localStorage.setItem("refreshToken", res.value.data.data.refreshToken);
+				Cookie.set("token", res.value.data.data.token);
 				Cookie.set("id", res.value.data.data.id);
-				props
-					.getUserLogin(res.value.data.data.id)
-					.then((res) => {
-						toast.success("Login Sucess");
-						if (res.value.data.data[0].role === "admin") {
-							router.push(`/admin/product`);
-						} else {
-							router.push("/product");
-						}
-					})
-					.catch((err) => {
-						toast.error(err.response.data.msg);
-					});
-				// // router.push("/main/home");
+				props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+					localStorage.setItem("role", responseUser.value.data.data[0].role);
+					if (responseUser.value.data.data[0].role === "admin") {
+						router.push("/admin/product");
+					} else {
+						router.push(`/customer/history`);
+					}
+				});
 			})
 			.catch((err) => {
-				toast.error(err.response.data.message);
-				// console.log(err.response.data.message);
+				toast.warn(err.response.data.message);
 			});
 		console.log(form);
 	};
@@ -71,14 +63,13 @@ const Login = (props) => {
 	// Handle Login End
 
 	return (
-		<Layout title="Login Panda Coffee">
+		<Layout title="Login Panda Coffee" isLogged={true}>
 			<div className="row">
 				<div className="col-md-6">
 					<img src="/images/coffee-left.png" />
 				</div>
 				<div className="col-md-6">
 					{/* Auth Navbar */}
-					<NavbarLogin />
 					{/* Auth Navbar End */}
 					<ToastContainer />
 					<h2 className="register-title">Login</h2>
@@ -103,7 +94,7 @@ const Login = (props) => {
 									onChange={handleChangeText}
 								/>
 							</div>
-							<a href="#" className="forgot-password">
+							<a href="/auth/forgotPassword" className="forgot-password">
 								Forgot Password ?
 							</a>
 							<button className="button-submit btn btn-warning mt-3 rounded-pill">
@@ -118,7 +109,6 @@ const Login = (props) => {
 					{/* Auth Login Form End */}
 				</div>
 			</div>
-			<Footer></Footer>
 		</Layout>
 	);
 };

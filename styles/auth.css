@@ -31,6 +31,7 @@
 .forgot-password:hover {
   color: #6a4029;
 }
+/* Register */
 
 /* Footer */
 footer {
@@ -97,4 +98,33 @@ footer {
   background-color: #6a4029;
   border-color: #6a4029;
   color: white;
+}
+
+/* Dashboard Admin */
+
+.link-dashboard {
+  color: black;
+}
+.button-dashboard {
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
+  width: 100%;
+}
+
+@media (max-width: 579.45px) {
+  .image-auth {
+    display: none;
+  }
+  /* forgot password */
+  .forgot-password-content {
+    background-image: url("../public/images/forgot-password.png");
+    width: 100%;
+  }
+  .forgot-input-email {
+    width: 100%;
+  }
+  .image-register {
+    display: inline;
+  }
 }

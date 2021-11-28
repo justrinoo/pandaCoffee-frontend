@@ -5,56 +5,103 @@
 @import url(admin/manageOrder//manageOrder.css);
 @import url("./textFormating/index.css");
 @import url("./productDetails/productDetails.css");
-@import url(admin/product/product.css);
 @import url(history-order/style.css);
 @import url(landing-page.css);
-@import url(admin/product/product.css);
 @import url(auth.css);
+@import url(productDetails/product.css);
+@import url(history-order/style.css);
+@import url(checkout.css);
+
 *,
 html {
-	font-family: "Rubik", sans-serif;
-	font-size: 1rem;
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
 }
 
 /* Navbar */
 .nav-brand-link {
-	margin: 0px 14px;
-	font-size: 16px;
-	color: #4f5665;
-	cursor: pointer;
+  margin: 0px 14px;
+  font-size: 16px;
+  color: #4f5665;
+  cursor: pointer;
 }
 .title-brand {
-	font-size: 20px;
-	font-weight: 700;
-	color: #0b132a;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b132a;
 }
 
 .nav-brand-link-active {
-	color: #6a4029;
-	font-weight: bold;
-	font-size: 16px;
+  color: #6a4029;
+  font-weight: bold;
+  font-size: 16px;
 }
 .nav-profile-image {
-	border-radius: 100%;
+  border-radius: 100%;
+}
+.nav-button-auth-login {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+}
+.nav-button-auth-signup {
+  color: #6a4029;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 32px;
+  background: #ffba33;
+  border-radius: 50px;
+  border: none;
 }
 
 /* Footer */
 .footer-main {
-	background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 .footer-title-description {
-	color: #4f5665;
-	font-weight: 500;
-	font-size: 16px;
-	width: 58%;
+  color: #4f5665;
+  font-weight: 500;
+  font-size: 16px;
+  width: 58%;
 }
 .footer-link {
-	cursor: pointer;
+  cursor: pointer;
 }
 .footer-link:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .hover-pointer:hover {
-	cursor: pointer;
+  cursor: pointer;
+}
+.product__search {
+  width: 50px !important;
+  height: 50px !important;
+  margin-right: 15px;
+}
+/*  MOBILE SCREEN */
+
+@media (max-width: 578.95px) {
+  header {
+    padding: 0px !important;
+  }
+  .navbar-brand-logo {
+    display: none;
+  }
+  .title-brand {
+    display: none;
+  }
+  .navbar-link-content {
+    display: none;
+  }
+  .navbar-section-profile {
+    width: 100%;
+  }
+
+  .nav-profile-icon {
+    display: none;
+  }
+  .nav-icon-mobile {
+    display: block;
+  }
 }
