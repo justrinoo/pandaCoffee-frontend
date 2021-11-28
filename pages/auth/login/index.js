@@ -92,7 +92,7 @@ const Login = (props) => {
 									onChange={handleChangeText}
 								/>
 							</div>
-							<a href="#" className="forgot-password">
+							<a href="/auth/forgotPassword" className="forgot-password">
 								Forgot Password ?
 							</a>
 							<button className="button-submit btn btn-warning mt-3 rounded-pill">

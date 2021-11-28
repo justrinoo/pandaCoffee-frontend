@@ -80,6 +80,11 @@ export default function Home() {
 		},
 	};
 
+	const findProduct = (event) => {
+		if (event.key === "Enter") {
+		}
+	};
+
 	return (
 		<Layout pageTitle="Home Page" isLogged={true}>
 			<section className="jarak-50" id="HERO">

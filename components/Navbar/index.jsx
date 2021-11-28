@@ -2,11 +2,22 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
 export default function Navbar() {
+	const user = useSelector((state) => state.auth.userLogin);
 	const role = localStorage.getItem("role");
 	console.log("role", role);
 	const token = Cookies.get("token");
 	const router = useRouter();
+
+	const LogoutHandler = () => {
+		Cookies.remove("token");
+		Cookies.remove("id");
+		localStorage.clear();
+		router.push("/");
+	};
+
 	return (
 		<>
 			<header className="container">
@@ -57,7 +68,7 @@ export default function Navbar() {
 								<Link href="/product">
 									<span className="nav-brand-link">Product</span>
 								</Link>
-								<Link href="/cart">
+								<Link href="/customer/checkout">
 									<span className="nav-brand-link">Your cart</span>
 								</Link>
 								<Link href="/customer/history">
@@ -68,13 +79,39 @@ export default function Navbar() {
 					</section>
 					{token ? (
 						<section className="navbar-section-profile d-flex flex-row-reverse align-items-center">
-							<img
-								src="/images/profileDummy.png"
-								width={30}
-								height={30}
-								className="nav-profile-image mx-4"
-								alt="Profile"
-							/>
+							<div className="dropdown">
+								<img
+									src={
+										user[0].image
+											? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+											: "https://cdn.discordapp.com/avatars/818102343404224523/7334e7a8cf36f4610981642677a47791.png?size=128"
+									}
+									width={45}
+									height={45}
+									className="nav-profile-image mx-4"
+									style={{ cursor: "pointer" }}
+									id="dropdownMenuLink"
+									data-bs-toggle="dropdown"
+									alt="Profile"
+								/>
+
+								<ul
+									className="dropdown-menu"
+									aria-labelledby="dropdownMenuLink"
+								>
+									<li>
+										<a className="dropdown-item" href="/profile">
+											Profile
+										</a>
+									</li>
+									<li>
+										<a className="dropdown-item" onClick={LogoutHandler}>
+											Logout
+										</a>
+									</li>
+								</ul>
+							</div>
+
 							<img
 								src="/icons/shopping-cart.svg"
 								width={24}
