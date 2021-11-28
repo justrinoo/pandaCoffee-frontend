@@ -99,6 +99,17 @@ footer {
   color: white;
 }
 
+/* Dashboard Admin */
+.link-dashboard {
+  color: black;
+}
+.button-dashboard {
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
+  width: 100%;
+}
+
 @media (max-width: 579.45px) {
   .image-auth {
     display: none;

@@ -31,13 +31,14 @@ const Chart = () => {
       try {
         const getChartData = await axios.get(`/dashboard/MONTH`);
         console.log(getChartData);
-        setIncome(getChartData.data.data.allData.map((e) => e.total));
+        setIncome(getChartData.data.data.allData);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
 
+  console.log(income.map((item) => item.total));
   const chartData = {
     labels: [
       "January",
@@ -56,7 +57,9 @@ const Chart = () => {
     datasets: [
       {
         label: "income",
-        data: income,
+        data: income.map((item) => {
+          return item.total;
+        }),
         backgroundColor: "#FFC312",
         borderColor: "#FFC312",
         barThickness: 12,
