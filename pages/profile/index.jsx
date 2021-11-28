@@ -10,12 +10,13 @@ export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
 
   if (!dataCookie.isLogin) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
+    // return {
+    //   redirect: {
+    //     destination: "/auth/login",
+    //     permanent: false,
+    //   },
+    // };
+    console.log(dataCookie);
   }
 
   return {

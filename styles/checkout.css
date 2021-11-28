@@ -1,0 +1,49 @@
+.checkout-main {
+  background-image: url(/images/checkout.png);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.card-text {
+  color: black !important;
+  font-family: "poppins";
+}
+.checkout-privew {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.p-none__card p {
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-bottom: 3px !important;
+}
+.p-none__card {
+  margin-left: 20px;
+}
+.select__checkout {
+  border-radius: 20px !important;
+}
+.checkout__hr {
+  border-top: 0.5px solid #9f9f9f !important;
+  border-bottom: 0.5px solid #9f9f9f !important;
+  padding: 20px;
+}
+
+.checkout__icon {
+  width: 70px;
+  margin: 0 10px;
+}
+.input__checkout {
+  margin-top: 25px !important;
+}
+
+.btn--confirm {
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+  /* margin-bottom: 50px; */
+}
