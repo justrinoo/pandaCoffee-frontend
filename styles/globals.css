@@ -74,7 +74,11 @@ html {
 .hover-pointer:hover {
   cursor: pointer;
 }
-
+.product__search {
+  width: 50px !important;
+  height: 50px !important;
+  margin-right: 15px;
+}
 /*  MOBILE SCREEN */
 
 @media (max-width: 578.95px) {
