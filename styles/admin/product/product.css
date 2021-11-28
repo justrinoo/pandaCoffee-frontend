@@ -301,12 +301,23 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  /* align-items: center; */
 }
 
 .size__input:checked + .size__button {
   background: #ffba33;
 }
 
-.size__input {
-  display: none;
+.change__color .size__button {
+  background: #ffba33;
+}
+
+.change__color {
+  display: flex;
+  justify-content: space-around;
+}
+
+label.size__button {
+  /* margin: 12px; */
+  margin-right: 12px;
 }

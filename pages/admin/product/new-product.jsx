@@ -6,9 +6,8 @@ import { createNewProduct } from "store/action/product";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
-import product from "store/reducer/product";
 
-export default function createProduct() {
+export default function createProduct(props) {
   const router = useRouter();
   const inputFile = useRef(null);
   const dispatch = useDispatch();
@@ -23,16 +22,15 @@ export default function createProduct() {
     image: null,
   });
 
+  // useEffect(() => {
+  //   if (localStorage.getItem("role") !== "admin") {
+  //     router.push("/product");
+  //   }
+  // }, []);
+
   const onButtonClick = () => {
     inputFile.current.click();
   };
-
-  const target1 = useRef(null);
-  const target2 = useRef(null);
-  const target3 = useRef(null);
-  const target4 = useRef(null);
-  const target5 = useRef(null);
-  const target6 = useRef(null);
 
   const onChangeFile = (event) => {
     if (
@@ -52,12 +50,6 @@ export default function createProduct() {
   };
 
   const ChangeTextFile = (event) => {
-    // if (formProduct.size == 1) {
-    //   size = "R/L/XL";
-    // } else formProduct.size == 2;
-    // {
-    //   size = "250/300/500";
-    // }
     setFormProduct({
       ...formProduct,
       [event.target.name]: event.target.value,
@@ -107,6 +99,8 @@ export default function createProduct() {
     e.preventDefault();
     router.push(`/admin/product`);
   };
+
+  console.log(formProduct, "fommmmm");
   return (
     <>
       <Layout pageTitle="Create Product" isLogged={true}>
@@ -197,10 +191,10 @@ export default function createProduct() {
                       className="product-form-select "
                     >
                       <option hidden>Category</option>
-                      <option value="coffee">coffee</option>
-                      <option value="non-coffee">non-coffee</option>
-                      <option value="foods">foods</option>
-                      <option value="add-on">add-on</option>
+                      <option value="coffe">coffee</option>
+                      <option value="nonCoffee">non-coffee</option>
+                      <option value="food">foods</option>
+                      <option value="addon">add-on</option>
                     </select>
                   </div>
                 </div>
@@ -221,107 +215,42 @@ export default function createProduct() {
                     <p>Click size you want to use for this product</p>
                   </div>
                   <div className="size">
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target1}
-                      value="1"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="r"
-                      className="size__button"
-                      onClick={() => target1.current.click()}
+                    <div
+                      className={formProduct.size == 1 ? "change__color" : ""}
+                      onClick={() =>
+                        setFormProduct({ ...formProduct, size: "1" })
+                      }
                     >
-                      R
-                    </label>
+                      <label htmlFor="r" className="size__button">
+                        R
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target2}
-                      value="1"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="l"
-                      className="size__button"
-                      onClick={() => target2.current.click()}
-                    >
-                      L
-                    </label>
+                      <label htmlFor="l" className="size__button">
+                        L
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target3}
-                      value="1"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="xl"
-                      className="size__button"
-                      onClick={() => target3.current.click()}
+                      <label htmlFor="xl" className="size__button">
+                        XL
+                      </label>
+                    </div>
+                    <div
+                      className={formProduct.size == 2 ? "change__color" : ""}
+                      onClick={() =>
+                        setFormProduct({ ...formProduct, size: "2" })
+                      }
                     >
-                      XL
-                    </label>
+                      <label htmlFor="250gr" className="size__button ">
+                        250gr
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target4}
-                      value="2"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="250gr"
-                      className="size__button "
-                      onClick={() => target4.current.click()}
-                    >
-                      250gr
-                    </label>
+                      <label htmlFor="300gr" className="size__button">
+                        300gr
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target5}
-                      value="2"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="300gr"
-                      className="size__button"
-                      onClick={() => target5.current.click()}
-                    >
-                      300gr
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      ref={target6}
-                      value="2"
-                      name="size"
-                      id="size"
-                      onChange={ChangeTextFile}
-                    />
-                    <label
-                      htmlFor="500gr"
-                      className="size__button"
-                      onClick={() => target6.current.click()}
-                    >
-                      500gr
-                    </label>
+                      <label htmlFor="500gr" className="size__button">
+                        500gr
+                      </label>
+                    </div>
                   </div>
                 </div>
               </section>

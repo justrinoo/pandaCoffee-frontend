@@ -7,13 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateNewProduct } from "store/action/product";
 
 export default function UpdateProduct() {
-  const target1 = useRef(null);
-  const target2 = useRef(null);
-  const target3 = useRef(null);
-  const target4 = useRef(null);
-  const target5 = useRef(null);
-  const target6 = useRef(null);
-
   const router = useRouter();
   const product = useSelector((state) => state.product);
   const id = product.data.id;
@@ -195,10 +188,10 @@ export default function UpdateProduct() {
                       className="product-form-select "
                     >
                       <option hidden>Category</option>
-                      <option value="coffee">coffee</option>
-                      <option value="non-coffee">non-coffee</option>
-                      <option value="foods">foods</option>
-                      <option value="add-on">add-on</option>
+                      <option value="coffe">coffee</option>
+                      <option value="nonCoffee">non-coffee</option>
+                      <option value="food">foods</option>
+                      <option value="addon">add-on</option>
                     </select>
                   </div>
                 </div>
@@ -221,113 +214,43 @@ export default function UpdateProduct() {
                   </div>
 
                   <div className="size">
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "R"}
-                      onChange={ChangeTextFile}
-                      ref={target1}
-                      value="1"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="r"
-                      className="size__button"
-                      onClick={() => target1.current.click()}
+                    <div
+                      className={formProduct.size == 1 ? "change__color" : ""}
+                      onClick={() =>
+                        setFormProduct({ ...formProduct, size: "1" })
+                      }
                     >
-                      R
-                    </label>
+                      <label htmlFor="r" className="size__button">
+                        R
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "L"}
-                      onChange={ChangeTextFile}
-                      ref={target2}
-                      value="1"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="l"
-                      className="size__button"
-                      onClick={() => target2.current.click()}
-                    >
-                      L
-                    </label>
+                      <label htmlFor="l" className="size__button">
+                        L
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "XL"}
-                      onChange={ChangeTextFile}
-                      ref={target3}
-                      value="1"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="xl"
-                      className="size__button"
-                      onClick={() => target3.current.click()}
-                    >
-                      XL
-                    </label>
+                      <label htmlFor="xl" className="size__button">
+                        XL
+                      </label>
+                    </div>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "250gr"}
-                      onChange={ChangeTextFile}
-                      ref={target4}
-                      value="2"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="250gr"
-                      className="size__button "
-                      onClick={() => target4.current.click()}
+                    <div
+                      className={formProduct.size == 2 ? "change__color" : ""}
+                      onClick={() =>
+                        setFormProduct({ ...formProduct, size: "2" })
+                      }
                     >
-                      250gr
-                    </label>
+                      <label htmlFor="250gr" className="size__button ">
+                        250gr
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "300gr"}
-                      onChange={ChangeTextFile}
-                      ref={target5}
-                      value="2"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="300gr"
-                      className="size__button"
-                      onClick={() => target5.current.click()}
-                    >
-                      300gr
-                    </label>
+                      <label htmlFor="300gr" className="size__button">
+                        300gr
+                      </label>
 
-                    <input
-                      type="checkbox"
-                      className="size__input"
-                      checked={formProduct.size == "500gr"}
-                      onChange={ChangeTextFile}
-                      ref={target6}
-                      value="2"
-                      name="size"
-                      id="size"
-                    />
-                    <label
-                      htmlFor="500gr"
-                      className="size__button"
-                      onClick={() => target6.current.click()}
-                    >
-                      500gr
-                    </label>
+                      <label htmlFor="500gr" className="size__button">
+                        500gr
+                      </label>
+                    </div>
                   </div>
                 </div>
               </section>

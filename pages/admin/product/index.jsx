@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteNewProduct, setDataProduct } from "store/action/product";
 import axios from "utils/axios";
 import Paginate from "react-paginate";
@@ -39,7 +39,8 @@ function ProductAdmin(props) {
   const { search, sortField, sort, pageProduct, category } = router.query;
   const [pageInfo, setPageInfo] = useState({});
   const [refresh, setRefresh] = useState(true);
-  const dataVoucher = props.response.data;
+  // const dataVoucher = props.response.data;
+  const voucher = useSelector((state) => state.voucher.vouchers);
   const pagination = props.response.pagination;
   // console.log("data voucher =>", dataVoucher);
   // console.log("data pagination =>", pagination);
@@ -120,7 +121,7 @@ function ProductAdmin(props) {
         <div className="container">
           <div className="row">
             <div className="col-lg-4">
-              <Promo data={dataVoucher} pagination={pagination} />
+              {/* <Promo data={voucher} pagination={pagination} /> */}
             </div>
             <div className="col-lg-8 product">
               <div className="product__filter ">
@@ -128,38 +129,38 @@ function ProductAdmin(props) {
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffee"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffe"
                     )
                   }
                 >
-                  Coffee
+                  Coffe
                 </h2>
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=non-coffee"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=nonCoffee"
                     )
                   }
                 >
-                  Non-Coffee
+                  nonCoffee
                 </h2>
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=foods"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=food"
                     )
                   }
                 >
-                  Foods
+                  Food
                 </h2>
                 <h2
                   onClick={() =>
                     router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=add-on"
+                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=addon"
                     )
                   }
                 >
-                  Add-on
+                  Addon
                 </h2>
                 <h2
                   onClick={() =>
@@ -187,29 +188,27 @@ function ProductAdmin(props) {
                       <h2>{item.nameProduct}</h2>
                       <h4>IDR {formatIDR(parseInt(item.price[0]))}</h4>
                     </div>
-                    {auth.userLogin[0].role === "admin" ? (
-                      <div className="product__icon">
-                        <div className="product__icon--trash">
-                          <img
-                            style={{ cursor: "pointer" }}
-                            src="/icons/trash 1.svg"
-                            onClick={() => handleDeleteProduct(item.id)}
-                          />
-                        </div>
-                        <div className="product__icon--pencil">
-                          <img
-                            style={{ cursor: "pointer" }}
-                            src="/icons/pencil.svg"
-                            onClick={() => {
-                              dispatch(setDataProduct(item));
-                              router.push({
-                                pathname: "/admin/product/update-product",
-                              });
-                            }}
-                          />
-                        </div>
+                    <div className="product__icon">
+                      <div className="product__icon--trash">
+                        <img
+                          style={{ cursor: "pointer" }}
+                          src="/icons/trash 1.svg"
+                          onClick={() => handleDeleteProduct(item.id)}
+                        />
                       </div>
-                    ) : null}
+                      <div className="product__icon--pencil">
+                        <img
+                          style={{ cursor: "pointer" }}
+                          src="/icons/pencil.svg"
+                          onClick={() => {
+                            dispatch(setDataProduct(item));
+                            router.push({
+                              pathname: "/admin/product/update-product",
+                            });
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -227,11 +226,9 @@ function ProductAdmin(props) {
                 previousLinkClassName="text-decoration-none text-dark"
               />
 
-              {auth.userLogin[0].role === "admin" ? (
-                <button className="product__button" onClick={RouteNewProduct}>
-                  Add new product
-                </button>
-              ) : null}
+              <button className="product__button" onClick={RouteNewProduct}>
+                Add new product
+              </button>
             </div>
           </div>
         </div>
