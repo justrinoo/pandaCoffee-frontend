@@ -26,16 +26,17 @@ const Login = (props) => {
         localStorage.setItem("token", res.value.data.data.token);
         Cookie.set("id", res.value.data.data.id);
         props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+          toast.success("Success Login");
           if (responseUser.value.data.data[0].role === "admin") {
-            router.push("/dashboard/admin");
+            router.push("/dashboard/admin/month");
           } else {
             router.push(`/main/home`);
           }
         });
       })
       .catch((err) => {
-        // toast.warn(err.response.data.message);
-        console.log(err);
+        toast.warn(err.response.data.message);
+        // console.log(err);
       });
     console.log(form);
   };

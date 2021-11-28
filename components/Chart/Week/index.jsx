@@ -29,9 +29,9 @@ const Chart = () => {
   useEffect(() => {
     (async () => {
       try {
-        const getChartData = await axios.get(`/dashboard/MONTH`);
+        const getChartData = await axios.get(`/dashboard/WEEK`);
         console.log(getChartData);
-        setIncome(getChartData.data.data.allData.map((e) => e.total));
+        setIncome(getChartData.data.data.allData);
       } catch (error) {
         console.log(error);
       }
@@ -39,24 +39,13 @@ const Chart = () => {
   }, []);
 
   const chartData = {
-    labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "Agust",
-      "September",
-      "October",
-      "November",
-      "Desember",
-    ],
+    labels: ["Week-1", "Week-2", "Week-3", "Week-4"],
     datasets: [
       {
         label: "income",
-        data: income,
+        data: income.map((item) => {
+          return item.total;
+        }),
         backgroundColor: "#FFC312",
         borderColor: "#FFC312",
         barThickness: 12,
