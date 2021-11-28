@@ -21,14 +21,14 @@ export default function forgotPassword() {
 				toast.success(res.data.message);
 			})
 			.catch((err) => {
-				toast.warn(err.response.data.message);
+				toast.error(err.response.data.message);
 			});
 	};
 	const handleChangeText = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 	return (
-		<Layout title="Forgot Password" isLogged={true}>
+		<Layout title="Forgot Password">
 			<main className="forgot-password-content">
 				<div className="container">
 					<div className="row">
@@ -43,7 +43,7 @@ export default function forgotPassword() {
 								className="forgot-password-form row g-3"
 								onSubmit={handleSubmit}
 							>
-								<div className="col-auto">
+								<div class="col-auto">
 									<label for="inputPassword2" className="visually-hidden">
 										Password
 									</label>
@@ -56,7 +56,7 @@ export default function forgotPassword() {
 										onChange={handleChangeText}
 									/>
 								</div>
-								<div className="col-auto">
+								<div class="col-auto">
 									<button
 										type="submit"
 										className="button-forgot-password btn btn-warning mb-3 rounded"
@@ -65,17 +65,20 @@ export default function forgotPassword() {
 									</button>
 								</div>
 							</form>
-							<p className="forgot-note">
-								Click here if you didn’t receive any link in 2 minutes
-							</p>
-							<div className="text-center">
-								<button
-									type="submit"
-									className="button-resend-link btn btn-warning mb-3 rounded"
-								>
-									Resend Link
-								</button>
-							</div>
+							{/* Bagian Resend Link belum di handle */}
+							{/* <p className="forgot-note">
+                Click here if you didn’t receive any link in 2 minutes
+              </p>
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="button-resend-link btn btn-warning mb-3 rounded"
+                >
+                  Resend Link
+                </button>
+              </div> */}
+
+							{/* Bagian Resend Link belum di handle */}
 						</div>
 						<div className="col-md-3"></div>
 					</div>

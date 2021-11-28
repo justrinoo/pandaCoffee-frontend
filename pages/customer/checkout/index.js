@@ -93,6 +93,7 @@ const Checkout = (props) => {
 			axios
 				.post(`/transaction/detail`, setData)
 				.then((res) => {
+					router.push(res.data.data.redirectUrl);
 					toast.success("Berhasil Checkout, Bayar Sekarang !");
 					props.deleteCart("Delete");
 				})

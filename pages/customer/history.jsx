@@ -53,6 +53,8 @@ export default function history() {
 		getDetailHistoryTransaction();
 	}, []);
 
+	console.log("data =>", histories);
+
 	return (
 		<>
 			<Layout
@@ -206,7 +208,7 @@ export default function history() {
 											onClick={() => clickProductActive(historyProduct.id)}
 										>
 											<img
-												src="/images/makanan.png"
+												src="/images/ice3.png"
 												width={75}
 												height={75}
 												style={{ objectFit: "cover" }}
@@ -214,7 +216,7 @@ export default function history() {
 											/>
 											<div className="history-content-list-card-body">
 												<h5 className="history-content-list-card-body-title-invoice">
-													CS-{historyProduct.id}
+													{historyProduct.id}
 												</h5>
 												<span className="history-content-list-card-body-title-idr">
 													IDR{" "}
@@ -223,7 +225,9 @@ export default function history() {
 													)}
 												</span>
 												<span className="history-content-list-card-body-title-status">
-													{historyProduct.statusTransaction}
+													{historyProduct.statusTransaction === "success"
+														? "Done"
+														: null}
 												</span>
 											</div>
 										</section>
