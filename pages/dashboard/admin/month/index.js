@@ -53,9 +53,7 @@ export default function dashboardAdmin() {
     axios
       .get(`/dashboard/MONTH`)
       .then((res) => {
-        router.push(
-          "http://localhost:3001/upload/generate/report-dashboard-MONTH.pdf"
-        );
+        router.push(res.data.data.redirect_url);
       })
       .catch((err) => {
         toast.warn(err.response.data.message);

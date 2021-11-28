@@ -23,7 +23,7 @@ export default function forgotPassword() {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        toast.warn(err.response.data.message);
+        toast.error(err.response.data.message);
       });
   };
   const handleChangeText = (e) => {
@@ -67,7 +67,8 @@ export default function forgotPassword() {
                   </button>
                 </div>
               </form>
-              <p className="forgot-note">
+              {/* Bagian Resend Link belum di handle */}
+              {/* <p className="forgot-note">
                 Click here if you didn’t receive any link in 2 minutes
               </p>
               <div className="text-center">
@@ -77,7 +78,9 @@ export default function forgotPassword() {
                 >
                   Resend Link
                 </button>
-              </div>
+              </div> */}
+
+              {/* Bagian Resend Link belum di handle */}
             </div>
             <div className="col-md-3"></div>
           </div>

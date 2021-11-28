@@ -40,6 +40,26 @@ export default function dashboardAdmin() {
     e.preventDefault();
     router.push("/dashboard/admin/month");
   };
+
+  // Report
+  // const redirectLink = (e) => {
+  //   e.preventDefault();
+  //   axios.get(`/dashboard/MONTH`).then((res) => {
+  //     console.log(res.data.data.redirect_url);
+  //   });
+  // };
+  const reportLink = (e) => {
+    e.preventDefault();
+    axios
+      .get(`/dashboard/DAY`)
+      .then((res) => {
+        router.push(res.data.data.redirect_url);
+      })
+      .catch((err) => {
+        toast.warn(err.response.data.message);
+        // console.log(err);
+      });
+  };
   return (
     <Layout title="Dashboard Admin">
       <Navbar />
@@ -100,6 +120,14 @@ export default function dashboardAdmin() {
               </div>
               <ChartDay />
             </div>
+            <br />
+            <button
+              type="submit"
+              className="button-dashboard btn btn-warning mb-3 rounded"
+              onClick={reportLink}
+            >
+              Download Report
+            </button>
           </div>
           <div className="col-md-3"></div>
         </div>
