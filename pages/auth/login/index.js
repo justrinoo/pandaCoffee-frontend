@@ -40,16 +40,16 @@ const Login = (props) => {
 				localStorage.setItem("token", res.value.data.data.token);
 				Cookie.set("id", res.value.data.data.id);
 				props.getUserLogin(res.value.data.data.id).then((responseUser) => {
+					localStorage.setItem("role", responseUser.value.data.data[0].role);
 					if (responseUser.value.data.data[0].role === "admin") {
 						router.push("/admin/product");
 					} else {
-						router.push(`/profile`);
+						router.push(`/product`);
 					}
 				});
 			})
 			.catch((err) => {
-				// toast.warn(err.response.data.message);
-				console.log(err);
+				toast.warn(err.response.data.message);
 			});
 		console.log(form);
 	};

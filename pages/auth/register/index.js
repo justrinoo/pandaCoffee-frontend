@@ -20,15 +20,17 @@ export default function Register() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		// console.log("form data =>", { form });
 		axios
 			.post("/auth/register", form)
 			.then((res) => {
 				toast.success(res.data.message);
 				setTimeout(() => {
 					router.push("/auth/login");
-				}, 5000);
+				}, 2500);
 			})
 			.catch((err) => {
+				console.log(err.response);
 				toast.warn(err.response.data.message);
 			});
 	};

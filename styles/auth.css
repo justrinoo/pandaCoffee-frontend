@@ -98,3 +98,9 @@ footer {
   border-color: #6a4029;
   color: white;
 }
+
+@media (max-width: 579.45px) {
+  .image-auth {
+    display: none;
+  }
+}

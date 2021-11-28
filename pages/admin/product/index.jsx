@@ -20,12 +20,16 @@ export async function getServerSideProps({ query: { page = 1 } }) {
 }
 
 export default function ProductAdmin(props) {
+	const role = localStorage.getItem("role");
 	const router = useRouter();
 	const token = Cookies.get("token");
 	const dataVoucher = props.response.data;
 	const pagination = props.response.pagination;
 
 	useEffect(() => {
+		if (role !== "admin") {
+			router.push("/product");
+		}
 		if (!token) {
 			router.push("/auth/login");
 		}
@@ -37,7 +41,7 @@ export default function ProductAdmin(props) {
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4">
-							<Promo data={dataVoucher} pagination={pagination} />
+							<Promo role={role} data={dataVoucher} pagination={pagination} />
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter ">

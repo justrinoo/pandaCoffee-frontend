@@ -1,4 +1,5 @@
 import { Layout } from "components";
+import Image from "next/image";
 export default function Home() {
 	return (
 		<Layout pageTitle="Home Page" isLogged={true}>
@@ -297,12 +298,38 @@ export default function Home() {
 				</p>
 				<div class="container">
 					<div class="row">
-						<div class="card card-body">
-							<div class="d-flex">
-								<img src="/images/review.png" width="50px" alt="" />
-								<div class="d-block mx-3">
-									<p className="p-0 m-0">Viezh Robert</p>
-									<small>Warsaw, Poland</small>
+						<div className="col-md-4">
+							<div class="card card-body card-body-testimonials">
+								<div class="d-flex justify-content-between align-items-center">
+									<div className="d-flex">
+										<img src="/images/review.png" width="50px" alt="" />
+										<div class="d-block mx-3">
+											<p className="p-0 m-0 card-body-testimonials-name">
+												Viezh Robert
+											</p>
+											<small className="card-body-testimonials-address">
+												Warsaw, Poland
+											</small>
+										</div>
+									</div>
+									<div className="d-flex">
+										<p className="card-body-testimonials-ratings mt-3 mx-2">
+											4.5
+										</p>
+										<Image
+											src="/icons/stars.svg"
+											width={16}
+											height={16}
+											alt="Ratings"
+										/>
+									</div>
+								</div>
+								<div className="card-footer-testimonials">
+									<p className="card-footer-testimonials-desc">
+										“Wow... I am very happy to spend my whole day here. the
+										Wi-fi is good, and the coffee and meals tho. I like it
+										here!! Very recommended!
+									</p>
 								</div>
 							</div>
 						</div>
