@@ -39,9 +39,9 @@ export default function Register() {
 	};
 	// Handle Register End
 	return (
-		<Layout title="Sign Up Panda Coffee" isLogged={true}>
+		<Layout pageTitle="Sign Up Panda Coffee" isLogged={true}>
 			<div className="row">
-				<div className="col-md-6">
+				<div className="col-md-6 d-lg-block d-none">
 					<img src="/images/coffee-left.png" />
 				</div>
 				<div className="col-md-6">
