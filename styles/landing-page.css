@@ -120,3 +120,100 @@
 	color: #0b132a;
 	font-size: 16px;
 }
+
+@media (max-width: 575.98px) {
+	html,
+	* {
+		font-family: "Poppins", sans-serif;
+		background-color: #f2f2f2;
+	}
+	hr {
+		display: none;
+	}
+	.main-desktop {
+		display: none;
+	}
+	footer {
+		display: none;
+	}
+	.main-mobile {
+		padding: 0px 24px !important;
+	}
+	.main-mobile-title {
+		margin: 32px 0px;
+		color: #000000;
+		font-weight: bold;
+		font-size: 34px;
+		width: 86%;
+	}
+	.main-mobile-search {
+		padding: 18px 24px;
+		background: #efeeee;
+		border-radius: 30px;
+		display: flex;
+	}
+
+	.home-search {
+		color: #000000;
+		font-size: 17px;
+		font-weight: bolder;
+		margin: 0px 6px;
+		border: none;
+		background-color: transparent;
+		width: 100%;
+	}
+	.container-navigation {
+		font-size: 17px;
+		width: 100%;
+		overflow-x: auto;
+		display: flex;
+	}
+	span {
+		color: #9a9a9d;
+		font-size: 17px;
+		margin: 19px 12px;
+		display: block;
+	}
+	span:nth-child(1) {
+		border-bottom: 2px solid #6a4029;
+		color: #6a4029;
+		font-size: 17px;
+		margin: 19px 12px;
+		display: block;
+	}
+	.card-product {
+		margin: 40px 20px;
+		text-align: center;
+		height: 100%;
+		width: 70%;
+	}
+	.card-product-image {
+		background-color: transparent;
+		margin-top: -30px;
+		position: relative;
+	}
+	.card-product-title {
+		margin: 20px auto;
+		color: #000000;
+		opacity: 0.9;
+		font-size: 22px;
+		width: 50%;
+		font-weight: 900;
+		background-color: transparent;
+	}
+	.card-product-price {
+		margin: 20px auto;
+		padding-bottom: 20px;
+		color: #6a4029;
+		opacity: 0.9;
+		font-size: 17px;
+		width: 50%;
+		font-weight: 900;
+		background-color: transparent;
+	}
+
+	.list-product-mobile {
+		overflow-x: auto;
+		display: flex;
+	}
+}
