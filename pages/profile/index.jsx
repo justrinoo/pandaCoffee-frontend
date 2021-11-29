@@ -239,6 +239,7 @@ const Profile = (props) => {
                       Edit Password
                     </button>
                     <Modal show={show} onHide={handleClose}>
+                      <Modal.Title>Edit Password</Modal.Title>
                       <form onSubmit={handleSubmit}>
                         <div className="password__input">
                           <input

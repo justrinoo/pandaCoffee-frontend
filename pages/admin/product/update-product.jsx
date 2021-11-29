@@ -88,6 +88,12 @@ export default function UpdateProduct() {
     router.push("/admin/product");
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+  }, []);
+
   return (
     <>
       <Layout pageTitle="Update Product" isLogged={true}>
