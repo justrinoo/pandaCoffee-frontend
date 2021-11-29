@@ -104,4 +104,7 @@ html {
   .nav-icon-mobile {
     display: block;
   }
+  .hide__mobile {
+    display: none;
+  }
 }

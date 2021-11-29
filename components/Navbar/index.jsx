@@ -118,8 +118,10 @@ export default function Navbar() {
               <div className="dropdown">
                 <img
                   src={
-                    user[0].image
-                      ? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+                    user[0]
+                      ? user[0].image
+                        ? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+                        : "https://cdn.discordapp.com/avatars/818102343404224523/7334e7a8cf36f4610981642677a47791.png?size=128"
                       : "https://cdn.discordapp.com/avatars/818102343404224523/7334e7a8cf36f4610981642677a47791.png?size=128"
                   }
                   width={45}
