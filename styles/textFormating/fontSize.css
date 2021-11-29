@@ -30,4 +30,9 @@
   .fs-sm-40 {
     font-size: 40px;
   }
+
+  .product__filter h2 {
+    margin-right: 25px !important;
+    text-align: center;
+  }
 }

@@ -67,8 +67,9 @@ footer {
 /* Forgot Password */
 .forgot-password-content {
   background-image: url("../public/images/forgot-password.png");
-  width: 1440px;
-  height: 500px;
+  background-size: cover;
+  /* width: 1440px;
+  height: 500px; */
 }
 
 .forgot-title {
