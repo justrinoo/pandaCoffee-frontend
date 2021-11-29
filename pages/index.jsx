@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 import axios from "utils/axios";
 
 export default function Home() {
+	const role = localStorage.getItem("role");
+	const [search, setSearch] = useState("");
+	const [dataProducts, setDataProduct] = useState([]);
 	const router = useRouter();
 	const testimonials = [
 		{
@@ -82,9 +85,16 @@ export default function Home() {
 	};
 
 	const findProduct = async (event) => {
+		setSearch(event.target.value);
 		if (event.key === "Enter") {
-			const response = await axios.get("product");
-			console.log("ready product.", response.data);
+			try {
+				const response = await axios.get(`product?search=${search}&limit=2`);
+				console.log(response.data.data);
+				setDataProduct(response.data.data);
+			} catch (error) {
+				setDataProduct([]);
+				console.log(error.response);
+			}
 		}
 	};
 
@@ -178,14 +188,60 @@ export default function Home() {
 										Get Started
 									</button>
 								</div>
-								<div class="col-md-3 m-5">
-									<input
-										type="text"
-										className="form-control lp__hero_input"
-										placeholder={`Search `}
-										onKeyPress={findProduct}
-									/>
-								</div>
+								{role !== "user" ? null : (
+									<div class="col-md-3 m-5">
+										<input
+											type="text"
+											className="form-control lp__hero_input"
+											placeholder={`Search `}
+											name="search"
+											onKeyPress={findProduct}
+										/>
+										{dataProducts.length > 0 ? (
+											<div className="bg-white text-dark p-3 rounded mt-1">
+												<p>You Find: {search}</p>
+												{dataProducts.map((value) => (
+													<div
+														className="d-flex mt-1 mb-3"
+														key={value.id}
+														onClick={() =>
+															router.push(
+																`${
+																	role === "user" &&
+																	`/customer/productDetails/${value.id}`
+																}`
+															)
+														}
+													>
+														{/*  */}
+														<img
+															src={
+																value.image
+																	? `${process.env.BASE_URL_DEV}upload/product/${value.image}`
+																	: "/images/ice.png"
+															}
+															alt={value.nameProduct}
+															width={100}
+															height={100}
+															style={{ objectFit: "cover" }}
+														/>
+														<div className="d-block mt-1 mx-2">
+															<h6 className="mt-1">{value.nameProduct}</h6>
+															<p className="mt-1">
+																IDR
+																{new Intl.NumberFormat("id-ID").format(
+																	value.price[0]
+																)}
+															</p>
+														</div>
+													</div>
+												))}
+												<hr />
+											</div>
+										) : null}
+									</div>
+								)}
+
 								<div class="d-flex justify-content-center">
 									<div className="card card-body card__hero text-dark shadow">
 										<div className="d-flex justify-content-between">

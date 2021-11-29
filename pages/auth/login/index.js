@@ -47,7 +47,7 @@ const Login = (props) => {
 					if (responseUser.value.data.data[0].role === "admin") {
 						router.push("/admin/product");
 					} else {
-						router.push(`/customer/history`);
+						router.push("/product");
 					}
 				});
 			})
@@ -63,7 +63,7 @@ const Login = (props) => {
 	// Handle Login End
 
 	return (
-		<Layout title="Login Panda Coffee" isLogged={true}>
+		<Layout pageTitle="Login Panda Coffee" isLogged={true}>
 			<div className="row">
 				<div className="col-md-6 hide__mobile">
 					<img src="/images/coffee-left.png" />
