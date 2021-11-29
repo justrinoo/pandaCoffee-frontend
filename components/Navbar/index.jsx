@@ -119,8 +119,10 @@ export default function Navbar() {
 							<div className="dropdown">
 								<img
 									src={
-										user[0].image
-											? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+										user[0]
+											? user[0].image
+												? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+												: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 											: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 									}
 									width={45}
@@ -208,6 +210,9 @@ export default function Navbar() {
 				backdrop="static"
 				keyboard={false}
 			>
+				<Modal.Header closeButton>
+					<Modal.Title>Modal title</Modal.Title>
+				</Modal.Header>
 				<Modal.Body>
 					<label for="" className="form-control-label">
 						Product Name

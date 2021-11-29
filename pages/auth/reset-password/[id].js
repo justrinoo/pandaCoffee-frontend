@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Layout } from "components";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
-import Cookie from "js-cookie";
 import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "store/action/auth";
-
+import Link from "next/link";
 import { getDataCookie } from "middleware/authorizationPage";
 // import { Alert } from "bootstrap";
-
+import axios from "utils/axios";
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
   console.log(dataCookie.isLogin);
@@ -28,33 +27,27 @@ export async function getServerSideProps(context) {
 
 const Login = (props) => {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const { id } = router.query;
 
+  const [form, setForm] = useState({ email: "", password: "" });
+  console.log(id);
   // Handle Login
-  console.log(props);
   const handleSubmit = (e) => {
     e.preventDefault();
-    props
-      .loginUser(form)
+    axios
+      .patch(`/auth/reset-password/${id}`, form)
       .then((res) => {
-        // alert("BERHASIL REFRESH TOKEN");
-        localStorage.setItem("token", res.value.data.data.token);
-        localStorage.setItem("refreshToken", res.value.data.data.refreshToken);
-        Cookie.set("token", res.value.data.data.token);
-        Cookie.set("id", res.value.data.data.id);
-        props.getUserLogin(res.value.data.data.id).then((responseUser) => {
-          localStorage.setItem("role", responseUser.value.data.data[0].role);
-          if (responseUser.value.data.data[0].role === "admin") {
-            router.push("/admin/product");
-          } else {
-            router.push(`/customer/history`);
-          }
-        });
+        console.log(res.data);
+        toast.success(res.data.message);
+        router.push("/auth/login");
       })
       .catch((err) => {
-        toast.warn(err.response.data.message);
+        if (err.response.data.message == "jwt expired") {
+          toast.warn("Waktunya Habis, Verifikasi Ulang");
+        } else {
+          toast.warn(err.response.data.message);
+        }
       });
-    console.log(form);
   };
 
   const handleChangeText = (e) => {
@@ -72,31 +65,34 @@ const Login = (props) => {
           {/* Auth Navbar */}
           {/* Auth Navbar End */}
           <ToastContainer />
-          <h2 className="register-title">Login</h2>
+          <h2 className="register-title">Reset Password</h2>
           {/* Auth Login Form */}
           <div className="container auth-form">
             <form onSubmit={handleSubmit}>
-              <label className="form-label">Email Adress</label>
-              <div className="input-group input-group-sm mb-3">
-                <input
-                  type="email"
-                  className="form-control p-3 "
-                  name="email"
-                  onChange={handleChangeText}
-                />
-              </div>
-              <label className="form-label">Password</label>
+              <label className="form-label">New Password</label>
               <div className="input-group input-group-sm mb-3">
                 <input
                   type="password"
-                  className="form-control p-3"
-                  name="password"
+                  className="form-control p-3 "
+                  placeholder="Input New Password"
+                  name="newPassword"
                   onChange={handleChangeText}
                 />
               </div>
-              <a href="/auth/forgotPassword" className="forgot-password">
-                Forgot Password ?
-              </a>
+              <label className="form-label">Confirm Password</label>
+              <div className="input-group input-group-sm mb-3">
+                <input
+                  type="password"
+                  placeholder="Confirm New Password"
+                  className="form-control p-3"
+                  name="confirmPassword"
+                  onChange={handleChangeText}
+                />
+              </div>
+              Have An Account ?{" "}
+              <Link href="/auth/forgotPassword">
+                <a className="forgot-password">Login!</a>
+              </Link>
               <button className="button-submit btn btn-warning  rounded-pill mb-3 p-3 mt-5">
                 Login
               </button>
