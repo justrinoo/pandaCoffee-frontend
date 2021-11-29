@@ -4,6 +4,7 @@ const initialState = {
 	error: false,
 	message: "",
 	isUpdate: false,
+	pageInfo: {},
 };
 
 export default function voucher(state = initialState, action) {
@@ -22,6 +23,7 @@ export default function voucher(state = initialState, action) {
 				loading: false,
 				error: false,
 				vouchers: action.payload.data.data,
+				pageInfo: action.payload.data.pagniation,
 				message: action.payload.data.message,
 			};
 		}

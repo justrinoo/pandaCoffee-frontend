@@ -60,6 +60,85 @@ const product = (state = initialState, action) => {
         },
       };
     }
+    case "CREATEPRODUCT_PENDING": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: "",
+      };
+    }
+    case "CREATEPRODUCT_FULFILLED": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: action.payload.data.message,
+      };
+    }
+    case "CREATEPRODUCT_REJECTED": {
+      return {
+        ...state,
+        loading: true,
+        error: true,
+        message: action.payload.response.data.message,
+      };
+    }
+    case "UPDATEPRODUCT_PENDING": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: "",
+      };
+    }
+    case "UPDATEPRODUCT_FULFILLED": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: action.payload.data.message,
+      };
+    }
+    case "UPDATEPRODUCT_REJECTED": {
+      return {
+        ...state,
+        loading: true,
+        error: true,
+        message: action.payload.response.data.message,
+      };
+    }
+    case "DELETEPRODUCT_PENDING": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: "",
+      };
+    }
+    case "DELETEPRODUCT_FULFILLED": {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        message: action.payload.data.message,
+      };
+    }
+    case "DELETEPRODUCT_REJECTED": {
+      return {
+        ...state,
+        loading: true,
+        error: true,
+        message: action.payload.response.data.message,
+      };
+    }
+    case "SETDATAPRODUCT": {
+      return {
+        ...state,
+        data: action.data,
+        isUpdate: true,
+      };
+    }
     default: {
       return state;
     }

@@ -12,6 +12,13 @@
   background-color: #ffba33;
 }
 
+.details-product__size-list-dactive {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: rgba(186, 186, 186, 0.35);
+}
+
 .card-product {
   background: #ffffff;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.34);
@@ -71,4 +78,13 @@ input:focus {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.product__filter-product h2:hover {
+  cursor: pointer;
+}
+
+.product-image__list {
+  height: 128px !important;
+  width: 128px !important;
 }

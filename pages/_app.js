@@ -1,7 +1,9 @@
-import Head from "next/head";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/js/bootstrap";
 import "react-toastify/dist/ReactToastify.css";
+import "react-multi-carousel/lib/styles.css";
+
 import { Provider } from "react-redux";
 import { store, persistor } from "store/store";
 import { PersistGate } from "redux-persist/integration/react";

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import Layout from "components/Layout";
-import NavbarSign from "components/modules/auth/NavbarSignUp";
-import Footer from "components/Footer/index";
+import { Layout } from "components";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
@@ -22,15 +20,17 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log("form data =>", { form });
     axios
       .post("/auth/register", form)
       .then((res) => {
         toast.success(res.data.message);
         setTimeout(() => {
           router.push("/auth/login");
-        }, 5000);
+        }, 2500);
       })
       .catch((err) => {
+        console.log(err.response);
         toast.warn(err.response.data.message);
       });
   };
@@ -39,14 +39,13 @@ export default function Register() {
   };
   // Handle Register End
   return (
-    <Layout title="Sign Up Panda Coffee">
+    <Layout title="Sign Up Panda Coffee" isLogged={true}>
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-6 d-lg-block d-none">
           <img src="/images/coffee-left.png" />
         </div>
         <div className="col-md-6">
           {/* Auth Navbar */}
-          <NavbarSign />
           {/* Auth Navbar End */}
           <h2 className="register-title">SIGN UP</h2>
           <ToastContainer />
@@ -110,8 +109,6 @@ export default function Register() {
           {/* Auth Register Form End */}
         </div>
       </div>
-
-      <Footer></Footer>
     </Layout>
   );
 }

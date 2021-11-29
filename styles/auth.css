@@ -31,6 +31,7 @@
 .forgot-password:hover {
   color: #6a4029;
 }
+/* Register */
 
 /* Footer */
 footer {
@@ -66,8 +67,9 @@ footer {
 /* Forgot Password */
 .forgot-password-content {
   background-image: url("../public/images/forgot-password.png");
-  width: 1440px;
-  height: 500px;
+  background-size: cover;
+  /* width: 1440px;
+  height: 500px; */
 }
 
 .forgot-title {
@@ -78,11 +80,11 @@ footer {
   padding-top: 50px;
 }
 .forgot-input-email {
-  width: 400px;
+  width: 80%;
   height: 70px;
 }
 .forgot-p {
-  text-align: center;
+  /* text-align: center; */
 }
 .button-forgot-password {
   width: 100px;
@@ -97,4 +99,39 @@ footer {
   background-color: #6a4029;
   border-color: #6a4029;
   color: white;
+}
+
+/* Dashboard Admin */
+
+.link-dashboard {
+  color: black;
+}
+.button-dashboard {
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
+  width: 100%;
+}
+/* .forgot-password-form {
+  display: -webkit-box;
+} */
+@media (max-width: 579.45px) {
+  .image-auth {
+    display: none;
+  }
+  /* forgot password */
+  .forgot-password-content {
+    background-image: url("../public/images/forgot-password.png");
+    width: 100%;
+  }
+  /* .forgot-input-email {
+    width: 100%;
+  } */
+  .image-register {
+    display: inline;
+  }
+  /* .forgot-input-email {
+    width: 50% !important;
+    height: 70px;
+  } */
 }
