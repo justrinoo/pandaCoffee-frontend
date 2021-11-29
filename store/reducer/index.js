@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
+import voucher from "./voucher";
 import auth from "./auth";
-
-// ini reducernya masih kosong / persistnya masih error, kalo mau dibuat dulu biar si persist nya jalan juga.
+import product from "./product";
+import cart from "./cart";
 
 export default combineReducers({
   auth,
+  product,
+  cart,
+  voucher,
 });

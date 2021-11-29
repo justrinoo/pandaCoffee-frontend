@@ -1,7 +1,31 @@
 import { Layout, Button } from "components";
 import { Breadcrumb } from "react-bootstrap";
 import Image from "next/image";
+
+import { getDataCookie } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+	const dataCookie = await getDataCookie(context);
+	if (!dataCookie.isLogin) {
+		return {
+			redirect: {
+				destination: "/auth/login",
+				permanent: false,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
+}
+
 export default function createPromo() {
+	useEffect(() => {
+		if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+	},[])
 	return (
 		<>
 			<Layout pageTitle="Create Promo" isLogged={true}>

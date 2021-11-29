@@ -3,7 +3,9 @@ const initialState = {
   isError: false,
   isLoading: false,
   msg: "",
-  userLogin: {},
+  userLogin: {
+    role: "admin",
+  },
 };
 
 const login = (state = initialState, action) => {
@@ -41,6 +43,7 @@ const login = (state = initialState, action) => {
       };
     }
     case "GETUSER_FULFILLED": {
+      console.log("BERHASIL GETUSER", action.payload.data);
       return {
         ...state,
         isLoading: false,

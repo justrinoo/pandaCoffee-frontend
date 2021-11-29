@@ -82,3 +82,7 @@
 	display: block !important;
 	text-align: left !important;
 }
+.file-image-active {
+	border-radius: 100%;
+	width: 50%;
+}

@@ -1,92 +1,122 @@
 .background_image {
-  background-image: url("/images/bg-hero.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100vh;
-  width: 100%;
-  padding: 0 !important;
-  margin: 0 !important;
-  margin-top: -16px !important;
+	background-image: url("/images/bg-hero.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 100vh;
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	margin-top: -16px !important;
 }
 .lp__title {
-  font-weight: bold;
-  font-size: 45px;
+	font-weight: bold;
+	font-size: 45px;
 }
 .lp__hero_desc {
-  font-weight: 300;
-  font-size: 19px;
+	font-weight: 300;
+	font-size: 19px;
 }
 .lp__hero_btn {
-  padding: 15px 70px !important;
-  font-weight: 600 !important;
+	padding: 15px 70px !important;
+	font-weight: 600 !important;
 }
 .lp__hero_input {
-  background-color: #efeeee !important;
-  padding: 15px !important;
-  border-radius: 100px !important;
+	background-color: #efeeee !important;
+	padding: 15px !important;
+	border-radius: 100px !important;
 }
 
 .card__hero {
-  position: absolute !important;
-  bottom: -70px;
-  /* left: 0; */
-  padding: 35px !important;
-  width: 80% !important;
+	position: absolute !important;
+	bottom: -70px;
+	/* left: 0; */
+	padding: 35px !important;
+	width: 80% !important;
 }
 .p__icon {
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-  color: #0b132a;
-  font-size: 18px;
+	padding: 0;
+	margin: 0;
+	font-weight: 500;
+	color: #0b132a;
+	font-size: 18px;
 }
 .p__icon_desc {
-  color: #4f5665;
+	color: #4f5665;
 }
 .ul__check {
-  list-style: none;
-  padding: 0 !important;
-  margin: 0 !important;
+	list-style: none;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 .ul__check li {
-  padding: 0;
-  margin: 20px 0;
-  color: #4f5665;
-  font-weight: 400;
+	padding: 0;
+	margin: 20px 0;
+	color: #4f5665;
+	font-weight: 400;
 }
 .ul__checkks li img {
-  /* padding: 20px 5px; */
-  margin-right: 10px;
+	/* padding: 20px 5px; */
+	margin-right: 10px;
 }
 .icon__li {
-  width: 25px;
+	width: 25px;
 }
 
 .desc {
-  font-size: 16px;
-  color: #4f5665;
-  font-weight: 400;
+	font-size: 16px;
+	color: #4f5665;
+	font-weight: 400;
 }
 
 .title {
-  font-weight: 500;
-  font-size: 35px;
+	font-weight: 500;
+	font-size: 35px;
 }
 .text__currency {
-  font-weight: 500;
-  font-size: 25px;
+	font-weight: 500;
+	font-size: 25px;
 }
 
 .btn__curency {
-  border-radius: 50px !important;
-  font-weight: bold !important;
-  font-size: 50px;
-  color: #6a4029 !important;
-  padding: 10px !important;
+	border-radius: 50px !important;
+	font-weight: bold !important;
+	font-size: 50px;
+	color: #6a4029 !important;
+	padding: 10px !important;
 }
 .jarak-50 {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 .jarak-100 {
-  margin-bottom: 100px;
+	margin-bottom: 100px;
+}
+.card-body-testimonials {
+	cursor: grab;
+	margin: 0px 20px;
+	border: 2px solid #6a4029 !important;
+	border-radius: 10px !important;
+}
+.card-body-testimonials:active {
+	cursor: grabbing;
+}
+.card-body-testimonials-name {
+	color: #0b132a;
+	font-weight: 500;
+	font-size: 18px;
+}
+.card-body-testimonials-address {
+	color: #4f5665;
+	font-size: 14px;
+}
+.card-body-testimonials-ratings {
+	color: #0b132a;
+	font-size: 16px;
+}
+.card-footer-testimonials {
+	margin: 20px 0px;
+	text-align: justify;
+}
+.card-footer-testimonials-desc {
+	color: #0b132a;
+	font-size: 16px;
 }
