@@ -109,6 +109,7 @@ function DetailsProductPage(props) {
 				size: size,
 				image: props.data.image,
 			};
+			toast.success("Success Add to cart.");
 			props.addToCart(setData);
 		}
 		console.log(props.cart);

@@ -84,7 +84,7 @@ export default function Navbar() {
 									src={
 										user[0].image
 											? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
-											: "https://cdn.discordapp.com/avatars/818102343404224523/7334e7a8cf36f4610981642677a47791.png?size=128"
+											: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 									}
 									width={45}
 									height={45}
