@@ -5,25 +5,38 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
-import { unAuthPage } from "middleware/authorizationPage";
-import Navbar from "components/Navbar";
-import Footer from "components/Footer";
-export default function forgotPassword() {
+import { connect } from "react-redux";
+
+const ForgotPassword = (props) => {
   const router = useRouter();
   const [form, setForm] = useState({
     email: "",
   });
-
+  // console.log(props);
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("/auth/forgot-password", form)
-      .then((res) => {
-        toast.success(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+    let d = new Date();
+    console.log(
+      props.time.newResend,
+      "SAMA => Jam Sekarang",
+      `${d.getHours()}.${d.getMinutes()}`
+    );
+    console.log(props.time.newResend < `${d.getHours()}.${d.getMinutes()}`);
+    if (`${d.getHours()}.${d.getMinutes()}` < props.time.newResend) {
+      toast.error(
+        `Kamu Baru Verifikasi, Silahkan Tunggu Sampai jam ${props.time.newResend}`
+      );
+    } else {
+      axios
+        .post("/auth/forgot-password", form)
+        .then((res) => {
+          toast.success(res.data.message);
+          props.saveTime(`${d.getHours()}.${d.getMinutes() + 5}`);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    }
   };
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -86,4 +99,14 @@ export default function forgotPassword() {
       </main>
     </Layout>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  time: state.time,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveTime: (data) => dispatch({ type: "ADDTIME", data: data }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
