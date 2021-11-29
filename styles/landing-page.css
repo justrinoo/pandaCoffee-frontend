@@ -185,12 +185,13 @@
 		margin: 40px 20px;
 		text-align: center;
 		height: 100%;
-		width: 70%;
+		width: 100%;
 	}
 	.card-product-image {
 		background-color: transparent;
 		margin-top: -30px;
 		position: relative;
+		width: 200px;
 	}
 	.card-product-title {
 		margin: 20px auto;

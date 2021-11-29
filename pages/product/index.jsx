@@ -217,7 +217,7 @@ function Product(props) {
 											router.push(`/customer/productDetails/${item.id}`)
 										}
 									>
-										<div className="pproduct__list hover-pointer">
+										<div className="product__list hover-pointer">
 											<div className="d-flex justify-content-center">
 												<img
 													src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}

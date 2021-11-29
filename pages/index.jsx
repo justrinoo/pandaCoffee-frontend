@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "utils/axios";
 
 export default function Home() {
 	const router = useRouter();
@@ -80,8 +81,10 @@ export default function Home() {
 		},
 	};
 
-	const findProduct = (event) => {
+	const findProduct = async (event) => {
 		if (event.key === "Enter") {
+			const response = await axios.get("product");
+			console.log("ready product.", response.data);
 		}
 	};
 
@@ -119,6 +122,28 @@ export default function Home() {
 				</div>
 
 				<div className="list-product-mobile">
+					<div className="card-product">
+						<img
+							src="/images/coffee-mobile.png"
+							width={168}
+							className="card-product-image"
+							height={168}
+							alt="Coffee"
+						/>
+						<h1 className="card-product-title">Hazelnut Latte</h1>
+						<p className="card-product-price">IDR 25.000</p>
+					</div>
+					<div className="card-product">
+						<img
+							src="/images/coffee-mobile.png"
+							width={168}
+							className="card-product-image"
+							height={168}
+							alt="Coffee"
+						/>
+						<h1 className="card-product-title">Hazelnut Latte</h1>
+						<p className="card-product-price">IDR 25.000</p>
+					</div>
 					<div className="card-product">
 						<img
 							src="/images/coffee-mobile.png"
