@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNewProduct } from "store/action/product";
+import axios from "utils/axios";
 
 export default function UpdateProduct() {
   const router = useRouter();
@@ -17,13 +18,14 @@ export default function UpdateProduct() {
 
   const [displayImage, setDisplayImage] = useState(null);
   const [formProduct, setFormProduct] = useState({
-    nameProduct: product.data.nameProduct,
-    price: product.data.price,
-    category: product.data.category,
-    description: product.data.description,
-    size: product.data.size,
-    image: product.data.image,
+  
   });
+
+  useEffect(() => {
+    axios.get(`/product/getDetails/${id}`).then((res) => {
+    () =>  setFormProduct({...res.data.data, price:res.data.data.price.join()})
+    })
+  })
 
   const onChangeFile = (event) => {
     if (
@@ -37,6 +39,7 @@ export default function UpdateProduct() {
     if (event.target.files.length !== 0) {
       setDisplayImage(URL.createObjectURL(event.target.files[0]));
       setFormProduct({
+        ...formProduct,
         image: event.target.files[0],
       });
     }
@@ -83,6 +86,10 @@ export default function UpdateProduct() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    console.log(formProduct)
+  },[formProduct])
 
   const CancelUpdatePromo = () => {
     router.push("/admin/product");
