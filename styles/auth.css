@@ -1,138 +1,157 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap");
 
 .navbar-auth {
-	padding: 20px;
+  padding: 20px;
 }
 .button-nav-auth {
-	width: 150px;
+  width: 150px;
 }
 
 .auth-form {
-	padding-top: 50px;
+  padding-top: 50px;
 }
 .button-submit {
-	width: 100%;
+  width: 100%;
 }
 .register-title {
-	text-align: center;
-	color: #6a4029;
-	padding-top: 50px;
+  text-align: center;
+  color: #6a4029;
+  padding-top: 50px;
 }
 
 .image-google {
-	width: 27px;
-	height: 28px;
+  width: 27px;
+  height: 28px;
 }
 
 /* Login */
 .forgot-password {
-	color: #6a4029 !important;
+  color: #6a4029 !important;
 }
 .forgot-password:hover {
-	color: #6a4029;
+  color: #6a4029;
 }
+npm
 /* Register */
 
 /* Footer */
 footer {
-	background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 .footer-left {
-	padding: 50px;
+  padding: 50px;
 }
 
 .footer-auth-button {
-	margin: 10px;
+  margin: 10px;
 }
 
 .product-footer {
-	font-family: Rubik;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 30px;
-	padding: 50px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  padding: 50px;
 }
 
 .engage-footer {
-	font-family: Rubik;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 30px;
-	padding: 50px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  padding: 50px;
 }
 
 /* Forgot Password */
 .forgot-password-content {
-	background-image: url("../public/images/forgot-password.png");
-	background-size: cover;
-	height: 70vh;
-	/* width: 1440px;
+  background-image: url("../public/images/forgot-password.png");
+  background-size: cover;
+  height: 70vh;
+  /* width: 1440px;
   height: 500px; */
 }
 
 .forgot-title {
-	color: white;
+  color: white;
 }
 
 .forgot-contain {
-	padding-top: 50px;
+  padding-top: 50px;
 }
 .forgot-input-email {
-	width: 80%;
-	height: 70px;
+  width: 80%;
+  height: 70px;
 }
 .forgot-p {
-	/* text-align: center; */
+  /* text-align: center; */
 }
 .button-forgot-password {
-	width: 100px;
-	height: 70px;
+  width: 100px;
+  height: 70px;
 }
 
 .forgot-note {
-	color: white;
-	text-align: center;
+  color: white;
+  text-align: center;
 }
 .button-resend-link {
-	background-color: #6a4029;
-	border-color: #6a4029;
-	color: white;
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
 }
 
 /* Dashboard Admin */
 
 .link-dashboard {
-	color: black;
+  color: black;
 }
 .button-dashboard {
-	background-color: #6a4029;
-	border-color: #6a4029;
-	color: white;
-	width: 100%;
+  background-color: #6a4029;
+  border-color: #6a4029;
+  color: white;
+  width: 100%;
 }
 /* .forgot-password-form {
   display: -webkit-box;
 } */
 @media (max-width: 579.45px) {
-	.image-auth {
-		display: none;
-	}
-	/* forgot password */
-	.forgot-password-content {
-		background-image: url("../public/images/forgot-password.png");
-		width: 100%;
-	}
-	/* .forgot-input-email {
+  .image-auth {
+    display: none;
+  }
+  /* forgot password */
+  .forgot-password-content {
+    background-image: none;
+  }
+  /* .forgot-input-email {
     width: 100%;
   } */
-	.image-register {
-		display: inline;
-	}
-	/* .forgot-input-email {
+  .image-register {
+    display: inline;
+  }
+  /* .forgot-input-email {
     width: 50% !important;
     height: 70px;
   } */
+  .button-forgot-password {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .forgot-p {
+    color: black;
+  }
+  .forgot-header {
+    color: black;
+  }
+}
+
+@media (max-width: 1300px) {
+  .content-right {
+    width: fit-content;
+  }
+  .hide__mobile {
+    width: 40%;
+  }
 }
