@@ -22,11 +22,18 @@ export async function getServerSideProps(context) {
 	}
 
 	const dataProduct = await axios
-		.get(`${process.env.BASE_URL_DEV}product/favorite`, {
-			headers: {
-				Authorization: `Bearer ${dataCookie.token}`,
-			},
-		})
+		.get(
+			`${
+				process.env.APP_HOST === "PROD"
+					? process.env.BASE_URL_PROD
+					: process.env.BASE_URL_DEV
+			}product/favorite`,
+			{
+				headers: {
+					Authorization: `Bearer ${dataCookie.token}`,
+				},
+			}
+		)
 		.then((res) => {
 			return res.data.data;
 		})
@@ -76,11 +83,15 @@ function Product(props) {
 		} else {
 			axios
 				.get(
-					`${process.env.BASE_URL_DEV}product?search=${
-						search ? search : ""
-					}&sortField=${sortField ? sortField : ""}&sort=${
-						sort ? sort : ""
-					}&page=${pageP ? pageP : ""}&category=${category ? category : ""}`
+					`${
+						process.env.APP_HOST === "PROD"
+							? process.env.BASE_URL_PROD
+							: process.env.BASE_URL_DEV
+					}product?search=${search ? search : ""}&sortField=${
+						sortField ? sortField : ""
+					}&sort=${sort ? sort : ""}&page=${pageP ? pageP : ""}&category=${
+						category ? category : ""
+					}`
 				)
 				.then((res) => {
 					// console.log("TEST");
@@ -96,11 +107,19 @@ function Product(props) {
 
 	const hanldeFavorite = () => {
 		router.push("/product");
-		axios.get(`${process.env.BASE_URL_DEV}product/favorite`).then((res) => {
-			// console.log(res.data.data);
-			setListProduct(res.data.data);
-			setPageInfo({ totalPage: 1 });
-		});
+		axios
+			.get(
+				`${
+					process.env.APP_HOST === "PROD"
+						? process.env.BASE_URL_PROD
+						: process.env.BASE_URL_DEV
+				}product/favorite`
+			)
+			.then((res) => {
+				// console.log(res.data.data);
+				setListProduct(res.data.data);
+				setPageInfo({ totalPage: 1 });
+			});
 	};
 
 	const handlePagination = (event) => {
@@ -220,7 +239,11 @@ function Product(props) {
 										<div className="product__list hover-pointer">
 											<div className="d-flex justify-content-center">
 												<img
-													src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}
+													src={`${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+													}upload/product/${item.image}`}
 													alt="ada"
 													className="product-image__list"
 												/>

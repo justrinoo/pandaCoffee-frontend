@@ -23,14 +23,14 @@ export async function getServerSideProps(context) {
 export default function createPromo() {
 	useEffect(() => {
 		if (localStorage.getItem("role") != "admin") {
-      router.push("/product");
-    }
-	},[])
+			router.push("/product");
+		}
+	}, []);
 	return (
 		<>
 			<Layout pageTitle="Create Promo" isLogged={true}>
 				<main className="container">
-					<Breadcrumb className="mt-4">
+					<Breadcrumb className="mt-4 breadcumb_mobile">
 						<Breadcrumb.Item href="#" className="breadcrumb-default" active>
 							Promo
 						</Breadcrumb.Item>

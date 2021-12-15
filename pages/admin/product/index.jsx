@@ -41,6 +41,7 @@ function ProductAdmin(props) {
 	const { search, sortField, sort, pageProduct, category } = router.query;
 	const [pageInfo, setPageInfo] = useState({});
 	const [refresh, setRefresh] = useState(true);
+	const [active, setActive] = useState("favorite");
 	// const voucher = useSelector((state) => state.voucher.vouchers);
 	const dataVoucher = props.response.data;
 	const pagination = props.response.pagination;
@@ -57,6 +58,9 @@ function ProductAdmin(props) {
 	};
 
 	useEffect(() => {
+		if (localStorage.getItem("role") != "admin") {
+			router.push("/");
+		}
 		if (
 			!router.query.search &&
 			!router.query.sortField &&
@@ -87,8 +91,10 @@ function ProductAdmin(props) {
 	}, [router.query, refresh]);
 
 	const handleFavorite = () => {
+		setActive("favorite");
 		router.push("/admin/product");
-		axios.get(`product/favorite`).then((res) => {
+		axios.get(`${process.env.BASE_URL_DEV}product/favorite`).then((res) => {
+			// console.log(res.data.data);
 			setListProduct(res.data.data);
 			setPageInfo({ totalPage: 1 });
 		});
@@ -117,12 +123,28 @@ function ProductAdmin(props) {
 		}
 	};
 
+	const handleFilter = (data) => {
+		setActive(data);
+		router.push(
+			`/admin/product?search=&sortField=&sort=&pageP=1&category=${data}`
+		);
+	};
+
+	const handleAll = () => {
+		setActive("all");
+		router.push("/admin/product?search=&sortField=&sort=&pageP=1&category=");
+	};
+
 	useEffect(() => {
-		const token = Cookies.get("token");
-		if (!token) {
-			router.push("/auth/login");
-		}
-	}, []);
+		console.log(active);
+	}, [active]);
+
+	// useEffect(() => {
+	//   const token = Cookies.get("token");
+	//   if (!token) {
+	//     router.push("/auth/login");
+	//   }
+	// }, []);
 	return (
 		<>
 			<Layout pageTitle="Product Admin" isLogged={true}>
@@ -133,49 +155,65 @@ function ProductAdmin(props) {
 						</div>
 						<div className="col-lg-8 product">
 							<div className="product__filter ">
-								<h2 onClick={() => handleFavorite()}>Favorite Product</h2>
 								<h2
-									onClick={() =>
-										router.push(
-											"/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffe"
-										)
+									style={
+										active === "favorite"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
 									}
+									onClick={() => {
+										handleFavorite();
+									}}
+								>
+									Favorite Product
+								</h2>
+								<h2
+									style={
+										active === "coffe"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
+									}
+									onClick={() => handleFilter("coffe")}
 								>
 									Coffe
 								</h2>
 								<h2
-									onClick={() =>
-										router.push(
-											"/admin/product?search=&sortField=&sort=&pageProduct=1&category=nonCoffee"
-										)
+									style={
+										active === "nonCoffee"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
 									}
+									onClick={() => handleFilter("nonCoffee")}
 								>
 									nonCoffee
 								</h2>
 								<h2
-									onClick={() =>
-										router.push(
-											"/admin/product?search=&sortField=&sort=&pageProduct=1&category=food"
-										)
+									style={
+										active === "food"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
 									}
+									onClick={() => handleFilter("food")}
 								>
 									Food
 								</h2>
 								<h2
-									onClick={() =>
-										router.push(
-											"/admin/product?search=&sortField=&sort=&pageProduct=1&category=addon"
-										)
+									style={
+										active === "addon"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
 									}
+									onClick={() => handleFilter("addon")}
 								>
 									Addon
 								</h2>
 								<h2
-									onClick={() =>
-										router.push(
-											"/admin/product?search=&sortField=&sort=&pageProduct=1&category="
-										)
+									style={
+										active === "all"
+											? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+											: { color: "#9F9F9F" }
 									}
+									onClick={() => handleAll()}
 								>
 									All Product
 								</h2>
@@ -184,13 +222,17 @@ function ProductAdmin(props) {
 								{listProduct.map((item, index) => (
 									<div
 										key={index}
-										className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4"
+										className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4 product__bg"
 									>
-										<div className=" product__list ">
-											<div className="d-flex justify-content-center">
+										<div className="product__list">
+											<div className="d-flex justify-content-center product__bg">
 												<img
-													src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}
-													alt="ada"
+													src={
+														item.image
+															? `${process.env.BASE_URL_DEV}upload/product/${item.image}`
+															: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+													}
+													// alt="ada"
 												/>
 											</div>
 											<h2>{item.nameProduct}</h2>

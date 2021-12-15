@@ -7,10 +7,9 @@ import { useSelector } from "react-redux";
 import axios from "utils/axios";
 import { toast, ToastContainer } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import ModalHeader from "react-bootstrap/ModalHeader";
 
 export default function Navbar() {
+	const [isActive, setActive] = useState("");
 	const user = useSelector((state) => state.auth.userLogin);
 	const [search, setSearch] = useState("");
 	const [allProduct, setAllProduct] = useState([]);
@@ -53,12 +52,34 @@ export default function Navbar() {
 		setSearch(e.target.value);
 	};
 
+	const pageLink = (value) => {
+		setActive(value);
+		router.push(
+			`/${
+				role === "admin" && value === "/" ? "" : role === "admin" ? "admin" : ""
+			}/${value}`
+		);
+	};
+
+	const pageLinkCustomer = (value) => {
+		setActive(value);
+		router.push(
+			`/${
+				role === "user" && value === "product"
+					? "/"
+					: role === "user" || value === "checkout" || value === "history"
+					? "customer"
+					: ""
+			}/${value}`
+		);
+	};
+
 	return (
 		<>
-			<header className="container">
+			<header className="container navbar_main">
 				<ToastContainer />
 
-				<nav className="d-flex justify-content-between align-items-center py-4">
+				<nav className="d-flex justify-content-between align-items-center py-4 ">
 					<section className="navbar-brand-main flex align-items-center	">
 						<img
 							src="/images/logo-pandaCoffe.png"
@@ -85,32 +106,79 @@ export default function Navbar() {
 					<section className="navbar-link-content">
 						{role === "admin" ? (
 							<>
-								<Link href="/">
-									<span className="nav-brand-link nav-brand-link-active">
-										Home
-									</span>
-								</Link>
-								<Link href="/admin/product">
-									<span className="nav-brand-link">Product</span>
-								</Link>
-								<Link href="/admin/manageOrder">
-									<span className="nav-brand-link">Orders</span>
-								</Link>
-								<Link href="/admin/dashboard/day">
-									<span className="nav-brand-link">Dashboard</span>
-								</Link>
+								<span
+									className={
+										isActive === "/"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLink("/")}
+								>
+									Home
+								</span>
+								<span
+									className={
+										isActive === "product"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLink("product")}
+								>
+									Product
+								</span>
+								<span
+									className={
+										isActive === "manageOrder"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLink("manageOrder")}
+								>
+									Orders
+								</span>
+								<span
+									cclassName={
+										isActive === "dashboard"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLink("dashboard")}
+								>
+									Dashboard
+								</span>
 							</>
 						) : role !== "admin" && token ? (
 							<>
-								<Link href="/product">
-									<span className="nav-brand-link">Product</span>
-								</Link>
-								<Link href="/customer/checkout">
-									<span className="nav-brand-link">Your cart</span>
-								</Link>
-								<Link href="/customer/history">
-									<span className="nav-brand-link">History</span>
-								</Link>
+								<span
+									className={
+										isActive === "product"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLinkCustomer("product")}
+								>
+									Product
+								</span>
+								<span
+									className={
+										isActive === "checkout"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLinkCustomer("checkout")}
+								>
+									Your cart
+								</span>
+								<span
+									className={
+										isActive === "history"
+											? "nav-brand-link-active"
+											: "nav-brand-link "
+									}
+									onClick={() => pageLinkCustomer("history")}
+								>
+									History
+								</span>
 							</>
 						) : null}
 					</section>
@@ -121,7 +189,11 @@ export default function Navbar() {
 									src={
 										user[0]
 											? user[0].image
-												? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+												? `${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+												  }upload/user/${user[0].image}`
 												: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 											: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 									}
@@ -173,16 +245,22 @@ export default function Navbar() {
 								alt="Chat"
 							/>
 
-							<button type="button" class="btn p-0 m-0" onClick={handleShow}>
-								<img
-									src="/icons/search.svg"
-									width={30}
-									height={30}
-									style={{ cursor: "pointer" }}
-									className="nav-profile-icon mx-4"
-									alt="search icon"
-								/>
-							</button>
+							{role === "admin" ? null : (
+								<button
+									type="button"
+									className="btn p-0 m-0"
+									onClick={handleShow}
+								>
+									<img
+										src="/icons/search.svg"
+										width={30}
+										height={30}
+										style={{ cursor: "pointer" }}
+										className="nav-profile-icon mx-4"
+										alt="search icon"
+									/>
+								</button>
+							)}
 						</section>
 					) : (
 						<div className="d-flex flex-row-reverse">
@@ -210,13 +288,8 @@ export default function Navbar() {
 				backdrop="static"
 				keyboard={false}
 			>
-				<Modal.Header closeButton>
-					<Modal.Title>Modal title</Modal.Title>
-				</Modal.Header>
 				<Modal.Body>
-					<label for="" className="form-control-label">
-						Product Name
-					</label>
+					<label className="form-control-label">Product Name</label>
 					<input
 						type="text"
 						className="form-control p-3 mt-3"
@@ -225,12 +298,16 @@ export default function Navbar() {
 					/>
 					{allProduct.map((e) => (
 						// console.log(e.price[0]),
-						<div class="mt-3">
-							<div class="card card-body mb-0 pb-0">
-								<div class="d-flex justify-content-between">
-									<div class="d-flex">
+						<div className="mt-3">
+							<div className="card card-body mb-0 pb-0">
+								<div className="d-flex justify-content-between">
+									<div className="d-flex">
 										<img
-											src={`${process.env.BASE_URL_DEV}upload/product/${e.image}`}
+											src={`${
+												process.env.APP_HOST === "PROD"
+													? process.env.BASE_URL_PROD
+													: process.env.BASE_URL_DEV
+											}upload/product/${e.image}`}
 											alt=""
 											className="product-details__img-product product__search mb-3"
 											width="70px"
@@ -245,7 +322,7 @@ export default function Navbar() {
 											</a>
 										</Link>
 									</div>
-									<h6 class="mt-2 fw-bold ">
+									<h6 className="mt-2 fw-bold ">
 										Rp {formatIDR(parseInt(e.price[0]))}
 									</h6>
 								</div>

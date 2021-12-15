@@ -1,4 +1,4 @@
-import { Layout } from "components";
+import { Layout, HomePageMobile } from "components";
 import Carousel from "react-multi-carousel";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 import axios from "utils/axios";
 
 export default function Home() {
+	const role = localStorage.getItem("role");
+	const [search, setSearch] = useState("");
+	const [dataProducts, setDataProduct] = useState([]);
 	const router = useRouter();
 	const testimonials = [
 		{
@@ -82,83 +85,24 @@ export default function Home() {
 	};
 
 	const findProduct = async (event) => {
+		setSearch(event.target.value);
 		if (event.key === "Enter") {
-			const response = await axios.get("product");
-			console.log("ready product.", response.data);
+			try {
+				const response = await axios.get(`product?search=${search}&limit=2`);
+				console.log(response.data.data);
+				setDataProduct(response.data.data);
+			} catch (error) {
+				setDataProduct([]);
+				console.log(error.response);
+			}
 		}
 	};
 
 	return (
 		<Layout pageTitle="Home Page" isLogged={true}>
-			{/* MOBILE SCREEN*/}
-			<section className="main-mobile d-block d-md-none">
-				<h1 className="main-mobile-title">A good coffee is a good day</h1>
-
-				<div className="main-mobile-search">
-					<div className="search-container">
-						<img src="/icons/search.svg" width={18} height={18} alt="Search" />
-					</div>
-					<input type="text" className="home-search" placeholder="Search" />
-				</div>
-
-				<div className="mobile-navigation">
-					<div className="container-navigation">
-						<Link href="/">
-							<span>Favorite</span>
-						</Link>
-						<Link href="/">
-							<span>Promo</span>
-						</Link>
-						<Link href="/">
-							<span>Coffee</span>
-						</Link>
-						<Link href="/">
-							<span>NonCoffee</span>
-						</Link>
-						<Link href="/">
-							<span>AllProduct</span>
-						</Link>
-					</div>
-				</div>
-
-				<div className="list-product-mobile">
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-				</div>
-			</section>
-			{/* END MOBILE SCREEN */}
-
+			{/* Mobile Screen */}
+			<HomePageMobile />
+			{/* End Mobile Screen */}
 			{/* DESKTOP */}
 			<main className="main-desktop">
 				<section className="jarak-50" id="HERO">
@@ -178,14 +122,64 @@ export default function Home() {
 										Get Started
 									</button>
 								</div>
-								<div class="col-md-3 m-5">
-									<input
-										type="text"
-										className="form-control lp__hero_input"
-										placeholder={`Search `}
-										onKeyPress={findProduct}
-									/>
-								</div>
+								{role !== "user" ? null : (
+									<div class="col-md-3 m-5">
+										<input
+											type="text"
+											className="form-control lp__hero_input"
+											placeholder={`Search `}
+											name="search"
+											onKeyPress={findProduct}
+										/>
+										{dataProducts.length > 0 ? (
+											<div className="bg-white text-dark p-3 rounded mt-1">
+												<p>You Find: {search}</p>
+												{dataProducts.map((value) => (
+													<div
+														className="d-flex mt-1 mb-3"
+														key={value.id}
+														onClick={() =>
+															router.push(
+																`${
+																	role === "user" &&
+																	`/customer/productDetails/${value.id}`
+																}`
+															)
+														}
+													>
+														{/*  */}
+														<img
+															src={
+																value.image
+																	? `${
+																			process.env.APP_HOST === "PROD"
+																				? process.env.BASE_URL_PROD
+																				: process.env.BASE_URL_DEV
+																	  }upload/product/${value.image}`
+																	: "/images/ice.png"
+															}
+															alt={value.nameProduct}
+															width={100}
+															height={100}
+															style={{ objectFit: "cover" }}
+														/>
+														<div className="d-block mt-1 mx-2">
+															<h6 className="mt-1">{value.nameProduct}</h6>
+															<p className="mt-1">
+																IDR
+																{new Intl.NumberFormat("id-ID").format(
+																	value.price[0]
+																)}
+															</p>
+														</div>
+													</div>
+												))}
+												<hr />
+											</div>
+										) : null}
+									</div>
+								)}
+
 								<div class="d-flex justify-content-center">
 									<div className="card card-body card__hero text-dark shadow">
 										<div className="d-flex justify-content-between">

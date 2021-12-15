@@ -31,6 +31,7 @@
 .forgot-password:hover {
   color: #6a4029;
 }
+npm
 /* Register */
 
 /* Footer */
@@ -68,6 +69,7 @@ footer {
 .forgot-password-content {
   background-image: url("../public/images/forgot-password.png");
   background-size: cover;
+  height: 70vh;
   /* width: 1440px;
   height: 500px; */
 }
@@ -121,8 +123,7 @@ footer {
   }
   /* forgot password */
   .forgot-password-content {
-    background-image: url("../public/images/forgot-password.png");
-    width: 100%;
+    background-image: none;
   }
   /* .forgot-input-email {
     width: 100%;
@@ -134,4 +135,23 @@ footer {
     width: 50% !important;
     height: 70px;
   } */
+  .button-forgot-password {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .forgot-p {
+    color: black;
+  }
+  .forgot-header {
+    color: black;
+  }
+}
+
+@media (max-width: 1300px) {
+  .content-right {
+    width: fit-content;
+  }
+  .hide__mobile {
+    width: 40%;
+  }
 }

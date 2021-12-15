@@ -182,46 +182,50 @@ function manageOrderPage(props) {
                             <div className="list-ordered__cont row mt-5">
                               {item.product.map((item, index) => {
                                 return (
-                                  <div
-                                    key={index}
-                                    className="details-order__list-ordered col-12 my-3"
-                                  >
-                                    <div className="col-9">
-                                      <div className="d-flex">
-                                        <div className="list-order__list p-0">
-                                          <img
-                                            src={`${process.env.BASE_URL_DEV}/upload/product/${item.image}`}
-                                            alt=""
-                                          />
-                                        </div>
+																	<div
+																		key={index}
+																		className="details-order__list-ordered col-12 my-3"
+																	>
+																		<div className="col-9">
+																			<div className="d-flex">
+																				<div className="list-order__list p-0">
+																					<img
+																						src={`${
+																							process.env.APP_HOST === "PROD"
+																								? process.env.BASE_URL_PROD
+																								: process.env.BASE_URL_DEV
+																						}/upload/product/${item.image}`}
+																						alt=""
+																					/>
+																				</div>
 
-                                        <div className="list-order__details-items ms-4">
-                                          <div className="details-items__name">
-                                            {item.nameProduct
-                                              ? item.nameProduct
-                                              : ""}
-                                          </div>
-                                          <div className="details-items__total">
-                                            x{" "}
-                                            {item.quantity ? item.quantity : 0}
-                                          </div>
-                                          <div className="details-items__size">
-                                            {item.size ? item.size : "Regular"}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="list-roder__details-price col-3 text-end">
-                                      IDR{" "}
-                                      {item.totalItemPayment
-                                        ? item.totalItemPayment
-                                            .toString()
-                                            .slice(0, -3)
-                                        : 0}
-                                      .0
-                                    </div>
-                                  </div>
-                                );
+																				<div className="list-order__details-items ms-4">
+																					<div className="details-items__name">
+																						{item.nameProduct
+																							? item.nameProduct
+																							: ""}
+																					</div>
+																					<div className="details-items__total">
+																						x{" "}
+																						{item.quantity ? item.quantity : 0}
+																					</div>
+																					<div className="details-items__size">
+																						{item.size ? item.size : "Regular"}
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div className="list-roder__details-price col-3 text-end">
+																			IDR{" "}
+																			{item.totalItemPayment
+																				? item.totalItemPayment
+																						.toString()
+																						.slice(0, -3)
+																				: 0}
+																			.0
+																		</div>
+																	</div>
+																);
                               })}
                             </div>
 

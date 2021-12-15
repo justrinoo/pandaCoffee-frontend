@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Layout } from "components";
+import { Footer } from "components";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "utils/axios";
 import { useRouter } from "next/router";
@@ -39,10 +40,15 @@ export default function Register() {
   };
   // Handle Register End
   return (
-    <Layout title="Sign Up Panda Coffee" isLogged={true}>
+    <Layout pageTitle="Sign Up Panda Coffee" isLogged={false}>
       <div className="row">
         <div className="col-md-6 d-lg-block d-none">
-          <img src="/images/coffee-left.png" />
+          <Image
+            src="/images/coffee-left.png"
+            alt="Picture of the author"
+            width={700}
+            height={1000}
+          />
         </div>
         <div className="col-md-6">
           {/* Auth Navbar */}
@@ -97,6 +103,12 @@ export default function Register() {
                   onChange={handleChangeText}
                 />
               </div>
+              <p>
+                Already have account?{" "}
+                <a href="/auth/login" className="forgot-password">
+                  Login
+                </a>{" "}
+              </p>
               <button className="button-submit btn btn-warning mt-3 rounded-pill">
                 Sign UP
               </button>
@@ -109,6 +121,7 @@ export default function Register() {
           {/* Auth Register Form End */}
         </div>
       </div>
+      <Footer></Footer>
     </Layout>
   );
 }

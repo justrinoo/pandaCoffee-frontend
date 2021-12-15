@@ -88,177 +88,187 @@ export default function UpdateProduct() {
     router.push("/admin/product");
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+  }, []);
+
   return (
-    <>
-      <Layout pageTitle="Update Product" isLogged={true}>
-        <main className="container">
-          <Breadcrumb className="mt-4">
-            <Breadcrumb.Item href="#" className="breadcrumb-default" active>
-              Product
-            </Breadcrumb.Item>
-            <Breadcrumb.Item href="#" active>
-              <span className="breadcrumb-active">Update Product</span>
-            </Breadcrumb.Item>
-          </Breadcrumb>
-          <ToastContainer />
-          <form onSubmit={createUpdateProductSubmit}>
-            <section className="row mt-5">
-              <section className="col-md-4  mb-5 text-center">
-                <div
-                  className={formProduct.image ? null : "promo-rounded-file"}
-                >
-                  <img
-                    src={
-                      displayImage
-                        ? displayImage
-                        : formProduct.image
-                        ? `${process.env.BASE_URL_DEV}upload/product/${formProduct.image}`
-                        : "/images/camera.png"
-                    }
-                    className={`${
-                      formProduct.image
-                        ? "file__image--active"
-                        : "camera-upload-file"
-                    }`}
-                    alt="upload photo"
-                  />
-                  <input
-                    type="file"
-                    name="image"
-                    ref={inputFile}
-                    onChange={onChangeFile}
-                    style={{ display: "none" }}
-                  />
-                </div>
+		<>
+			<Layout pageTitle="Update Product" isLogged={true}>
+				<main className="container">
+					<Breadcrumb className="mt-4">
+						<Breadcrumb.Item href="#" className="breadcrumb-default" active>
+							Product
+						</Breadcrumb.Item>
+						<Breadcrumb.Item href="#" active>
+							<span className="breadcrumb-active">Update Product</span>
+						</Breadcrumb.Item>
+					</Breadcrumb>
+					<ToastContainer />
+					<form onSubmit={createUpdateProductSubmit}>
+						<section className="row mt-5">
+							<section className="col-md-4  mb-5 text-center">
+								<div
+									className={formProduct.image ? null : "promo-rounded-file"}
+								>
+									<img
+										src={
+											displayImage
+												? displayImage
+												: formProduct.image
+												? `${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+												  }upload/product/${formProduct.image}`
+												: "/images/camera.png"
+										}
+										className={`${
+											formProduct.image
+												? "file__image--active"
+												: "camera-upload-file"
+										}`}
+										alt="upload photo"
+									/>
+									<input
+										type="file"
+										name="image"
+										ref={inputFile}
+										onChange={onChangeFile}
+										style={{ display: "none" }}
+									/>
+								</div>
 
-                <button
-                  type="button"
-                  className="promo-file-button mt-4"
-                  onClick={onButtonClick}
-                >
-                  Choose from gallery
-                </button>
+								<button
+									type="button"
+									className="promo-file-button mt-4"
+									onClick={onButtonClick}
+								>
+									Choose from gallery
+								</button>
 
-                <div className="mb-3">
-                  <button type="submit" className="promo-form-button">
-                    Save Product
-                  </button>
-                  <button
-                    type="button"
-                    className="promo-form-button-cancel"
-                    onClick={CancelUpdatePromo}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </section>
-              <div className="col-md-2"></div>
-              <section className="col-md-6 mb-5 ">
-                <div className=" product-form-input-parent">
-                  <label htmlFor="nameProduct">Name: </label>
-                  <input
-                    type="text"
-                    name="nameProduct"
-                    id="nameProduct"
-                    value={formProduct.nameProduct}
-                    onChange={ChangeTextFile}
-                    className="product-form-input"
-                    placeholder="Type product name min. 50 characters"
-                  />
-                </div>
-                <div className="row">
-                  <div className="col-md-6 product-form-input-parent">
-                    <label htmlFor="price">Price : </label>
-                    <input
-                      type="text"
-                      name="price"
-                      id="price"
-                      value={formProduct.price}
-                      onChange={ChangeTextFile}
-                      className="product-form-input"
-                      placeholder="Type the price"
-                    />
-                  </div>
-                  <div className="col-md-6 product-form-input-parent">
-                    <label htmlFor="category">Category: </label>
-                    <select
-                      name="category"
-                      id="category"
-                      value={formProduct.category}
-                      onChange={ChangeTextFile}
-                      className="product-form-select "
-                    >
-                      <option hidden>Category</option>
-                      <option value="coffe">coffee</option>
-                      <option value="nonCoffee">non-coffee</option>
-                      <option value="food">foods</option>
-                      <option value="addon">add-on</option>
-                    </select>
-                  </div>
-                </div>
-                <div className=" product-form-input-parent">
-                  <label htmlFor="description">Description :</label>
-                  <input
-                    type="text"
-                    name="description"
-                    id="description"
-                    value={formProduct.description}
-                    onChange={ChangeTextFile}
-                    className="product-form-input"
-                    placeholder="Describe your product min. 150 characters"
-                  />
-                </div>
-                <div className="product-form-input-parent">
-                  <label htmlFor="size">Input product size : </label>
-                  <div className="description-size">
-                    <p>Click size you want to use for this product</p>
-                  </div>
+								<div className="mb-3">
+									<button type="submit" className="promo-form-button">
+										Save Product
+									</button>
+									<button
+										type="button"
+										className="promo-form-button-cancel"
+										onClick={CancelUpdatePromo}
+									>
+										Cancel
+									</button>
+								</div>
+							</section>
+							<div className="col-md-2"></div>
+							<section className="col-md-6 mb-5 ">
+								<div className=" product-form-input-parent">
+									<label htmlFor="nameProduct">Name: </label>
+									<input
+										type="text"
+										name="nameProduct"
+										id="nameProduct"
+										value={formProduct.nameProduct}
+										onChange={ChangeTextFile}
+										className="product-form-input"
+										placeholder="Type product name min. 50 characters"
+									/>
+								</div>
+								<div className="row">
+									<div className="col-md-6 product-form-input-parent">
+										<label htmlFor="price">Price : </label>
+										<input
+											type="text"
+											name="price"
+											id="price"
+											value={formProduct.price}
+											onChange={ChangeTextFile}
+											className="product-form-input"
+											placeholder="Type the price"
+										/>
+									</div>
+									<div className="col-md-6 product-form-input-parent">
+										<label htmlFor="category">Category: </label>
+										<select
+											name="category"
+											id="category"
+											value={formProduct.category}
+											onChange={ChangeTextFile}
+											className="product-form-select "
+										>
+											<option hidden>Category</option>
+											<option value="coffe">coffee</option>
+											<option value="nonCoffee">non-coffee</option>
+											<option value="food">foods</option>
+											<option value="addon">add-on</option>
+										</select>
+									</div>
+								</div>
+								<div className=" product-form-input-parent">
+									<label htmlFor="description">Description :</label>
+									<input
+										type="text"
+										name="description"
+										id="description"
+										value={formProduct.description}
+										onChange={ChangeTextFile}
+										className="product-form-input"
+										placeholder="Describe your product min. 150 characters"
+									/>
+								</div>
+								<div className="product-form-input-parent">
+									<label htmlFor="size">Input product size : </label>
+									<div className="description-size">
+										<p>Click size you want to use for this product</p>
+									</div>
 
-                  <div className="size">
-                    <div
-                      className={formProduct.size == 1 ? "change__color" : ""}
-                      onClick={() =>
-                        setFormProduct({ ...formProduct, size: "1" })
-                      }
-                    >
-                      <label htmlFor="r" className="size__button">
-                        R
-                      </label>
+									<div className="size">
+										<div
+											className={formProduct.size == 1 ? "change__color" : ""}
+											onClick={() =>
+												setFormProduct({ ...formProduct, size: "1" })
+											}
+										>
+											<label htmlFor="r" className="size__button">
+												R
+											</label>
 
-                      <label htmlFor="l" className="size__button">
-                        L
-                      </label>
+											<label htmlFor="l" className="size__button">
+												L
+											</label>
 
-                      <label htmlFor="xl" className="size__button">
-                        XL
-                      </label>
-                    </div>
+											<label htmlFor="xl" className="size__button">
+												XL
+											</label>
+										</div>
 
-                    <div
-                      className={formProduct.size == 2 ? "change__color" : ""}
-                      onClick={() =>
-                        setFormProduct({ ...formProduct, size: "2" })
-                      }
-                    >
-                      <label htmlFor="250gr" className="size__button ">
-                        250gr
-                      </label>
+										<div
+											className={formProduct.size == 2 ? "change__color" : ""}
+											onClick={() =>
+												setFormProduct({ ...formProduct, size: "2" })
+											}
+										>
+											<label htmlFor="250gr" className="size__button ">
+												250gr
+											</label>
 
-                      <label htmlFor="300gr" className="size__button">
-                        300gr
-                      </label>
+											<label htmlFor="300gr" className="size__button">
+												300gr
+											</label>
 
-                      <label htmlFor="500gr" className="size__button">
-                        500gr
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </section>
-          </form>
-        </main>
-      </Layout>
-    </>
-  );
+											<label htmlFor="500gr" className="size__button">
+												500gr
+											</label>
+										</div>
+									</div>
+								</div>
+							</section>
+						</section>
+					</form>
+				</main>
+			</Layout>
+		</>
+	);
 }
