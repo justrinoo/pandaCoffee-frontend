@@ -41,7 +41,7 @@ function ProductAdmin(props) {
   const { search, sortField, sort, pageProduct, category } = router.query;
   const [pageInfo, setPageInfo] = useState({});
   const [refresh, setRefresh] = useState(true);
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("favorite");
   // const voucher = useSelector((state) => state.voucher.vouchers);
   const dataVoucher = props.response.data;
   const pagination = props.response.pagination;
@@ -91,8 +91,10 @@ function ProductAdmin(props) {
   }, [router.query, refresh]);
 
   const handleFavorite = () => {
+    setActive("favorite");
     router.push("/admin/product");
-    axios.get(`product/favorite`).then((res) => {
+    axios.get(`${process.env.BASE_URL_DEV}product/favorite`).then((res) => {
+      // console.log(res.data.data);
       setListProduct(res.data.data);
       setPageInfo({ totalPage: 1 });
     });
@@ -121,26 +123,28 @@ function ProductAdmin(props) {
     }
   };
 
-  // const pageLink = (value) => {
-  //   setActive(value);
-  //   router.push(
-  //     `/${
-  //       router.push("/admin/product"),
-  //       router.push("/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffe"),
-  // 			router.push("/admin/product?search=&sortField=&sort=&pageProduct=1&category=nonCoffee"),
-  // 			router.push("/admin/product?search=&sortField=&sort=&pageProduct=1&category=food"),
-  // 			router.push("/admin/product?search=&sortField=&sort=&pageProduct=1&category=addon"),
-  // 			router.push("/admin/product?search=&sortField=&sort=&pageProduct=1&category="),
-  //     }/${value}`
-  //   );
-  // };
+  const handleFilter = (data) => {
+    setActive(data);
+    router.push(
+      `/admin/product?search=&sortField=&sort=&pageP=1&category=${data}`
+    );
+  };
+
+  const handleAll = () => {
+    setActive("all");
+    router.push("/admin/product?search=&sortField=&sort=&pageP=1&category=");
+  };
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (!token) {
-      router.push("/auth/login");
-    }
-  }, []);
+    console.log(active);
+  }, [active]);
+
+  // useEffect(() => {
+  //   const token = Cookies.get("token");
+  //   if (!token) {
+  //     router.push("/auth/login");
+  //   }
+  // }, []);
   return (
     <>
       <Layout pageTitle="Product Admin" isLogged={true}>
@@ -151,102 +155,77 @@ function ProductAdmin(props) {
             </div>
             <div className="col-lg-8 product">
               <div className="product__filter ">
-                <button
-                  className={
-                    active === "/admin/product"
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                <h2
+                  style={
+                    active === "favorite"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
                   onClick={() => {
                     handleFavorite();
                   }}
                 >
                   Favorite Product
-                </button>
-                <button
-                  className={
-                    active ===
-                    "/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffe"
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                </h2>
+                <h2
+                  style={
+                    active === "coffe"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
-                  onClick={() => {
-                    router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=coffe"
-                    );
-                  }}
+                  onClick={() => handleFilter("coffe")}
                 >
                   Coffe
-                </button>
-                <button
-                  className={
-                    active ===
-                    "/admin/product?search=&sortField=&sort=&pageProduct=1&category=nonCoffe"
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                </h2>
+                <h2
+                  style={
+                    active === "nonCoffee"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
-                  onClick={() => {
-                    router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=nonCoffee"
-                    );
-                  }}
+                  onClick={() => handleFilter("nonCoffee")}
                 >
                   nonCoffee
-                </button>
-                <button
-                  className={
-                    active ===
-                    "/admin/product?search=&sortField=&sort=&pageProduct=1&category=food"
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                </h2>
+                <h2
+                  style={
+                    active === "food"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
-                  onClick={() => {
-                    router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=food"
-                    );
-                  }}
+                  onClick={() => handleFilter("food")}
                 >
                   Food
-                </button>
-                <button
-                  className={
-                    active ===
-                    "/admin/product?search=&sortField=&sort=&pageProduct=1&category=addon"
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                </h2>
+                <h2
+                  style={
+                    active === "addon"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
-                  onClick={() => {
-                    router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category=addon"
-                    );
-                  }}
+                  onClick={() => handleFilter("addon")}
                 >
                   Addon
-                </button>
-                <button
-                  className={
-                    active ===
-                    "/admin/product?search=&sortField=&sort=&pageProduct=1&category="
-                      ? "nav-brand-link-active"
-                      : "nav-brand-link "
+                </h2>
+                <h2
+                  style={
+                    active === "all"
+                      ? { color: "#6A4029", borderBottom: "2px solid #6A4029" }
+                      : { color: "#9F9F9F" }
                   }
-                  onClick={() => {
-                    router.push(
-                      "/admin/product?search=&sortField=&sort=&pageProduct=1&category="
-                    );
-                  }}
+                  onClick={() => handleAll()}
                 >
                   All Product
-                </button>
+                </h2>
               </div>
               <div className="row product__grid">
                 {listProduct.map((item, index) => (
                   <div
                     key={index}
-                    className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4"
+                    className="col-lg-3 col-md-4 col-sm-6 col-6 px-1 my-4 product__bg"
                   >
-                    <div className=" product__list ">
-                      <div className="d-flex justify-content-center">
+                    <div className="product__list">
+                      <div className="d-flex justify-content-center product__bg">
                         <img
                           src={
                             item.image

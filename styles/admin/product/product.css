@@ -116,7 +116,7 @@
 
 .product__filter button {
   color: #6a4029;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   margin: 0;
   margin: 0 12px 0 0;
@@ -128,7 +128,7 @@
 
 .product__filter h2 {
   color: #6a4029;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   /* margin: 0; */
   margin: 0 12px 0 0;
@@ -352,4 +352,44 @@
 label.size__button {
   /* margin: 12px; */
   margin-right: 12px;
+}
+
+@media (max-width: 575.98px) {
+  .promo {
+    display: none;
+  }
+
+  .product {
+    background-color: #fff !important;
+  }
+
+  .product__filter {
+    background-color: #fff;
+  }
+
+  .product__filter h2 {
+    background-color: #fff;
+  }
+
+  .product__grid {
+    background-color: #fff !important;
+  }
+
+  .product__list {
+    background-color: #fff !important;
+  }
+
+  .product__bg {
+    background-color: #fff !important;
+  }
+
+  .product__list h2,
+  .product__list h4 {
+    background-color: #fff !important;
+  }
+
+  .product__icon--pencil img,
+  .product__icon--trash img {
+    background-color: transparent;
+  }
 }
