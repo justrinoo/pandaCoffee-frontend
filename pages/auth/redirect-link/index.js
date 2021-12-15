@@ -43,54 +43,43 @@ const ForgotPassword = (props) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   return (
-    <Layout pageTitle="Forgot Password" isLogged={false}>
+    <Layout pageTitle="Forgot Password" isLogged={true}>
       <main className="forgot-password-content">
-        <div className="container test">
+        <div className="container">
           <div className="row">
             <div className="col-md-3"></div>
             <div className="forgot-contain col-md-6">
               <ToastContainer />
               <div className="forgot-title">
-                <h1 className="forgot-header">FORGOT YOUR PASSWORD</h1>
+                <h1>Resend Link if you didn’t receive any link in 2 minutes</h1>
                 <p className="forgot-p">Dont worry, we got your back</p>
               </div>
               <form className="forgot-password-form" onSubmit={handleSubmit}>
-                <div class="row">
-                  <div class="col-md-8 col-sm-8 p-0 m-0">
-                    <label for="inputPassword2" className="visually-hidden">
-                      Password
-                    </label>
-                    <input
-                      type="email"
-                      className="forgot-input-email form-control rounded"
-                      id="email"
-                      name="email"
-                      placeholder="Enter your Email Adress to get Link"
-                      onChange={handleChangeText}
-                    />
-                  </div>
-                  <div class="col-md-4 col-sm-4 p-0 m-0">
-                    <button
-                      type="submit"
-                      className="button-forgot-password btn btn-warning mb-3 rounded"
-                    >
-                      Send
-                    </button>
-                  </div>
+                <label for="inputPassword2" className="visually-hidden">
+                  Password
+                </label>
+                <input
+                  type="email"
+                  className="forgot-input-email form-control rounded"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your Email Adress to get Link"
+                  onChange={handleChangeText}
+                />
+                <p className="forgot-note">
+                  Enter Your Email Again if you didn’t receive any link in 2
+                  minutes
+                </p>
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    className="button-resend-link btn btn-warning mb-3 rounded"
+                  >
+                    Resend Link
+                  </button>
                 </div>
               </form>
               {/* Bagian Resend Link belum di handle */}
-              {/* <p className="forgot-note">
-                Click here if you didn’t receive any link in 2 minutes
-              </p>
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="button-resend-link btn btn-warning mb-3 rounded"
-                >
-                  Resend Link
-                </button>
-              </div> */}
 
               {/* Bagian Resend Link belum di handle */}
             </div>
@@ -98,7 +87,6 @@ const ForgotPassword = (props) => {
           </div>
         </div>
       </main>
-      <Footer></Footer>
     </Layout>
   );
 };

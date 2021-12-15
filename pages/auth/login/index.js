@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { connect } from "react-redux";
 import { loginUser, getUserLogin } from "store/action/auth";
-
+import { Footer } from "components";
 import { getDataCookie } from "middleware/authorizationPage";
+import Image from "next/image";
 // import { Alert } from "bootstrap";
 
 export async function getServerSideProps(context) {
@@ -45,9 +46,10 @@ const Login = (props) => {
         props.getUserLogin(res.value.data.data.id).then((responseUser) => {
           localStorage.setItem("role", responseUser.value.data.data[0].role);
           if (responseUser.value.data.data[0].role === "admin") {
+            toast.success("Sukses Login");
             router.push("/admin/product");
           } else {
-            router.push(`/customer/history`);
+            router.push("/product");
           }
         });
       })
@@ -63,12 +65,18 @@ const Login = (props) => {
   // Handle Login End
 
   return (
-    <Layout title="Login Panda Coffee" isLogged={true}>
+    <Layout pageTitle="Login Panda Coffee" isLogged={false}>
       <div className="row">
-        <div className="col-md-6 hide__mobile">
-          <img src="/images/coffee-left.png" />
+        <div className="col-lg-6 hide__mobile">
+          {/* <img src="/images/coffee-left.png" className="image-auth" /> */}
+          <Image
+            src="/images/coffee-left.png"
+            alt="Picture of the author"
+            width={700}
+            height={1000}
+          />
         </div>
-        <div className="col-md-6">
+        <div className="col-lg-6 content-right">
           {/* Auth Navbar */}
           {/* Auth Navbar End */}
           <ToastContainer />
@@ -97,6 +105,14 @@ const Login = (props) => {
               <a href="/auth/forgotPassword" className="forgot-password">
                 Forgot Password ?
               </a>
+              <br />
+              <br />
+              <p>
+                Don't have account?{" "}
+                <a href="/auth/register" className="forgot-password">
+                  Register now
+                </a>{" "}
+              </p>
               <button className="button-submit btn btn-warning  rounded-pill mb-3 p-3 mt-5">
                 Login
               </button>
@@ -109,6 +125,7 @@ const Login = (props) => {
           {/* Auth Login Form End */}
         </div>
       </div>
+      <Footer></Footer>
     </Layout>
   );
 };
