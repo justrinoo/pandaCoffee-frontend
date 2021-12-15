@@ -1,8 +1,19 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+console.log(
+	"your base url =>",
+	process.env.APP_HOST === "PROD"
+		? process.env.BASE_URL_PROD
+		: process.env.BASE_URL_DEV
+);
+
 const axiosInstance = axios.create({
-	baseURL: `${process.env.BASE_URL_DEV}`,
+	baseURL: `${
+		process.env.APP_HOST === "PROD"
+			? process.env.BASE_URL_PROD
+			: process.env.BASE_URL_DEV
+	}`,
 });
 
 axiosInstance.interceptors.request.use(

@@ -1,4 +1,4 @@
-import { Layout } from "components";
+import { Layout, HomePageMobile } from "components";
 import Carousel from "react-multi-carousel";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -100,75 +100,9 @@ export default function Home() {
 
 	return (
 		<Layout pageTitle="Home Page" isLogged={true}>
-			{/* MOBILE SCREEN*/}
-			<section className="main-mobile d-block d-md-none">
-				<h1 className="main-mobile-title">A good coffee is a good day</h1>
-
-				<div className="main-mobile-search">
-					<div className="search-container">
-						<img src="/icons/search.svg" width={18} height={18} alt="Search" />
-					</div>
-					<input type="text" className="home-search" placeholder="Search" />
-				</div>
-
-				<div className="mobile-navigation">
-					<div className="container-navigation">
-						<Link href="/">
-							<span>Favorite</span>
-						</Link>
-						<Link href="/">
-							<span>Promo</span>
-						</Link>
-						<Link href="/">
-							<span>Coffee</span>
-						</Link>
-						<Link href="/">
-							<span>NonCoffee</span>
-						</Link>
-						<Link href="/">
-							<span>AllProduct</span>
-						</Link>
-					</div>
-				</div>
-
-				<div className="list-product-mobile">
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-					<div className="card-product">
-						<img
-							src="/images/coffee-mobile.png"
-							width={168}
-							className="card-product-image"
-							height={168}
-							alt="Coffee"
-						/>
-						<h1 className="card-product-title">Hazelnut Latte</h1>
-						<p className="card-product-price">IDR 25.000</p>
-					</div>
-				</div>
-			</section>
-			{/* END MOBILE SCREEN */}
-
+			{/* Mobile Screen */}
+			<HomePageMobile />
+			{/* End Mobile Screen */}
 			{/* DESKTOP */}
 			<main className="main-desktop">
 				<section className="jarak-50" id="HERO">
@@ -217,7 +151,11 @@ export default function Home() {
 														<img
 															src={
 																value.image
-																	? `${process.env.BASE_URL_DEV}upload/product/${value.image}`
+																	? `${
+																			process.env.APP_HOST === "PROD"
+																				? process.env.BASE_URL_PROD
+																				: process.env.BASE_URL_DEV
+																	  }upload/product/${value.image}`
 																	: "/images/ice.png"
 															}
 															alt={value.nameProduct}

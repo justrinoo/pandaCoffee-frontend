@@ -125,7 +125,11 @@ const Checkout = (props) => {
 												<div class="d-flex justify-content-between mb-3">
 													<div class="d-flex">
 														<img
-															src={`${process.env.BASE_URL_DEV}upload/product/${e.image}`}
+															src={`${
+																process.env.APP_HOST === "PROD"
+																	? process.env.BASE_URL_PROD
+																	: process.env.BASE_URL_DEV
+															}upload/product/${e.image}`}
 															alt=""
 															className="checkout-privew"
 														/>

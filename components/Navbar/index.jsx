@@ -76,10 +76,10 @@ export default function Navbar() {
 
 	return (
 		<>
-			<header className="container">
+			<header className="container navbar_main">
 				<ToastContainer />
 
-				<nav className="d-flex justify-content-between align-items-center py-4">
+				<nav className="d-flex justify-content-between align-items-center py-4 ">
 					<section className="navbar-brand-main flex align-items-center	">
 						<img
 							src="/images/logo-pandaCoffe.png"
@@ -189,7 +189,11 @@ export default function Navbar() {
 									src={
 										user[0]
 											? user[0].image
-												? `${process.env.BASE_URL_DEV}upload/user/${user[0].image}`
+												? `${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+												  }upload/user/${user[0].image}`
 												: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 											: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 									}
@@ -299,7 +303,11 @@ export default function Navbar() {
 								<div className="d-flex justify-content-between">
 									<div className="d-flex">
 										<img
-											src={`${process.env.BASE_URL_DEV}upload/product/${e.image}`}
+											src={`${
+												process.env.APP_HOST === "PROD"
+													? process.env.BASE_URL_PROD
+													: process.env.BASE_URL_DEV
+											}upload/product/${e.image}`}
 											alt=""
 											className="product-details__img-product product__search mb-3"
 											width="70px"

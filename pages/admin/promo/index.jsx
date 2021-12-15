@@ -124,15 +124,23 @@ export default function FormNewPromo() {
 
 	useEffect(() => {
 		if (localStorage.getItem("role") != "admin") {
-      router.push("/product");
-    }
-	},[])
+			router.push("/product");
+		}
+	}, []);
+
+	const goBack = () => {
+		router.push("/admin/product");
+	};
 
 	return (
 		<>
 			<Layout pageTitle="Create Promo" isLogged={true}>
 				<main className="container">
-					<Breadcrumb className="mt-4">
+					<div className="px-4 py-3 menu_mobile_promo">
+						<img src="/icons/arrow-left.svg" onClick={goBack} />
+						<h3 className="text-center">New Promo</h3>
+					</div>
+					<Breadcrumb className="breadcumb_mobile mt-4">
 						<Breadcrumb.Item href="#" className="breadcrumb-default" active>
 							Promo
 						</Breadcrumb.Item>

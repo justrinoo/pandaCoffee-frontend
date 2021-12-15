@@ -162,16 +162,16 @@
 		background-color: transparent;
 		width: 100%;
 	}
+
 	.container-navigation {
-		font-size: 17px;
-		width: 100%;
-		overflow-x: auto;
 		display: flex;
+		overflow-x: auto;
 	}
 	span {
+		white-space: nowrap;
 		color: #9a9a9d;
 		font-size: 17px;
-		margin: 19px 12px;
+		margin: 21px 10px 3px;
 		display: block;
 	}
 	span:nth-child(1) {

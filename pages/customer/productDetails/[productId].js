@@ -19,7 +19,11 @@ export async function getServerSideProps(context) {
 
 	const dataProduct = await axios
 		.get(
-			`${process.env.BASE_URL_DEV}product/getDetails/${context.params.productId}`
+			`${
+				process.env.APP_HOST === "PROD"
+					? process.env.BASE_URL_PROD
+					: process.env.BASE_URL_DEV
+			}product/getDetails/${context.params.productId}`
 		)
 		.then((res) => {
 			return res.data.data;
@@ -133,7 +137,11 @@ function DetailsProductPage(props) {
 							<div className="product-details__product-name d-flex flex-column justify-content-center text-center fs-35 text-poppins">
 								<div className="d-flex justify-content-center mb-4">
 									<img
-										src={`${process.env.BASE_URL_DEV}upload/product/${props.data.image}`}
+										src={`${
+											process.env.APP_HOST === "PROD"
+												? process.env.BASE_URL_PROD
+												: process.env.BASE_URL_DEV
+										}upload/product/${props.data.image}`}
 										alt=""
 										className="product-details__img-product"
 									/>
@@ -197,7 +205,7 @@ function DetailsProductPage(props) {
 								{data.nameProduct}
 							</div>
 							<div className="product-details__product-desc mt-4 fw-400 fs-25 text-poppins">
-								{data.description}
+								{data.description === "undefined" ? "" : data.description}
 							</div>
 							<div className="d-lg-none d-flex justify-content-center">
 								<div className="card-product  mt-4 col-lg-8 col-12 fw-700 fs-25  p-4 text-center d-flex flex-column align-items-center">
@@ -280,7 +288,11 @@ function DetailsProductPage(props) {
 							<div className="p-4 card-product d-flex flex-lg-row flex-column justify-content-between align-items-center">
 								<div className="d-flex justify-content-between align-items-center align-items-center">
 									<img
-										src={`${process.env.BASE_URL_DEV}upload/product/${props.data.image}`}
+										src={`${
+											process.env.APP_HOST === "PROD"
+												? process.env.BASE_URL_PROD
+												: process.env.BASE_URL_DEV
+										}upload/product/${props.data.image}`}
 										alt=""
 										className="product-details__img-product__checkout-details me-3"
 									/>

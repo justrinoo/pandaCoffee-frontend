@@ -189,7 +189,11 @@ function ProductAdmin(props) {
 										<div className=" product__list ">
 											<div className="d-flex justify-content-center">
 												<img
-													src={`${process.env.BASE_URL_DEV}upload/product/${item.image}`}
+													src={`${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+													}upload/product/${item.image}`}
 													alt="ada"
 												/>
 											</div>
