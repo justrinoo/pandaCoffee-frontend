@@ -103,6 +103,12 @@ export default function createProduct(props) {
     router.push(`/admin/product`);
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/");
+    }
+  }, []);
+
   console.log(formProduct, "fommmmm");
   return (
     <>
@@ -182,7 +188,7 @@ export default function createProduct(props) {
                       name="price"
                       id="price"
                       className="product-form-input"
-                      placeholder="Type the price"
+                      placeholder="Type price for size R,L,XL"
                     />
                   </div>
                   <div className="col-md-6 product-form-input-parent">

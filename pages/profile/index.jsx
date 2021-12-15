@@ -7,21 +7,21 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
-  const dataCookie = await getDataCookie(context);
+	const dataCookie = await getDataCookie(context);
 
-  if (!dataCookie.isLogin) {
-    // return {
-    //   redirect: {
-    //     destination: "/auth/login",
-    //     permanent: false,
-    //   },
-    // };
-    console.log(dataCookie);
-  }
+	if (!dataCookie.isLogin) {
+		// return {
+		//   redirect: {
+		//     destination: "/auth/login",
+		//     permanent: false,
+		//   },
+		// };
+		console.log(dataCookie);
+	}
 
-  return {
-    props: {},
-  };
+	return {
+		props: {},
+	};
 }
 import { Modal } from "react-bootstrap";
 import axios from "utils/axios";
@@ -29,167 +29,167 @@ import { connect } from "react-redux";
 import { getUserLogin } from "store/action/auth";
 
 const Profile = (props) => {
-  console.log(props.auth, "skadaskdn");
-  const [data, setData] = useState({});
-  const router = useRouter();
+	console.log(props.auth, "skadaskdn");
+	const [data, setData] = useState({});
+	const router = useRouter();
 
-  // MODAL
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+	// MODAL
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
-  // Update Password
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+	// Update Password
+	const [oldPassword, setOldPassword] = useState("");
+	const [newPassword, setNewPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
-  const id = Cookie.get("id");
+	const id = Cookie.get("id");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const changePassword = {
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-      confirmPassword: confirmPassword,
-    };
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const changePassword = {
+			oldPassword: oldPassword,
+			newPassword: newPassword,
+			confirmPassword: confirmPassword,
+		};
 
-    axios
-      .patch(`/user/update/password`, changePassword)
-      .then((res) => {
-        props.getUserLogin(`${id}`);
-        Swal.fire({
-          position: "center",
-          width: 300,
-          icon: "success",
-          title: res.data.message,
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      })
-      .catch((err) => {
-        Swal.fire({
-          position: "center",
-          width: 300,
-          icon: "error",
-          title: err.response.data.message,
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      });
-  };
+		axios
+			.patch(`/user/update/password`, changePassword)
+			.then((res) => {
+				props.getUserLogin(`${id}`);
+				Swal.fire({
+					position: "center",
+					width: 300,
+					icon: "success",
+					title: res.data.message,
+					showConfirmButton: false,
+					timer: 2000,
+				});
+			})
+			.catch((err) => {
+				Swal.fire({
+					position: "center",
+					width: 300,
+					icon: "error",
+					title: err.response.data.message,
+					showConfirmButton: false,
+					timer: 2000,
+				});
+			});
+	};
 
-  const handleLogout = () => {
-    Cookie.remove("id");
-    Cookie.remove("token");
-    router.push("/auth/login");
-  };
+	const handleLogout = () => {
+		Cookie.remove("id");
+		Cookie.remove("token");
+		router.push("/auth/login");
+	};
 
-  const inputFile = useRef(null);
+	const inputFile = useRef(null);
 
-  const onButtonClick = () => {
-    inputFile.current.click();
-  };
+	const onButtonClick = () => {
+		inputFile.current.click();
+	};
 
-  const getDataUser = () => {
-    axios
-      .get(`/user/${id}`)
-      .then((res) => {
-        console.log(res.data, "consolee");
-        setForm({
-          ...res.data.data[0],
-          birthDay: res.data.data[0].birthDay?.slice(0, 10),
-        });
-        setData(res.data.data[0]);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
+	const getDataUser = () => {
+		axios
+			.get(`/user/${id}`)
+			.then((res) => {
+				console.log(res.data, "consolee");
+				setForm({
+					...res.data.data[0],
+					birthDay: res.data.data[0].birthDay?.slice(0, 10),
+				});
+				setData(res.data.data[0]);
+			})
+			.catch((err) => {
+				console.log(err.response);
+			});
+	};
 
-  const { userLogin } = props.auth;
+	const { userLogin } = props.auth;
 
-  const [form, setForm] = useState({
-    email: userLogin.email,
-    phoneNumber: userLogin.phoneNumber,
-    address: userLogin.address,
-    userName: userLogin.userName,
-    firstName: userLogin.firstName,
-    lastName: userLogin.lastName,
-    birthDay: userLogin.birthDay?.slice(0, 10),
-    gender: userLogin.gender,
-  });
+	const [form, setForm] = useState({
+		email: userLogin.email,
+		phoneNumber: userLogin.phoneNumber,
+		address: userLogin.address,
+		userName: userLogin.userName,
+		firstName: userLogin.firstName,
+		lastName: userLogin.lastName,
+		birthDay: userLogin.birthDay?.slice(0, 10),
+		gender: userLogin.gender,
+	});
 
-  useEffect(() => {
-    getDataUser();
-  }, []);
+	useEffect(() => {
+		getDataUser();
+	}, []);
 
-  const handleCancel = (e) => {
-    e.preventDefault();
-    setForm({ ...data, birthDay: data.birthDay.slice(0, 10) });
-  };
+	const handleCancel = (e) => {
+		e.preventDefault();
+		setForm({ ...data, birthDay: data.birthDay.slice(0, 10) });
+	};
 
-  const onChangeInput = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+	const onChangeInput = (e) => {
+		setForm({ ...form, [e.target.name]: e.target.value });
+	};
 
-  const onChangeFile = async (e) => {
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-    axios
-      .patch(`/user/update/image`, formData)
-      .then((res) => {
-        props.getUserLogin(`${id}`);
-        if (res.status === 200) {
-          getDataUser();
-        }
-        toast.success(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
-  };
+	const onChangeFile = async (e) => {
+		const formData = new FormData();
+		formData.append("image", e.target.files[0]);
+		axios
+			.patch(`/user/update/image`, formData)
+			.then((res) => {
+				props.getUserLogin(`${id}`);
+				if (res.status === 200) {
+					getDataUser();
+				}
+				toast.success(res.data.message);
+			})
+			.catch((err) => {
+				toast.error(err.response.data.message);
+			});
+	};
 
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Your profile photo will be deleted!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    })
-      .then(async (res) => {
-        if (res.isConfirmed) {
-          await axios.patch(`user/image/delete`);
-          Swal.fire("Deleted!", "Your profile has been deleted.", "success");
-        }
-        props.getUserLogin(`${id}`);
-        console.log(res);
-        getDataUser();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+	const handleDelete = () => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "Your profile photo will be deleted!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+		})
+			.then(async (res) => {
+				if (res.isConfirmed) {
+					await axios.patch(`user/image/delete`);
+					Swal.fire("Deleted!", "Your profile has been deleted.", "success");
+				}
+				props.getUserLogin(`${id}`);
+				console.log(res);
+				getDataUser();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    axios
-      .patch(`user/update`, form)
-      .then((res) => {
-        props.getUserLogin(`${id}`);
-        console.log(res.data.data);
-        setData(res.data.data);
-        getDataUser();
-        toast.success(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
-  };
+	const handleUpdate = (e) => {
+		e.preventDefault();
+		axios
+			.patch(`user/update`, form)
+			.then((res) => {
+				props.getUserLogin(`${id}`);
+				console.log(res.data.data);
+				setData(res.data.data);
+				getDataUser();
+				toast.success(res.data.message);
+			})
+			.catch((err) => {
+				toast.error(err.response.data.message);
+			});
+	};
 
-  return (
+	return (
 		<>
 			<Layout pageTitle="Profile" isLogged={true}>
 				<ToastContainer />
@@ -243,6 +243,7 @@ const Profile = (props) => {
 											Edit Password
 										</button>
 										<Modal show={show} onHide={handleClose}>
+											<Modal.Title>Edit Password</Modal.Title>
 											<form onSubmit={handleSubmit}>
 												<div className="password__input">
 													<input
@@ -414,7 +415,7 @@ const Profile = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { auth: state.auth };
+	return { auth: state.auth };
 };
 const mapDispatchToProps = { getUserLogin };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
