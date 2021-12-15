@@ -24,7 +24,7 @@
 </div>
 
 <p align="center">
-  <img src='https://i.postimg.cc/bJWkbY8F/panda-coffe.png' border='0' alt='panda-coffe'/>
+  <img src='https://i.postimg.cc/wx0ksgcM/Screenshot-1.png' border='0' alt='panda-coffe'/>
 </p>
 
 <!-- ABOUT THE PROJECT -->
@@ -51,6 +51,14 @@ Front-End website kami menggunakan teknologi seperti berikut:
 2. Extrak File Tersebut
 3. Npm install
 4. Npm run dev
+
+### Daftar Anggota
+
+- [Haris Wahyudi](https://github.com/HariisV)
+- [Rino Satya Putra](https://github.com/riyaraa)
+- [Wafi Pandega](https://github.com/wafidega)
+- [Moh. Syahrul Aziz Imastara](https://github.com/AzizImastara)
+- [Andreas Kurniawan](https://github.com/AndreasCKurniawan)
 
 ## License
 
