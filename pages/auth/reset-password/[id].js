@@ -56,7 +56,7 @@ const Login = (props) => {
   // Handle Login End
 
   return (
-    <Layout title="Login Panda Coffee" isLogged={true}>
+    <Layout pageTitle="Reset Password" isLogged={true}>
       <div className="row">
         <div className="col-md-6 hide__mobile">
           <img src="/images/coffee-left.png" />

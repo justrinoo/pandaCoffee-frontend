@@ -50,7 +50,11 @@ export default function Promo({ data, pagination, role }) {
 								<img
 									src={
 										promo.image
-											? `http://localhost:3001/upload/vouchers/${promo.image}`
+											? `${
+													process.env.APP_HOST === "PROD"
+														? process.env.BASE_URL_PROD
+														: process.env.BASE_URL_DEV
+											  }/upload/vouchers/${promo.image}`
 											: "/images/PeoplePeace.png"
 									}
 									style={{ objectFit: "cover" }}

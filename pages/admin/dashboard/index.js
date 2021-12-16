@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Layout from "components/Layout";
 import Navbar from "components/Navbar";
@@ -11,39 +11,45 @@ import Cookie from "js-cookie";
 import { getDataCookie } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
-	const dataCookie = await getDataCookie(context);
-	if (!dataCookie.isLogin) {
-		return {
-			redirect: {
-				destination: "/auth/login",
-				permanent: false,
-			},
-		};
-	}
+  const dataCookie = await getDataCookie(context);
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
 
-	return {
-		props: {},
-	};
+  return {
+    props: {},
+  };
 }
 
 export default function dashboardAdmin() {
-	const router = useRouter();
+  const router = useRouter();
 
-	return (
-		<Layout title="Dashboard Admin">
-			<Navbar />
-			<main className="dashboard-admin">
-				<div className="row">
-					<div className="col-md-3"></div>
-					<div className="col-md-6">
-						<div className="chart-admin">
-							<Chart />
-						</div>
-					</div>
-					<div className="col-md-3"></div>
-				</div>
-			</main>
-			<Footer></Footer>
-		</Layout>
-	);
+  useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+  });
+
+  return (
+    <Layout title="Dashboard Admin">
+      <Navbar />
+      <main className="dashboard-admin">
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+            <div className="chart-admin">
+              <Chart />
+            </div>
+          </div>
+          <div className="col-md-3"></div>
+        </div>
+      </main>
+      <Footer></Footer>
+    </Layout>
+  );
 }

@@ -117,20 +117,24 @@ export default function FormUpdatePromo() {
 
 	useEffect(() => {
 		if (localStorage.getItem("role") != "admin") {
-      router.push("/product");
-    }
-	},[])
+			router.push("/product");
+		}
+	}, []);
+	const goBack = () => {
+		router.push("/admin/product");
+	};
 
 	return (
 		<>
 			<Layout pageTitle="Update Promo" isLogged={true}>
 				<main className="container">
-					<Breadcrumb className="mt-4">
-						<Breadcrumb.Item href="#" className="breadcrumb-default" active>
-							Promo
-						</Breadcrumb.Item>
+					<div className="px-4 py-3 menu_mobile_promo">
+						<img src="/icons/arrow-left.svg" onClick={goBack} />
+						<h3 className="text-center">Update Promo</h3>
+					</div>
+					<Breadcrumb className="breadcumb_mobile mt-4">
 						<Breadcrumb.Item href="#" active>
-							<span className="breadcrumb-active">Update promo</span>
+							<span className="breadcrumb-active">Update Promo</span>
 						</Breadcrumb.Item>
 					</Breadcrumb>
 					<ToastContainer />
@@ -146,7 +150,11 @@ export default function FormUpdatePromo() {
 											displayImage
 												? displayImage
 												: formVoucher.image
-												? `http://localhost:3001/upload/vouchers/${formVoucher.image}`
+												? `${
+														process.env.APP_HOST === "PROD"
+															? process.env.BASE_URL_PROD
+															: process.env.BASE_URL_DEV
+												  }/upload/vouchers/${formVoucher.image}`
 												: "/images/camera.png"
 										}
 										className={`${

@@ -10,12 +10,12 @@ export async function getServerSideProps(context) {
 	const dataCookie = await getDataCookie(context);
 
 	if (!dataCookie.isLogin) {
-		// return {
-		//   redirect: {
-		//     destination: "/auth/login",
-		//     permanent: false,
-		//   },
-		// };
+		return {
+		  redirect: {
+		    destination: "/auth/login",
+		    permanent: false,
+		  },
+		};
 		console.log(dataCookie);
 	}
 
@@ -203,7 +203,11 @@ const Profile = (props) => {
 										<img
 											src={
 												data.image
-													? `${process.env.BASE_URL_DEV}upload/user/${data.image}`
+													? `${
+															process.env.APP_HOST === "PROD"
+																? process.env.BASE_URL_PROD
+																: process.env.BASE_URL_DEV
+													  }upload/user/${data.image}`
 													: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
 											}
 											className="rounded-circle"
@@ -239,6 +243,7 @@ const Profile = (props) => {
 											Edit Password
 										</button>
 										<Modal show={show} onHide={handleClose}>
+											<Modal.Title>Edit Password</Modal.Title>
 											<form onSubmit={handleSubmit}>
 												<div className="password__input">
 													<input

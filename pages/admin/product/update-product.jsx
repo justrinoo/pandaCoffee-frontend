@@ -17,15 +17,13 @@ export default function UpdateProduct() {
   const inputFile = useRef(null);
 
   const [displayImage, setDisplayImage] = useState(null);
-  const [formProduct, setFormProduct] = useState({
-  
-  });
+  const [formProduct, setFormProduct] = useState({});
 
   useEffect(() => {
-    axios.get(`/product/getDetails/${id}`).then((res) => {
-    () =>  setFormProduct({...res.data.data, price:res.data.data.price.join()})
-    })
-  })
+    console.log("====================================");
+    console.log("FORM => ", formProduct);
+    console.log("====================================");
+  }, [formProduct]);
 
   const onChangeFile = (event) => {
     if (
@@ -87,13 +85,29 @@ export default function UpdateProduct() {
     }
   };
 
-  useEffect(() => {
-    console.log(formProduct)
-  },[formProduct])
-
   const CancelUpdatePromo = () => {
     router.push("/admin/product");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("role") != "admin") {
+      router.push("/product");
+    }
+
+    axios
+      .get(`/product/getDetails/${id}`)
+      .then((res) => {
+        setFormProduct({ ...res.data.data });
+        console.log("====================================");
+        console.log("GET DATA => ", res.data.data);
+        console.log("====================================");
+      })
+      .catch((err) => {
+        console.log("====================================");
+        console.log(err.response);
+        console.log("====================================");
+      });
+  }, []);
 
   return (
     <>
@@ -119,7 +133,11 @@ export default function UpdateProduct() {
                       displayImage
                         ? displayImage
                         : formProduct.image
-                        ? `${process.env.BASE_URL_DEV}upload/product/${formProduct.image}`
+                        ? `${
+                            process.env.APP_HOST === "PROD"
+                              ? process.env.BASE_URL_PROD
+                              : process.env.BASE_URL_DEV
+                          }upload/product/${formProduct.image}`
                         : "/images/camera.png"
                     }
                     className={`${

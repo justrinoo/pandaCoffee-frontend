@@ -5,6 +5,25 @@ import { useRouter } from "next/router";
 import axios from "utils/axios";
 import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import { getDataCookie } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+  const dataCookie = await getDataCookie(context);
+
+  if (!dataCookie.isLogin) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+    console.log(dataCookie);
+  }
+
+  return {
+    props: {},
+  };
+}
 
 const Checkout = (props) => {
   const userLogin = props.auth.userLogin[0];
@@ -124,19 +143,15 @@ const Checkout = (props) => {
                         {/* <h3>{e.product_id}</h3> */}
                         <div class="d-flex justify-content-between mb-3">
                           <div class="d-flex">
-                            <div className="position-relative">
-                              <img
-                                style={{ height: "20px", width: "20px" }}
-                                src="/icons/close.png"
-                                alt=""
-                                className="position-absolute"
-                              />
-                              <img
-                                src={`${process.env.BASE_URL_DEV}upload/product/${e.image}`}
-                                alt=""
-                                className="checkout-privew"
-                              />
-                            </div>
+                            <img
+                              src={`${
+                                process.env.APP_HOST === "PROD"
+                                  ? process.env.BASE_URL_PROD
+                                  : process.env.BASE_URL_DEV
+                              }upload/product/${e.image}`}
+                              alt=""
+                              className="checkout-privew"
+                            />
                             <div class=" p-none__card">
                               <p>{e.name}</p>
                               <p>{`x ${e.quantity}`}</p>
