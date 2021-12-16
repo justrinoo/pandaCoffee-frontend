@@ -127,13 +127,15 @@ function ProductAdmin(props) {
   const handleFilter = (data) => {
     setActive(data);
     router.push(
-      `/admin/product?search=&sortField=&sort=&pageP=1&category=${data}`
+      `/admin/product?search=&sortField=&sort=&pageProduct=1&category=${data}`
     );
   };
 
   const handleAll = () => {
     setActive("all");
-    router.push("/admin/product?search=&sortField=&sort=&pageP=1&category=");
+    router.push(
+      "/admin/product?search=&sortField=&sort=&pageProduct=1&category="
+    );
   };
 
   useEffect(() => {
