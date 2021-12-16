@@ -34,14 +34,14 @@ export default function Home() {
 			name: "Natali Hunqoq",
 			address: "Osaka, Jepang",
 			ratings: "8.5",
-			feedback: "Arigatoo Kamamida Panda Coffee!",
+			feedback: "Pembelian makanan semakin mudah semenjak ada panda coffee, terima kasih banyak ya sudah membantu saya untuk pembelian makanan.",
 		},
 		{
 			image: "/images/people3.png",
 			name: "Imanuel John",
 			address: "Paris, France",
 			ratings: "9.9",
-			feedback: "makasih ya wkwk.",
+			feedback: "For those who make panda coffee, I want to say thank you, because thanks to panda coffee, all coffee and food purchases are made easier.",
 		},
 	];
 
