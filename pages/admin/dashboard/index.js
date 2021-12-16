@@ -33,7 +33,7 @@ export default function dashboardAdmin() {
     if (localStorage.getItem("role") != "admin") {
       router.push("/product");
     }
-  });
+  }, []);
 
   return (
     <Layout title="Dashboard Admin">

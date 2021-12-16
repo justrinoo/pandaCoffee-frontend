@@ -7,6 +7,7 @@ import axios from "utils/axios";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { connect } from "react-redux";
+import { getDataCookie } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
   const dataCookie = await getDataCookie(context);
